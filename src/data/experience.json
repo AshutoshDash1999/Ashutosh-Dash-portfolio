@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "role": "Frontend Developer",
+    "company": "Company One",
+    "location": "San Francisco, CA",
+    "period": "2020 - Present",
+    "description": [
+      "Developed high-performance web applications using React and TypeScript",
+      "Implemented responsive designs using Tailwind CSS",
+      "Optimized application performance and loading times"
+    ]
+  },
+  {
+    "id": "2",
+    "role": "Frontend Developer",
+    "company": "Company Two",
+    "location": "New York, NY",
+    "period": "2018 - 2020",
+    "description": [
+      "Built modern web applications using Next.js",
+      "Implemented internationalization features",
+      "Improved accessibility across all applications"
+    ]
+  }
+]

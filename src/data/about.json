@@ -1,0 +1,12 @@
+{
+  "name": "Your Name",
+  "title": "Frontend Developer",
+  "location": "City, Country",
+  "bio": "Passionate frontend developer with expertise in building high-performance web applications using modern technologies.",
+  "skills": ["TypeScript", "React", "Next.js", "Tailwind CSS", "Node.js"],
+  "social": {
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourusername",
+    "twitter": "https://twitter.com/yourusername"
+  }
+}

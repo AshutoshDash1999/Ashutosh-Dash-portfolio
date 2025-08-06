@@ -1,0 +1,17 @@
+{
+  "hero": {
+    "title": "Portfolio de Desarrollador Frontend",
+    "subtitle": "Construyendo aplicaciones web de alto rendimiento con tecnologías modernas"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "viewMore": "Ver Más"
+  },
+  "contact": {
+    "title": "Contacto",
+    "name": "Nombre",
+    "email": "Correo",
+    "message": "Mensaje",
+    "send": "Enviar"
+  }
+}

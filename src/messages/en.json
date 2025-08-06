@@ -1,0 +1,17 @@
+{
+  "hero": {
+    "title": "Frontend Developer Portfolio",
+    "subtitle": "Building high-performance web applications with modern technologies"
+  },
+  "projects": {
+    "title": "Projects",
+    "viewMore": "View More"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message"
+  }
+}

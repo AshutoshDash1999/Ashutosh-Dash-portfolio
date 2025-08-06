@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "Project One",
+    "description": "A high-performance web application built with Next.js and TypeScript",
+    "tags": ["Next.js", "TypeScript", "Tailwind CSS"],
+    "image": "/projects/project-1.jpg",
+    "url": "https://project-one.com",
+    "github": "https://github.com/yourusername/project-one"
+  },
+  {
+    "id": "2",
+    "name": "Project Two",
+    "description": "A responsive web application with modern UI/UX",
+    "tags": ["React", "TypeScript", "Styled Components"],
+    "image": "/projects/project-2.jpg",
+    "url": "https://project-two.com",
+    "github": "https://github.com/yourusername/project-two"
+  }
+]

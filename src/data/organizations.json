@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "name": "Company One",
+    "description": "Leading technology company",
+    "location": "San Francisco, CA",
+    "url": "https://company-one.com"
+  },
+  {
+    "id": "2",
+    "name": "Company Two",
+    "description": "Innovative startup",
+    "location": "New York, NY",
+    "url": "https://company-two.com"
+  }
+]
