@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
