@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode", // Code formatting
+    "dbaeumer.vscode-eslint", // ESLint integration
+    "stylelint.vscode-stylelint", // CSS linting (if needed)
+    "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
+    "yoavbls.pretty-ts-errors", // Better TypeScript error UX
+    "dsznajder.es7-react-js-snippets", // React/Next.js snippets
+    "arcanis.vscode-zipfs", // Yarn/pnpm support in node_modules
+    "antfu.iconify", // Icon preview (Hugeicons/others)
+    "orta.vscode-jest", // Jest test runner support
+    "ms-azuretools.vscode-docker", // If using Docker in future
+    "lokalise.i18n-ally" // i18n JSON translation manager
+  ]
+}

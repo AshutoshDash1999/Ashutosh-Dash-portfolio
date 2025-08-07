@@ -1,30 +1,18 @@
-import { ButtonHTMLAttributes, forwardRef } from "react";
+// components/ui/Button.tsx
+import { cn } from '@/lib/utils';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline";
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export function Button({ className, ...props }: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        'border-2 border-black bg-yellow-300 px-4 py-2 text-sm font-bold text-black shadow-[4px_4px_0_0_black] transition-all',
+        'hover:bg-yellow-400 hover:shadow-none focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2',
+        'disabled:cursor-not-allowed disabled:opacity-50',
+        className
+      )}
+      {...props}
+    />
+  );
 }
-
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant = "primary", className = "", ...props }, ref) => {
-    const baseStyles =
-      "px-4 py-2 rounded-lg font-medium transition-colors duration-200";
-    const variants = {
-      primary: "bg-blue-600 text-white hover:bg-blue-700",
-      secondary: "bg-gray-600 text-white hover:bg-gray-700",
-      outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50",
-    };
-
-    return (
-      <button
-        ref={ref}
-        className={`${baseStyles} ${variants[variant]} ${className}`}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
-
-Button.displayName = "Button";
-export default Button;
