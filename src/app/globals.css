@@ -4,6 +4,23 @@ html {
   scroll-behavior: smooth;
 }
 
+.neobrutalist-card {
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0px #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.neobrutalist-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px #000000;
+}
+
+.neobrutalist-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
 /* Custom scrollbar with theme support */
 ::-webkit-scrollbar {
   width: 8px;
@@ -22,4 +39,12 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dark);
+}
+
+@theme {
+  --color-primary: #7c3aed;
+  --color-primary-foreground: #ffffff;
+  --color-primary-dark: #5b21b6;
+  --color-primary-light: #a855f7;
+  --color-background: #ffffff;
 }

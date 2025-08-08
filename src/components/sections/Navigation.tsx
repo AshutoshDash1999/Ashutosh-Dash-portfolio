@@ -79,7 +79,7 @@ export default function Navigation() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {/* <Logo size="md" /> */}
+              <Logo size="xs" />
             </motion.button>
 
             {/* Desktop Navigation */}
