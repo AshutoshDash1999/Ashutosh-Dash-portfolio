@@ -2,5 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 pnpm lint-staged
-pnpm run build
 pnpm run prettier:fix
+pnpm run build
