@@ -99,23 +99,16 @@ export default function Navigation() {
                   {item.name}
                 </motion.button>
               ))}
-
-              {/* Dark mode toggle */}
-              <span>dark</span>
-              {/* <DarkModeToggle /> */}
             </div>
 
             {/* Mobile controls */}
             <div className="flex items-center gap-3 md:hidden">
-              <span>dark</span>
-              {/* <DarkModeToggle /> */}
-
               {/* Mobile menu button */}
               <motion.button
                 onClick={toggleMobileMenu}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="brutalist-card bg-primary text-primary-foreground relative p-3"
+                className="neobrutalist-card bg-primary text-primary-foreground relative p-3"
                 aria-label="Toggle mobile menu"
               >
                 <motion.div
@@ -157,31 +150,22 @@ export default function Navigation() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="bg-background/80 fixed inset-0 z-40 backdrop-blur-sm md:hidden"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-
             {/* Mobile Menu */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-              className="bg-card border-foreground fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] overflow-y-auto border-l-4 md:hidden"
+              className="bg-background border-foreground fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] overflow-y-auto border-l-4 md:hidden"
             >
               {/* Mobile menu header */}
               <div className="border-foreground flex items-center justify-between border-b-4 p-6">
-                <Logo size="md" />
+                <Logo size="xs" />
                 <motion.button
                   onClick={() => setIsMobileMenuOpen(false)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="brutalist-card bg-destructive text-destructive-foreground p-2"
+                  className="neobrutalist-card bg-destructive text-destructive-foreground p-2"
                 >
                   <HugeiconsIcon icon={Cancel01Icon} />
                 </motion.button>
@@ -195,9 +179,9 @@ export default function Navigation() {
                     onClick={() => scrollToSection(item.href)}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ x: 8 }}
-                    className={`brutalist-card w-full p-4 text-left transition-colors ${
+                    transition={{ delay: index * 0.1, duration: 0.3 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`neobrutalist-card w-full p-4 text-left transition-all duration-200 ease-out hover:translate-x-2 ${
                       activeSection === item.href.substring(1)
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-muted hover:bg-primary hover:text-primary-foreground'
@@ -210,7 +194,7 @@ export default function Navigation() {
 
               {/* Mobile menu footer */}
               <div className="border-foreground mt-auto border-t-4 p-6">
-                <div className="brutalist-card bg-accent p-4 text-center">
+                <div className="neobrutalist-card bg-accent p-4 text-center">
                   <p className="text-accent-foreground font-black">ASHUTOSH DASH</p>
                   <p className="text-accent-foreground/80 font-mono text-sm">Frontend Developer</p>
                 </div>

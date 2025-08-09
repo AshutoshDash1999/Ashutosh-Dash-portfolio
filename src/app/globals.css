@@ -1,50 +1,62 @@
 @import 'tailwindcss';
 
-html {
-  scroll-behavior: smooth;
-}
-
-.neobrutalist-card {
-  border: 4px solid #000000;
-  box-shadow: 8px 8px 0px #000000;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.neobrutalist-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 12px 12px 0px #000000;
-}
-
-.neobrutalist-card:active {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0px #000000;
-}
-
-/* Custom scrollbar with theme support */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-  transition: background-color 0.3s ease;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 0px;
-  transition: background-color 0.3s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
-}
-
 @theme {
   --color-primary: #7c3aed;
   --color-primary-foreground: #ffffff;
   --color-primary-dark: #5b21b6;
   --color-primary-light: #a855f7;
+  --color-foreground: #1a0b2e;
   --color-background: #ffffff;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-muted: #f3f4f6;
+  --color-accent: #06d6a0;
+  --color-accent-foreground: #1a0b2e;
+}
+
+@layer base {
+  /* @layer base ← Lowest priority (gets overridden easily) */
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  /* Custom scrollbar with theme support */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background transition-colors duration-300;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-none transition-colors duration-300;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-dark;
+  }
+}
+
+@layer components {
+  /* @layer components ← Medium priority   */
+  .neobrutalist-card {
+    @apply cursor-pointer border-4 border-black transition-all duration-300 ease-out;
+    box-shadow: 8px 8px 0px #000000;
+  }
+
+  .neobrutalist-card:hover {
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 12px 12px 0px #000000;
+  }
+
+  .neobrutalist-card:active {
+    @apply translate-x-0.5 translate-y-0.5;
+    box-shadow: 4px 4px 0px #000000;
+  }
+}
+
+@layer components {
+  /* @layer utilities  ← Highest priority (overrides everything); */
 }
