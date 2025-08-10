@@ -6,10 +6,12 @@
   --color-primary-dark: #5b21b6;
   --color-primary-light: #a855f7;
   --color-foreground: #1a0b2e;
+  --color-secondary-foreground: #1a0b2e;
   --color-background: #ffffff;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
   --color-muted: #f3f4f6;
+  --color-muted-foreground: #6b7280;
   --color-accent: #06d6a0;
   --color-accent-foreground: #1a0b2e;
 }
