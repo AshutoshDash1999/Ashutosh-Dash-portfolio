@@ -4,7 +4,7 @@ import { Button } from '../ui/Button';
 
 const Hero = () => {
   return (
-    <section className="bg-background relative flex items-center justify-center overflow-hidden py-10">
+    <section className="bg-background relative flex items-center justify-center overflow-hidden py-2">
       <div className="container mx-auto grid items-center gap-12 px-6 lg:grid-cols-2">
         {/* Left content */}
         <motion.div
