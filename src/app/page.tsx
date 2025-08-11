@@ -1,5 +1,6 @@
 import Hero from '@/components/sections/Hero';
 import Navigation from '@/components/sections/Navigation';
+import Skills from '@/components/sections/Skills';
 import WorkExperience from '@/components/sections/WorkExperience';
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
 
       <Hero />
       <WorkExperience />
+      <Skills />
     </main>
   );
 }
