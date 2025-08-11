@@ -10,5 +10,5 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "tailwindCSS.experimental.classRegex": ["cn\\(([^)]*)\\)"],
-  "cSpell.words": ["ASHUTOSH", "neobrutalist", "posthog"]
+  "cSpell.words": ["ASHUTOSH", "Hugeicons", "neobrutalist", "posthog"]
 }
