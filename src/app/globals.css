@@ -6,6 +6,7 @@
   --color-primary-dark: #5b21b6;
   --color-primary-light: #a855f7;
   --color-foreground: #1a0b2e;
+  --color-secondary: #fbbf24;
   --color-secondary-foreground: #1a0b2e;
   --color-background: #ffffff;
   --color-destructive: #ef4444;
@@ -14,6 +15,15 @@
   --color-muted-foreground: #6b7280;
   --color-accent: #06d6a0;
   --color-accent-foreground: #1a0b2e;
+  --color-card: #ffffff;
+  --color-card-foreground: #1a0b2e;
+
+  /* Neobrutalist design system */
+  --color-border: #000000;
+  --color-border-thick: 4px solid #000000;
+  --shadow-brutal: 8px 8px 0px #000000;
+  --shadow-brutal-hover: 12px 12px 0px #000000;
+  --shadow-brutal-active: 4px 4px 0px #000000;
 }
 
 @layer base {
@@ -45,20 +55,30 @@
   /* @layer components ← Medium priority   */
   .neobrutalist-card {
     @apply cursor-pointer border-4 border-black transition-all duration-300 ease-out;
-    box-shadow: 8px 8px 0px #000000;
+    box-shadow: var(--shadow-brutal);
   }
 
   .neobrutalist-card:hover {
     @apply -translate-x-1 -translate-y-1;
-    box-shadow: 12px 12px 0px #000000;
+    box-shadow: var(--shadow-brutal-hover);
   }
 
-  .neobrutalist-card:active {
-    @apply translate-x-0.5 translate-y-0.5;
-    box-shadow: 4px 4px 0px #000000;
+  .neobrutalist-button {
+    @apply border-4 border-black tracking-wider uppercase transition-all duration-300 ease-out;
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .neobrutalist-button:hover {
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .neobrutalist-button:active {
+    @apply translate-x-1 translate-y-1;
+    box-shadow: var(--shadow-brutal-active);
   }
 }
 
-@layer components {
-  /* @layer utilities  ← Highest priority (overrides everything); */
+@layer utilities {
+  /* @layer utilities ← Highest priority (overrides everything); */
 }

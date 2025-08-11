@@ -1,5 +1,6 @@
 import Hero from '@/components/sections/Hero';
 import Navigation from '@/components/sections/Navigation';
+import WorkExperience from '@/components/sections/WorkExperience';
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Navigation />
 
       <Hero />
+      <WorkExperience />
     </main>
   );
 }

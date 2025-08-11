@@ -1,26 +1,38 @@
 [
   {
     "id": "1",
-    "role": "Frontend Developer",
-    "company": "Company One",
-    "location": "San Francisco, CA",
-    "period": "2020 - Present",
-    "description": [
-      "Developed high-performance web applications using React and TypeScript",
-      "Implemented responsive designs using Tailwind CSS",
-      "Optimized application performance and loading times"
-    ]
+    "title": "Senior Frontend Developer",
+    "company": "TechCorp Inc.",
+    "period": "2023 - Present",
+    "description": "Leading frontend development for enterprise applications using React, TypeScript, and modern web technologies.",
+    "technologies": ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    "color": "bg-primary"
   },
   {
     "id": "2",
-    "role": "Frontend Developer",
-    "company": "Company Two",
-    "location": "New York, NY",
-    "period": "2018 - 2020",
-    "description": [
-      "Built modern web applications using Next.js",
-      "Implemented internationalization features",
-      "Improved accessibility across all applications"
-    ]
+    "title": "Frontend Developer",
+    "company": "StartupXYZ",
+    "period": "2022 - 2023",
+    "description": "Built responsive web applications and collaborated with design teams to create engaging user experiences.",
+    "technologies": ["React", "JavaScript", "SCSS", "Firebase"],
+    "color": "bg-secondary"
+  },
+  {
+    "id": "3",
+    "title": "Junior Web Developer",
+    "company": "DigitalAgency",
+    "period": "2021 - 2022",
+    "description": "Developed client websites and learned modern frontend development practices in a fast-paced environment.",
+    "technologies": ["HTML", "CSS", "JavaScript", "WordPress"],
+    "color": "bg-accent"
+  },
+  {
+    "id": "4",
+    "title": "Freelance Developer",
+    "company": "Self-Employed",
+    "period": "2020 - 2021",
+    "description": "Created custom websites for small businesses and gained experience in full-stack development.",
+    "technologies": ["HTML", "CSS", "JavaScript", "PHP"],
+    "color": "bg-destructive"
   }
 ]
