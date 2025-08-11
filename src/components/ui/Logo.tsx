@@ -18,7 +18,7 @@ const sizeConfig = {
     bottomDecor: { size: 'h-1.5 w-1.5', position: 'bottom-1 left-1' },
   },
   sm: {
-    container: 'size-15',
+    container: 'size-12',
     text: 'text-lg',
     border: 'border-2',
     shadow: 'shadow-[4px_4px_0px_#000000]',

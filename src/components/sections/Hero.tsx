@@ -4,7 +4,10 @@ import { Button } from '../ui/Button';
 
 const Hero = () => {
   return (
-    <section className="bg-background relative flex items-center justify-center overflow-hidden py-2">
+    <section
+      className="bg-background relative flex items-center justify-center overflow-hidden py-2"
+      id="hero"
+    >
       <div className="container mx-auto grid items-center gap-12 px-6 lg:grid-cols-2">
         {/* Left content */}
         <motion.div
@@ -66,8 +69,8 @@ const Hero = () => {
             transition={{ delay: 1 }}
             className="flex flex-wrap gap-4"
           >
-            <Button color="purple">VIEW MY WORK</Button>
-            <Button color="emerald">GET IN TOUCH</Button>
+            <Button className="bg-primary text-white">VIEW MY WORK</Button>
+            <Button className="bg-accent">GET IN TOUCH</Button>
           </motion.div>
         </motion.div>
       </div>

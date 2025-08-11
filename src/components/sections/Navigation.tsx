@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Logo from '../ui/Logo';
 
 const navItems = [
-  { name: 'HOME', href: '#home' },
+  { name: 'HOME', href: '#hero' },
   { name: 'EXPERIENCE', href: '#experience' },
   { name: 'SKILLS', href: '#skills' },
   { name: 'PROJECTS', href: '#projects' },
@@ -79,7 +79,7 @@ export default function Navigation() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Logo size="xs" />
+              <Logo size="sm" />
             </motion.button>
 
             {/* Desktop Navigation */}
@@ -160,7 +160,7 @@ export default function Navigation() {
             >
               {/* Mobile menu header */}
               <div className="border-foreground flex items-center justify-between border-b-4 p-6">
-                <Logo size="xs" />
+                <Logo size="sm" />
                 <motion.button
                   onClick={() => setIsMobileMenuOpen(false)}
                   whileHover={{ scale: 1.05 }}
