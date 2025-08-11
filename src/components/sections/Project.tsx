@@ -7,16 +7,6 @@ import ImageWithFallback from '../ui/ImageWithFallback';
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description:
-      'A full-stack e-commerce solution with modern design, payment integration, and admin dashboard.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    image: '',
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/ashutoshdash',
-    color: 'bg-primary',
-  },
-  {
     title: 'Task Management App',
     description:
       'Collaborative task management tool with real-time updates, drag-and-drop functionality, and team features.',
