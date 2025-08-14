@@ -5,6 +5,7 @@ import Navigation from '@/components/sections/Navigation';
 import Projects from '@/components/sections/Project';
 import Skills from '@/components/sections/Skills';
 import WorkExperience from '@/components/sections/WorkExperience';
+import { PWAInstall } from '@/components/ui/PWAInstall';
 
 export default function Home() {
   return (
@@ -17,6 +18,8 @@ export default function Home() {
       <Projects />
       <FreelanceSection />
       <ContactSection />
+
+      <PWAInstall />
     </main>
   );
 }
