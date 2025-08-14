@@ -4,6 +4,7 @@ import { Github01Icon, LinkSquare01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { motion } from 'motion/react';
 import ImageWithFallback from '../ui/ImageWithFallback';
+import Link from 'next/link';
 
 const projects = [
   {
@@ -158,22 +159,22 @@ export default function Projects() {
 
                   {/* Links */}
                   <div className="flex gap-2 pt-2">
-                    <a
+                    <Link
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="neobrutalist-button bg-primary text-primary-foreground flex-1 px-4 py-2 text-center text-sm"
                     >
                       LIVE SITE
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="neobrutalist-button bg-foreground text-background flex-1 px-4 py-2 text-center text-sm"
                     >
                       CODE
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

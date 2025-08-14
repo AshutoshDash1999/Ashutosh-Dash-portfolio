@@ -11,7 +11,8 @@
     "prepare": "husky install",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "analyze": "cross-env ANALYZE=true pnpm build"
+    "analyze": "cross-env ANALYZE=true pnpm build",
+    "prod": "next build && next start"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

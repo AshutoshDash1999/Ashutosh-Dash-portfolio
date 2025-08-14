@@ -13,6 +13,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Button } from '../ui/Button';
+import Link from 'next/link';
 
 const socialLinks = [
   {
@@ -203,13 +204,13 @@ export default function ContactSection() {
                         {info.label}
                       </label>
                       {info.href ? (
-                        <a
+                        <Link
                           href={info.href}
                           className="hover:text-primary focus:ring-primary focus:ring-offset-background block rounded text-lg font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
                           aria-label={info.description}
                         >
                           {info.value}
-                        </a>
+                        </Link>
                       ) : (
                         <p className="text-lg font-medium" aria-label={info.description}>
                           {info.value}
