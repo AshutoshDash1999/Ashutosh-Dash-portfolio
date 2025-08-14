@@ -4,11 +4,22 @@
     "source.fixAll.eslint": "always"
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": ["."],
+  "eslint.format.enable": true,
   "files.exclude": {
     "**/.next": true,
     "**/node_modules": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "tailwindCSS.experimental.classRegex": ["cn\\(([^)]*)\\)"],
-  "cSpell.words": ["ASHUTOSH", "Hugeicons", "neobrutalist", "posthog"]
+  "cSpell.words": ["ASHUTOSH", "Hugeicons", "neobrutalist", "posthog"],
+
+  // Error Lens Configuration
+  "errorLens.enabled": true,
+  "errorLens.messageEnabled": true,
+  "errorLens.statusBarMessageEnabled": true,
+  "errorLens.statusBarColorsEnabled": true,
+
+  // Ensure ESLint problems are visible
+  "problems.decorations.enabled": true
 }

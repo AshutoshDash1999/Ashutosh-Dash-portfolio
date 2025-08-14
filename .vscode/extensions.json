@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode", // Code formatting
     "dbaeumer.vscode-eslint", // ESLint integration
+    "usernamehw.errorlens", // Error Lens - inline error display
     "stylelint.vscode-stylelint", // CSS linting (if needed)
     "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
     "yoavbls.pretty-ts-errors", // Better TypeScript error UX
