@@ -3,7 +3,7 @@ import bundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  swcMinify: true,
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },

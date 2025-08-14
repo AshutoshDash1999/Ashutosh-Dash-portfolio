@@ -11,9 +11,11 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
-import { Button } from '../ui/Button';
 import Link from 'next/link';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { submitContactForm, type ContactFormState } from '../../lib/actions/contact';
+import { Button } from '../ui/Button';
 
 const socialLinks = [
   {
@@ -75,75 +77,29 @@ const contactInfo = [
 ];
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.length < 10) {
-      newErrors.message = 'Message must be at least 10 characters long';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const initialState: ContactFormState = {
+    errors: {},
+    message: null,
+    success: false,
   };
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
-    }
-  };
+  const [state, formAction] = useActionState(submitContactForm, initialState);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Custom submit button component that shows loading state
+  function SubmitButton() {
+    const { pending } = useFormStatus();
 
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setErrors({});
-
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    return (
+      <Button
+        type="submit"
+        className="bg-primary text-primary-foreground focus:ring-primary focus:ring-offset-background w-full rounded p-4 text-lg focus:ring-4 focus:ring-offset-2 focus:outline-none"
+        disabled={pending}
+        aria-describedby={pending ? 'submitting-status' : undefined}
+      >
+        {pending ? 'SENDING...' : 'SEND MESSAGE'}
+      </Button>
+    );
+  }
 
   return (
     <section className="bg-muted/30 pt-20" id="contact">
@@ -263,32 +219,37 @@ export default function ContactSection() {
             <h3 className="mb-6 text-2xl font-black">SEND A MESSAGE</h3>
 
             {/* Form status messages */}
-            {submitStatus === 'success' && (
+            {state.success && state.message && (
               <div
                 className="mb-6 rounded border-2 border-green-600 bg-green-100 p-4 text-green-800"
                 role="alert"
                 aria-live="polite"
               >
-                <p className="font-medium">
-                  Thank you! Your message has been sent successfully. I&apos;ll get back to you
-                  soon.
-                </p>
+                <p className="font-medium">{state.message}</p>
               </div>
             )}
 
-            {submitStatus === 'error' && (
+            {!state.success && state.message && (
               <div
                 className="mb-6 rounded border-2 border-red-600 bg-red-100 p-4 text-red-800"
                 role="alert"
                 aria-live="polite"
               >
-                <p className="font-medium">
-                  Sorry! There was an error sending your message. Please try again.
-                </p>
+                <p className="font-medium">{state.message}</p>
               </div>
             )}
 
-            <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+            {state.errors?._form && (
+              <div
+                className="mb-6 rounded border-2 border-red-600 bg-red-100 p-4 text-red-800"
+                role="alert"
+                aria-live="polite"
+              >
+                <p className="font-medium">{state.errors._form.join(', ')}</p>
+              </div>
+            )}
+
+            <form className="space-y-6" action={formAction} noValidate>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-bold">
@@ -301,19 +262,17 @@ export default function ContactSection() {
                     id="name"
                     name="name"
                     type="text"
-                    value={formData.name}
-                    onChange={e => handleInputChange('name', e.target.value)}
                     className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
-                      errors.name ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                      state.errors?.name ? 'ring-destructive ring-2' : 'focus:ring-primary'
                     }`}
                     placeholder="Your name"
-                    aria-describedby={errors.name ? 'name-error' : undefined}
-                    aria-invalid={!!errors.name}
+                    aria-describedby={state.errors?.name ? 'name-error' : undefined}
+                    aria-invalid={!!state.errors?.name}
                     required
                   />
-                  {errors.name && (
+                  {state.errors?.name && (
                     <p id="name-error" className="text-destructive text-sm" role="alert">
-                      {errors.name}
+                      {state.errors.name.join(', ')}
                     </p>
                   )}
                 </div>
@@ -328,19 +287,17 @@ export default function ContactSection() {
                     id="email"
                     name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={e => handleInputChange('email', e.target.value)}
                     className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
-                      errors.email ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                      state.errors?.email ? 'ring-destructive ring-2' : 'focus:ring-primary'
                     }`}
                     placeholder="your@email.com"
-                    aria-describedby={errors.email ? 'email-error' : undefined}
-                    aria-invalid={!!errors.email}
+                    aria-describedby={state.errors?.email ? 'email-error' : undefined}
+                    aria-invalid={!!state.errors?.email}
                     required
                   />
-                  {errors.email && (
+                  {state.errors?.email && (
                     <p id="email-error" className="text-destructive text-sm" role="alert">
-                      {errors.email}
+                      {state.errors.email.join(', ')}
                     </p>
                   )}
                 </div>
@@ -357,19 +314,17 @@ export default function ContactSection() {
                   id="subject"
                   name="subject"
                   type="text"
-                  value={formData.subject}
-                  onChange={e => handleInputChange('subject', e.target.value)}
                   className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
-                    errors.subject ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                    state.errors?.subject ? 'ring-destructive ring-2' : 'focus:ring-primary'
                   }`}
                   placeholder="Project inquiry"
-                  aria-describedby={errors.subject ? 'subject-error' : undefined}
-                  aria-invalid={!!errors.subject}
+                  aria-describedby={state.errors?.subject ? 'subject-error' : undefined}
+                  aria-invalid={!!state.errors?.subject}
                   required
                 />
-                {errors.subject && (
+                {state.errors?.subject && (
                   <p id="subject-error" className="text-destructive text-sm" role="alert">
-                    {errors.subject}
+                    {state.errors.subject.join(', ')}
                   </p>
                 )}
               </div>
@@ -385,41 +340,30 @@ export default function ContactSection() {
                   id="message"
                   name="message"
                   rows={6}
-                  value={formData.message}
-                  onChange={e => handleInputChange('message', e.target.value)}
                   className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full resize-none rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
-                    errors.message ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                    state.errors?.message ? 'ring-destructive ring-2' : 'focus:ring-primary'
                   }`}
                   placeholder="Tell me about your project..."
-                  aria-describedby={errors.message ? 'message-error' : undefined}
-                  aria-invalid={!!errors.message}
+                  aria-describedby={state.errors?.message ? 'message-error' : undefined}
+                  aria-invalid={!!state.errors?.message}
                   required
                 />
-                {errors.message && (
+                {state.errors?.message && (
                   <p id="message-error" className="text-destructive text-sm" role="alert">
-                    {errors.message}
+                    {state.errors.message.join(', ')}
                   </p>
                 )}
               </div>
 
-              <Button
-                type="submit"
-                className="bg-primary text-primary-foreground focus:ring-primary focus:ring-offset-background w-full rounded p-4 text-lg focus:ring-4 focus:ring-offset-2 focus:outline-none"
-                disabled={isSubmitting}
-                aria-describedby={isSubmitting ? 'submitting-status' : undefined}
-              >
-                {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
-              </Button>
+              <SubmitButton />
 
-              {isSubmitting && (
-                <p
-                  id="submitting-status"
-                  className="text-muted-foreground text-center"
-                  aria-live="polite"
-                >
-                  Sending your message...
-                </p>
-              )}
+              <p
+                id="submitting-status"
+                className="text-muted-foreground text-center"
+                aria-live="polite"
+              >
+                Form will be processed using server actions
+              </p>
             </form>
           </motion.div>
         </div>
