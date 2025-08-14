@@ -12,7 +12,7 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "tailwindCSS.experimental.classRegex": ["cn\\(([^)]*)\\)"],
-  "cSpell.words": ["ASHUTOSH", "Hugeicons", "neobrutalist", "posthog"],
+  "cSpell.words": ["ASHUTOSH", "Hugeicons", "neobrutalist", "Odia", "posthog"],
 
   // Error Lens Configuration
   "errorLens.enabled": true,

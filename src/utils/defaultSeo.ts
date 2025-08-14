@@ -3,11 +3,11 @@ import { Metadata } from 'next';
 export const defaultSeo: Metadata = {
   metadataBase: new URL('https://ashutoshdash.com'),
   title: {
-    default: 'Ashutosh Dash - Frontend Developer & Freelancer Portfolio',
-    template: '%s | Ashutosh Dash Portfolio',
+    default: 'Ashutosh Dash - Senior Frontend Developer & React Expert | India',
+    template: '%s | Ashutosh Dash - Frontend Developer Portfolio',
   },
   description:
-    'Professional portfolio of Ashutosh Dash, a skilled Frontend Developer and Freelancer specializing in React, Next.js, TypeScript, and modern web technologies. View projects, skills, and work experience.',
+    'Ashutosh Dash is a Senior Frontend Developer and React Expert based in India. Specializing in React, Next.js, TypeScript, and modern web technologies. View portfolio, projects, and hire for freelance development services.',
   keywords: [
     'Frontend Developer',
     'React Developer',
@@ -19,6 +19,20 @@ export const defaultSeo: Metadata = {
     'Web Development',
     'UI/UX Design',
     'JavaScript Developer',
+    'React Expert',
+    'Frontend Developer India',
+    'React Developer India',
+    'Next.js Developer India',
+    'Web Developer India',
+    'Freelance Web Developer',
+    'React Portfolio',
+    'Modern Web Development',
+    'Responsive Web Design',
+    'Progressive Web App',
+    'Frontend Architecture',
+    'Component-Based Development',
+    'State Management',
+    'Performance Optimization',
   ],
   authors: [{ name: 'Ashutosh Dash' }],
   creator: 'Ashutosh Dash',
@@ -38,16 +52,16 @@ export const defaultSeo: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://ashutoshdash.com',
-    title: 'Ashutosh Dash - Frontend Developer & Freelancer Portfolio',
+    title: 'Ashutosh Dash - Senior Frontend Developer & React Expert Portfolio',
     description:
-      'Professional portfolio showcasing frontend development skills, projects, and creative web solutions. Specializing in React, Next.js, and modern web technologies.',
+      'Professional portfolio of Ashutosh Dash, a Senior Frontend Developer and React Expert based in India. Specializing in React, Next.js, TypeScript, and modern web technologies. Available for freelance projects.',
     siteName: 'Ashutosh Dash Portfolio',
     images: [
       {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ashutosh Dash - Frontend Developer Portfolio',
+        alt: 'Ashutosh Dash - Senior Frontend Developer & React Expert Portfolio',
         type: 'image/png',
       },
     ],
@@ -56,9 +70,9 @@ export const defaultSeo: Metadata = {
     card: 'summary_large_image',
     site: '@ashutoshdash',
     creator: '@ashutoshdash',
-    title: 'Ashutosh Dash - Frontend Developer & Freelancer Portfolio',
+    title: 'Ashutosh Dash - Senior Frontend Developer & React Expert Portfolio',
     description:
-      'Professional portfolio showcasing frontend development skills, projects, and creative web solutions.',
+      'Professional portfolio showcasing frontend development skills, React expertise, and creative web solutions. Available for freelance projects.',
     images: ['/opengraph-image.png'],
   },
   alternates: {
@@ -69,14 +83,14 @@ export const defaultSeo: Metadata = {
   other: {
     'theme-color': '#3b82f6',
     'color-scheme': 'light dark',
-    // JSON-LD structured data
+    // Enhanced JSON-LD structured data
     'application/ld+json': JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Ashutosh Dash',
-      jobTitle: 'Frontend Developer',
+      jobTitle: 'Senior Frontend Developer',
       description:
-        'Professional Frontend Developer and Freelancer specializing in React, Next.js, TypeScript, and modern web technologies.',
+        'Senior Frontend Developer and React Expert specializing in React, Next.js, TypeScript, and modern web technologies. Available for freelance projects and full-time opportunities.',
       url: 'https://ashutoshdash.com',
       sameAs: ['https://github.com/ashutoshdash', 'https://linkedin.com/in/ashutoshdash'],
       knowsAbout: [
@@ -88,22 +102,59 @@ export const defaultSeo: Metadata = {
         'Frontend Development',
         'UI/UX Design',
         'Responsive Design',
+        'Progressive Web Apps',
+        'Performance Optimization',
+        'State Management',
+        'Component Architecture',
+        'Modern Web Technologies',
+        'Frontend Testing',
+        'Build Tools',
       ],
       hasOccupation: {
         '@type': 'Occupation',
-        name: 'Frontend Developer',
-        description: 'Creating interactive web experiences with modern technologies',
+        name: 'Senior Frontend Developer',
+        description:
+          'Creating high-performance, scalable web applications with modern frontend technologies',
       },
       worksFor: {
         '@type': 'Organization',
         name: 'Freelance',
-        description: 'Independent web development services',
+        description: 'Independent web development services for clients worldwide',
       },
-      knowsLanguage: ['English', 'Hindi'],
+      knowsLanguage: ['English', 'Hindi', 'Odia'],
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'IN',
+        addressRegion: 'India',
       },
+      alumniOf: {
+        '@type': 'Organization',
+        name: 'Web Development Industry',
+      },
+      hasCredential: [
+        'React Developer Certification',
+        'Next.js Expertise',
+        'TypeScript Proficiency',
+        'Modern Web Development',
+      ],
+      makesOffer: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Frontend Development',
+            description: 'Custom React and Next.js applications',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Web Application Development',
+            description: 'Full-stack web solutions with modern technologies',
+          },
+        },
+      ],
     }),
   },
 };
