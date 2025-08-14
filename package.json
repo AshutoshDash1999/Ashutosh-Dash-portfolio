@@ -10,7 +10,8 @@
     "test": "jest",
     "prepare": "husky install",
     "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "analyze": "cross-env ANALYZE=true pnpm build"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -37,6 +38,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3.3.1",
+    "@next/bundle-analyzer": "^15.4.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -44,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
     "autoprefixer": "^10.4.21",
+    "cross-env": "^10.0.0",
     "eslint": "^9.32.0",
     "eslint-config-next": "15.4.5",
     "eslint-config-prettier": "^10.1.8",

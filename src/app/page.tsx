@@ -1,14 +1,8 @@
-import { lazy, Suspense } from 'react';
+'use client';
+
 import Navigation from '@/components/sections/Navigation';
 import { PWAInstall } from '@/components/ui/PWAInstall';
-
-// Lazy load all section components
-const ContactSection = lazy(() => import('@/components/sections/Contact'));
-const FreelanceSection = lazy(() => import('@/components/sections/Freelance'));
-const Hero = lazy(() => import('@/components/sections/Hero'));
-const Projects = lazy(() => import('@/components/sections/Project'));
-const Skills = lazy(() => import('@/components/sections/Skills'));
-const WorkExperience = lazy(() => import('@/components/sections/WorkExperience'));
+import dynamic from 'next/dynamic';
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -17,34 +11,42 @@ const SectionLoader = () => (
   </div>
 );
 
+// Dynamically load all section components with loading property
+const ContactSection = dynamic(() => import('@/components/sections/Contact'), {
+  ssr: false,
+  loading: () => <SectionLoader />,
+});
+const FreelanceSection = dynamic(() => import('@/components/sections/Freelance'), {
+  ssr: false,
+  loading: () => <SectionLoader />,
+});
+const Hero = dynamic(() => import('@/components/sections/Hero'), {
+  ssr: false,
+  loading: () => <SectionLoader />,
+});
+const Projects = dynamic(() => import('@/components/sections/Project'), {
+  ssr: false,
+  loading: () => <SectionLoader />,
+});
+const Skills = dynamic(() => import('@/components/sections/Skills'), {
+  ssr: false,
+  loading: () => <SectionLoader />,
+});
+const WorkExperience = dynamic(() => import('@/components/sections/WorkExperience'), {
+  ssr: false,
+  loading: () => <SectionLoader />,
+});
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col gap-4 py-20" role="main" id="main-content">
       <Navigation />
-
-      <Suspense fallback={<SectionLoader />}>
-        <Hero />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <WorkExperience />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <Skills />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <Projects />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <FreelanceSection />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <ContactSection />
-      </Suspense>
+      <Hero />
+      <WorkExperience />
+      <Skills />
+      <Projects />
+      <FreelanceSection />
+      <ContactSection />
 
       <PWAInstall />
     </main>

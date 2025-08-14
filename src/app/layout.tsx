@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { detectLocale } from '../lib/detectLocale';
 import { defaultSeo } from '../utils/defaultSeo';
@@ -17,8 +17,6 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   ...defaultSeo,
-  themeColor: '#3b82f6',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -33,6 +31,14 @@ export const metadata: Metadata = {
     'apple-mobile-web-app-status-bar-style': 'default',
     'apple-mobile-web-app-title': 'Ashutosh Portfolio',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#3b82f6',
 };
 
 export default async function RootLayout({
