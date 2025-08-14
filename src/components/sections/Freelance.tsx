@@ -76,6 +76,10 @@ export default function FreelanceSection() {
               Let&apos;s work together on your next project
             </p>
           </div>
+          <p className="text-muted-foreground mx-auto mt-4 max-w-3xl text-lg">
+            Professional freelance web development services tailored to your needs. From concept to
+            deployment, I deliver high-quality solutions that drive results.
+          </p>
         </motion.div>
 
         {/* Services grid */}

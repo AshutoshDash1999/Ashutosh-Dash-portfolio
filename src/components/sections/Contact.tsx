@@ -160,6 +160,10 @@ export default function ContactSection() {
               Ready to collaborate? Let&apos;s make something amazing together
             </p>
           </div>
+          <p className="text-muted-foreground mx-auto mt-4 max-w-3xl text-lg">
+            Ready to start your next web project? I&apos;m here to help bring your ideas to life
+            with professional web development services and creative solutions.
+          </p>
         </motion.div>
 
         <div className="grid items-start gap-12 lg:grid-cols-2">

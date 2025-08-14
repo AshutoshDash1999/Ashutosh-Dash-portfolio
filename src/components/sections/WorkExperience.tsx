@@ -19,6 +19,10 @@ export default function WorkExperience() {
               Building the web, one project at a time
             </p>
           </div>
+          <p className="text-muted-foreground mx-auto mt-4 max-w-3xl text-lg">
+            My professional journey in web development, showcasing diverse roles and
+            responsibilities across various companies and projects.
+          </p>
         </motion.div>
 
         {/* Timeline */}

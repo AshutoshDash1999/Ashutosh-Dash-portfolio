@@ -41,6 +41,10 @@ export default function Skills() {
               Tools and technologies I use to build amazing things
             </p>
           </div>
+          <p className="text-muted-foreground mx-auto mt-4 max-w-3xl text-lg">
+            A comprehensive collection of programming languages, frameworks, and tools that enable
+            me to create exceptional web experiences and solve complex technical challenges.
+          </p>
         </motion.div>
 
         {/* Skills grid */}

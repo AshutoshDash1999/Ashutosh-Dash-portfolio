@@ -75,6 +75,10 @@ export default function Projects() {
               Showcasing my best work and creative solutions
             </p>
           </div>
+          <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
+            Explore a collection of my most impactful projects, demonstrating expertise in modern
+            web technologies and creative problem-solving.
+          </p>
         </motion.div>
 
         {/* Projects grid */}

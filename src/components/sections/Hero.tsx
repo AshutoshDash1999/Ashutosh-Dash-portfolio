@@ -51,14 +51,14 @@ const Hero = () => {
             </motion.h1>
           </div>
 
-          {/* Title */}
+          {/* Professional Title */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="neobrutalist-card bg-yellow-300 p-6"
             role="contentinfo"
-            aria-label="Professional title"
+            aria-label="Professional title and expertise"
           >
             <h2 className="text-secondary-foreground text-2xl font-black lg:text-4xl">
               FRONTEND DEVELOPER
@@ -78,6 +78,10 @@ const Hero = () => {
             <p className="text-xl font-medium lg:text-2xl">
               Crafting bold, interactive web experiences with precision and creativity.
             </p>
+            <p className="text-muted-foreground text-lg">
+              Specializing in React, Next.js, TypeScript, and modern web technologies to build
+              exceptional user experiences.
+            </p>
           </motion.div>
 
           {/* CTA Buttons */}
@@ -92,14 +96,14 @@ const Hero = () => {
             <Button
               className="bg-primary focus:ring-primary focus:ring-offset-background rounded text-white focus:ring-4 focus:ring-offset-2 focus:outline-none"
               onClick={() => scrollToSection('#projects')}
-              aria-label="View my portfolio projects"
+              aria-label="View my portfolio projects and work samples"
             >
               VIEW MY WORK
             </Button>
             <Button
               className="bg-accent focus:ring-accent focus:ring-offset-background rounded focus:ring-4 focus:ring-offset-2 focus:outline-none"
               onClick={() => scrollToSection('#contact')}
-              aria-label="Get in touch to discuss your project"
+              aria-label="Get in touch to discuss your project requirements"
             >
               GET IN TOUCH
             </Button>
