@@ -1,3 +1,4 @@
+import FreelanceSection from '@/components/sections/Freelance';
 import Hero from '@/components/sections/Hero';
 import Navigation from '@/components/sections/Navigation';
 import Projects from '@/components/sections/Project';
@@ -13,6 +14,7 @@ export default function Home() {
       <WorkExperience />
       <Skills />
       <Projects />
+      <FreelanceSection />
     </main>
   );
 }

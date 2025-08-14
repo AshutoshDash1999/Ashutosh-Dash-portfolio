@@ -10,7 +10,8 @@ type ActionIconProps = {
   label?: string;
   size?: number;
   strokeWidth?: number;
-  color?: string;
+  iconColor?: string;
+  variant?: 'default' | 'primary' | 'secondary' | 'accent';
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function ActionIcon({
@@ -18,18 +19,27 @@ export function ActionIcon({
   label,
   size = 20,
   strokeWidth = 1.5,
-  color = 'currentColor',
+  iconColor = 'currentColor',
+  variant = 'default',
   className,
   ...props
 }: ActionIconProps) {
   const fallbackLabel = 'Icon';
 
+  const variantStyles = {
+    default: 'bg-white text-black hover:bg-black hover:text-white',
+    primary: 'bg-primary text-primary-foreground hover:bg-primary-dark',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+    accent: 'bg-accent text-accent-foreground hover:bg-accent/80',
+  };
+
   return (
     <button
       className={cn(
-        'flex h-10 w-10 items-center justify-center border-2 border-black bg-white text-black shadow-[3px_3px_0_0_black] transition-all',
-        'hover:bg-black hover:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2',
+        'neobrutalist-button flex h-10 w-10 items-center justify-center',
+        'focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2',
         'disabled:cursor-not-allowed disabled:opacity-50',
+        variantStyles[variant],
         className
       )}
       aria-label={label || fallbackLabel}
@@ -39,7 +49,7 @@ export function ActionIcon({
         icon={icon}
         size={size}
         strokeWidth={strokeWidth}
-        color={color}
+        color={iconColor}
         aria-hidden="true"
       />
     </button>
