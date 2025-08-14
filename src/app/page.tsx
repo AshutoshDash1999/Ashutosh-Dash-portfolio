@@ -8,7 +8,7 @@ import WorkExperience from '@/components/sections/WorkExperience';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col gap-4 py-20">
+    <main className="flex min-h-screen flex-col gap-4 py-20" role="main" id="main-content">
       <Navigation />
 
       <Hero />

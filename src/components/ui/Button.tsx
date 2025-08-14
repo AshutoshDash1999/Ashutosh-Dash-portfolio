@@ -29,9 +29,19 @@ type TailwindColor =
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   color?: TailwindColor;
+  loading?: boolean;
+  disabled?: boolean;
+  children: React.ReactNode;
 };
 
-export function Button({ className, color = 'white', ...props }: ButtonProps) {
+export function Button({
+  className,
+  color = 'white',
+  loading = false,
+  disabled = false,
+  children,
+  ...props
+}: ButtonProps) {
   const getColorClasses = (color: TailwindColor) => {
     const colorMap: Record<TailwindColor, string> = {
       white: 'bg-white text-black',
@@ -62,19 +72,38 @@ export function Button({ className, color = 'white', ...props }: ButtonProps) {
     return colorMap[color];
   };
 
+  const isDisabled = disabled || loading;
+
   return (
     <button
       className={cn(
         'cursor-pointer border-4 border-black px-8 py-4 text-sm font-bold transition-all duration-300 ease-out',
         'hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0_0_black]',
         'active:translate-x-0.5 active:translate-y-0.5 active:shadow-[4px_4px_0_0_black]',
-        'focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2',
+        'focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white',
         'disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:transform-none disabled:hover:shadow-[4px_4px_0_0_black]',
+        'disabled:focus-visible:ring-0',
         getColorClasses(color),
         'shadow-[8px_8px_0_0_black]',
+        'min-h-[44px]', // WCAG minimum touch target size
         className
       )}
+      disabled={isDisabled}
+      aria-disabled={isDisabled}
+      aria-busy={loading}
       {...props}
-    />
+    >
+      <div className="flex items-center justify-center gap-2">
+        {loading && (
+          <div
+            className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+            role="status"
+            aria-label="Loading"
+          />
+        )}
+
+        <span className={loading ? 'opacity-70' : ''}>{children}</span>
+      </div>
+    </button>
   );
 }

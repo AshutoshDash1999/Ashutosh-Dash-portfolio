@@ -3,22 +3,25 @@
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Logo from '../ui/Logo';
 
 const navItems = [
-  { name: 'HOME', href: '#hero' },
-  { name: 'EXPERIENCE', href: '#experience' },
-  { name: 'SKILLS', href: '#skills' },
-  { name: 'PROJECTS', href: '#projects' },
-  { name: 'FREELANCE', href: '#freelance' },
-  { name: 'CONTACT', href: '#contact' },
+  { name: 'HOME', href: '#hero', description: 'Go to home section' },
+  { name: 'EXPERIENCE', href: '#experience', description: 'View work experience' },
+  { name: 'SKILLS', href: '#skills', description: 'View technical skills' },
+  { name: 'PROJECTS', href: '#projects', description: 'Browse portfolio projects' },
+  { name: 'FREELANCE', href: '#freelance', description: 'Learn about freelance services' },
+  { name: 'CONTACT', href: '#contact', description: 'Get in touch' },
 ];
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstMenuItemRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,18 +37,34 @@ export default function Navigation() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMobileMenuOpen(false);
+        mobileMenuButtonRef.current?.focus();
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
+        setIsMobileMenuOpen(false);
       }
     };
 
     if (isMobileMenuOpen) {
       document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('click', handleClickOutside);
       document.body.style.overflow = 'hidden';
+
+      // Focus first menu item when menu opens
+      setTimeout(() => {
+        firstMenuItemRef.current?.focus();
+      }, 100);
     } else {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('click', handleClickOutside);
       document.body.style.overflow = 'unset';
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('click', handleClickOutside);
       document.body.style.overflow = 'unset';
     };
   }, [isMobileMenuOpen]);
@@ -53,16 +72,39 @@ export default function Navigation() {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href) || document.querySelector('#home');
     element?.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+    setIsMobileMenuOpen(false);
+
+    // Focus the target section for screen readers
+    setTimeout(() => {
+      element?.setAttribute('tabindex', '-1');
+      (element as HTMLElement)?.focus();
+      element?.removeAttribute('tabindex');
+    }, 500);
   };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      action();
+    }
+  };
+
   return (
     <>
+      {/* Skip to main content link */}
+      <a
+        href="#main-content"
+        className="focus:bg-primary focus:text-primary-foreground focus:ring-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:px-4 focus:py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
       <motion.nav
+        id="navigation"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
@@ -70,31 +112,40 @@ export default function Navigation() {
             ? 'bg-background/95 border-foreground border-b-4 backdrop-blur-sm'
             : 'bg-transparent'
         }`}
+        role="navigation"
+        aria-label="Main navigation"
       >
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
             <motion.button
               onClick={() => scrollToSection('#home')}
+              onKeyDown={e => handleKeyDown(e, () => scrollToSection('#home'))}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="focus:ring-primary focus:ring-offset-background rounded focus:ring-4 focus:ring-offset-2 focus:outline-none"
+              aria-label="Go to home page"
             >
               <Logo size="sm" />
             </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden items-center gap-6 md:flex">
-              {navItems.map(item => (
+            <div className="hidden items-center gap-6 md:flex" role="menubar">
+              {navItems.map((item, index) => (
                 <motion.button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
+                  onKeyDown={e => handleKeyDown(e, () => scrollToSection(item.href))}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-4 py-2 text-sm font-black transition-colors ${
+                  className={`focus:ring-primary focus:ring-offset-background rounded px-4 py-2 text-sm font-black transition-colors focus:ring-4 focus:ring-offset-2 focus:outline-none ${
                     activeSection === item.href.substring(1)
                       ? 'text-primary'
                       : 'text-foreground hover:text-primary'
                   }`}
+                  role="menuitem"
+                  aria-label={item.description}
+                  aria-current={activeSection === item.href.substring(1) ? 'page' : undefined}
                 >
                   {item.name}
                 </motion.button>
@@ -105,11 +156,16 @@ export default function Navigation() {
             <div className="flex items-center gap-3 md:hidden">
               {/* Mobile menu button */}
               <motion.button
+                ref={mobileMenuButtonRef}
                 onClick={toggleMobileMenu}
+                onKeyDown={e => handleKeyDown(e, toggleMobileMenu)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="neobrutalist-card bg-primary text-primary-foreground relative p-3"
+                className="neobrutalist-card bg-primary text-primary-foreground focus:ring-primary focus:ring-offset-background relative rounded p-3 focus:ring-4 focus:ring-offset-2 focus:outline-none"
                 aria-label="Toggle mobile menu"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+                aria-haspopup="true"
               >
                 <motion.div
                   className="flex h-6 w-6 flex-col justify-center gap-1"
@@ -152,45 +208,56 @@ export default function Navigation() {
           <>
             {/* Mobile Menu */}
             <motion.div
+              ref={mobileMenuRef}
+              id="mobile-menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 20, stiffness: 100 }}
               className="bg-background border-foreground fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] overflow-y-auto border-l-4 md:hidden"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
             >
               {/* Mobile menu header */}
               <div className="border-foreground flex items-center justify-between border-b-4 p-6">
                 <Logo size="sm" />
                 <motion.button
                   onClick={() => setIsMobileMenuOpen(false)}
+                  onKeyDown={e => handleKeyDown(e, () => setIsMobileMenuOpen(false))}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="neobrutalist-card bg-destructive text-destructive-foreground p-2"
+                  className="neobrutalist-card bg-destructive text-destructive-foreground focus:ring-destructive focus:ring-offset-background rounded p-2 focus:ring-4 focus:ring-offset-2 focus:outline-none"
+                  aria-label="Close mobile menu"
                 >
                   <HugeiconsIcon icon={Cancel01Icon} />
                 </motion.button>
               </div>
 
               {/* Mobile menu items */}
-              <div className="space-y-4 p-6">
+              <nav className="space-y-4 p-6" role="navigation" aria-label="Mobile navigation">
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.name}
+                    ref={index === 0 ? firstMenuItemRef : undefined}
                     onClick={() => scrollToSection(item.href)}
+                    onKeyDown={e => handleKeyDown(e, () => scrollToSection(item.href))}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.3 }}
                     whileTap={{ scale: 0.97 }}
-                    className={`neobrutalist-card w-full p-4 text-left transition-all duration-200 ease-out hover:translate-x-2 ${
+                    className={`neobrutalist-card focus:ring-primary focus:ring-offset-background w-full rounded p-4 text-left transition-all duration-200 ease-out hover:translate-x-2 focus:ring-4 focus:ring-offset-2 focus:outline-none ${
                       activeSection === item.href.substring(1)
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-muted hover:bg-primary hover:text-primary-foreground'
                     }`}
+                    aria-label={item.description}
+                    aria-current={activeSection === item.href.substring(1) ? 'page' : undefined}
                   >
                     <span className="text-lg font-black">{item.name}</span>
                   </motion.button>
                 ))}
-              </div>
+              </nav>
 
               {/* Mobile menu footer */}
               <div className="border-foreground mt-auto border-t-4 p-6">

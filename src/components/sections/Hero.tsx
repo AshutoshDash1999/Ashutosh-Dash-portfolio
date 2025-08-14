@@ -3,10 +3,25 @@ import { motion } from 'motion/react';
 import { Button } from '../ui/Button';
 
 const Hero = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      // Focus the target section for screen readers
+      setTimeout(() => {
+        element.setAttribute('tabindex', '-1');
+        (element as HTMLElement).focus();
+        element.removeAttribute('tabindex');
+      }, 500);
+    }
+  };
+
   return (
     <section
       className="bg-background relative flex items-center justify-center overflow-hidden py-2"
       id="hero"
+      role="banner"
+      aria-labelledby="hero-heading"
     >
       <div className="container mx-auto grid items-center gap-12 px-6 lg:grid-cols-2">
         {/* Left content */}
@@ -18,6 +33,7 @@ const Hero = () => {
         >
           <div>
             <motion.h1
+              id="hero-heading"
               className="text-6xl font-black tracking-tighter text-purple-950 lg:text-8xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -41,6 +57,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="neobrutalist-card bg-yellow-300 p-6"
+            role="contentinfo"
+            aria-label="Professional title"
           >
             <h2 className="text-secondary-foreground text-2xl font-black lg:text-4xl">
               FRONTEND DEVELOPER
@@ -68,9 +86,23 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
             className="flex flex-wrap gap-4"
+            role="group"
+            aria-label="Call to action buttons"
           >
-            <Button className="bg-primary text-white">VIEW MY WORK</Button>
-            <Button className="bg-accent">GET IN TOUCH</Button>
+            <Button
+              className="bg-primary focus:ring-primary focus:ring-offset-background rounded text-white focus:ring-4 focus:ring-offset-2 focus:outline-none"
+              onClick={() => scrollToSection('#projects')}
+              aria-label="View my portfolio projects"
+            >
+              VIEW MY WORK
+            </Button>
+            <Button
+              className="bg-accent focus:ring-accent focus:ring-offset-background rounded focus:ring-4 focus:ring-offset-2 focus:outline-none"
+              onClick={() => scrollToSection('#contact')}
+              aria-label="Get in touch to discuss your project"
+            >
+              GET IN TOUCH
+            </Button>
           </motion.div>
         </motion.div>
       </div>

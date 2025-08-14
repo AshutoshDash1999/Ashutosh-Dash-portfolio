@@ -10,6 +10,12 @@ type ImageWithFallbackProps = Omit<ImageProps, 'onLoad' | 'onError'> & {
   showFallbackIcon?: boolean;
   onLoad?: () => void;
   onError?: () => void;
+  priority?: boolean;
+  quality?: number;
+  sizes?: string;
+  fill?: boolean;
+  width?: number;
+  height?: number;
 };
 
 const ImageWithFallback = ({
@@ -20,18 +26,20 @@ const ImageWithFallback = ({
   showFallbackIcon = true,
   onLoad,
   onError,
+  priority = false,
+  quality = 75,
+  sizes,
+  fill,
+  width,
+  height,
   ...props
 }: ImageWithFallbackProps) => {
   const [imageStatus, setImageStatus] = useState<'loading' | 'success' | 'error'>('loading');
-
-  // Extract fill, sizes, width, height from props for conditional rendering
-  const { fill, sizes, width, height, priority, quality } = props;
 
   // Create sizing classes based on props
   const getSizingClasses = () => {
     if (fill) return '';
     if (width && height) {
-      // Use Tailwind's arbitrary value syntax for dynamic sizing
       return `w-[${width}px] h-[${height}px]`;
     }
     return 'w-full h-full';
@@ -61,12 +69,17 @@ const ImageWithFallback = ({
         className={`relative flex items-center justify-center bg-gray-100 ${className} ${sizingClasses}`}
         role="status"
         aria-label="Loading image"
+        aria-live="polite"
       >
         {/* Loading animation */}
         <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
         <div className="relative z-10 flex flex-col items-center space-y-2">
-          <HugeiconsIcon icon={Loading03Icon} className="text-gray-400" />
-          <span className="text-sm text-gray-500">Loading...</span>
+          <HugeiconsIcon
+            icon={Loading03Icon}
+            className="h-6 w-6 text-gray-400"
+            aria-hidden="true"
+          />
+          <span className="sr-only text-sm text-gray-500">Loading image...</span>
         </div>
 
         {/* Hidden image for loading detection */}
@@ -92,14 +105,19 @@ const ImageWithFallback = ({
         className={`bg-muted border-muted-foreground relative flex items-center justify-center border-2 border-dashed ${className} ${sizingClasses}`}
         role="img"
         aria-label={fallbackText}
+        aria-live="polite"
       >
         <div className="flex flex-col items-center space-y-3 p-4 text-center">
           {showFallbackIcon && (
-            <HugeiconsIcon icon={Image02Icon} className="text-muted-foreground" />
+            <HugeiconsIcon
+              icon={Image02Icon}
+              className="text-muted-foreground h-8 w-8"
+              aria-hidden="true"
+            />
           )}
           <div className="space-y-1">
             <p className="text-muted-foreground text-sm font-medium">{fallbackText}</p>
-            <p className="text-xs text-gray-400">Failed to load image</p>
+            <p className="sr-only text-xs text-gray-400">Failed to load image</p>
           </div>
         </div>
       </div>

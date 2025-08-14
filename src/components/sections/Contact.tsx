@@ -11,6 +11,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { motion } from 'motion/react';
+import { useState } from 'react';
 import { Button } from '../ui/Button';
 
 const socialLinks = [
@@ -20,6 +21,7 @@ const socialLinks = [
     url: 'https://github.com/ashutoshdash',
     color: 'bg-foreground text-background',
     hoverColor: 'hover:bg-primary',
+    description: 'Visit my GitHub profile to see my open source contributions',
   },
   {
     name: 'LinkedIn',
@@ -27,6 +29,7 @@ const socialLinks = [
     url: 'https://linkedin.com/in/ashutoshdash',
     color: 'bg-primary text-primary-foreground',
     hoverColor: 'hover:bg-primary-dark',
+    description: 'Connect with me on LinkedIn for professional networking',
   },
   {
     name: 'WhatsApp',
@@ -34,6 +37,7 @@ const socialLinks = [
     url: 'https://wa.me/1234567890',
     color: 'bg-accent text-accent-foreground',
     hoverColor: 'hover:bg-accent/80',
+    description: 'Contact me directly on WhatsApp for quick communication',
   },
   {
     name: 'Resume',
@@ -41,6 +45,7 @@ const socialLinks = [
     url: '/resume.pdf',
     color: 'bg-secondary text-secondary-foreground',
     hoverColor: 'hover:bg-secondary/80',
+    description: 'Download my resume in PDF format',
   },
 ];
 
@@ -50,22 +55,95 @@ const contactInfo = [
     label: 'Email',
     value: 'hello@ashutoshdash.dev',
     href: 'mailto:hello@ashutoshdash.dev',
+    description: 'Send me an email at hello@ashutoshdash.dev',
   },
   {
     icon: Call02Icon,
     label: 'Phone',
     value: '+1 (555) 123-4567',
     href: 'tel:+15551234567',
+    description: 'Call me at +1 (555) 123-4567',
   },
   {
     icon: Location03Icon,
     label: 'Location',
     value: 'San Francisco, CA',
     href: null,
+    description: 'I am located in San Francisco, California',
   },
 ];
 
 export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setErrors({});
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className="bg-muted/30 pt-20" id="contact">
       <div className="container mx-auto px-6">
@@ -102,7 +180,7 @@ export default function ContactSection() {
               </p>
 
               {/* Contact details */}
-              <div className="space-y-4">
+              <div className="space-y-4" role="list" aria-label="Contact information">
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={info.label}
@@ -111,21 +189,27 @@ export default function ContactSection() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
                     className="flex items-center gap-4"
+                    role="listitem"
                   >
-                    <div className="neobrutalist-card bg-primary p-3">
+                    <div className="neobrutalist-card bg-primary p-3" aria-hidden="true">
                       <HugeiconsIcon icon={info.icon} className="text-primary-foreground h-6 w-6" />
                     </div>
                     <div>
-                      <label className="text-muted-foreground text-sm">{info.label}</label>
+                      <label className="text-muted-foreground text-sm font-medium">
+                        {info.label}
+                      </label>
                       {info.href ? (
                         <a
                           href={info.href}
-                          className="hover:text-primary block text-lg font-medium transition-colors"
+                          className="hover:text-primary focus:ring-primary focus:ring-offset-background block rounded text-lg font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                          aria-label={info.description}
                         >
                           {info.value}
                         </a>
                       ) : (
-                        <p className="text-lg font-medium">{info.value}</p>
+                        <p className="text-lg font-medium" aria-label={info.description}>
+                          {info.value}
+                        </p>
                       )}
                     </div>
                   </motion.div>
@@ -137,7 +221,11 @@ export default function ContactSection() {
             <div className="space-y-4">
               <h4 className="text-xl font-black">FIND ME ONLINE</h4>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div
+                className="grid grid-cols-2 gap-4"
+                role="list"
+                aria-label="Social media and professional links"
+              >
                 {socialLinks.map((link, index) => (
                   <motion.a
                     key={link.name}
@@ -148,9 +236,11 @@ export default function ContactSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className={`neobrutalist-card ${link.color} ${link.hoverColor} ] flex items-center gap-3 p-4`}
+                    className={`neobrutalist-card ${link.color} ${link.hoverColor} focus:ring-primary focus:ring-offset-background flex items-center gap-3 rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none`}
+                    aria-label={link.description}
+                    role="listitem"
                   >
-                    <HugeiconsIcon icon={link.icon} className="h-6 w-6" />
+                    <HugeiconsIcon icon={link.icon} className="h-6 w-6" aria-hidden="true" />
                     <span className="font-black">{link.name}</span>
                   </motion.a>
                 ))}
@@ -167,59 +257,164 @@ export default function ContactSection() {
           >
             <h3 className="mb-6 text-2xl font-black">SEND A MESSAGE</h3>
 
-            <form className="space-y-6">
+            {/* Form status messages */}
+            {submitStatus === 'success' && (
+              <div
+                className="mb-6 rounded border-2 border-green-600 bg-green-100 p-4 text-green-800"
+                role="alert"
+                aria-live="polite"
+              >
+                <p className="font-medium">
+                  Thank you! Your message has been sent successfully. I&apos;ll get back to you
+                  soon.
+                </p>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div
+                className="mb-6 rounded border-2 border-red-600 bg-red-100 p-4 text-red-800"
+                role="alert"
+                aria-live="polite"
+              >
+                <p className="font-medium">
+                  Sorry! There was an error sending your message. Please try again.
+                </p>
+              </div>
+            )}
+
+            <form className="space-y-6" onSubmit={handleSubmit} noValidate>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-bold">
-                    NAME
+                    NAME{' '}
+                    <span className="text-destructive" aria-label="required">
+                      *
+                    </span>
                   </label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
-                    className="neobrutalist-card bg-input-background focus:ring-primary w-full p-4 focus:ring-2 focus:outline-none"
+                    value={formData.name}
+                    onChange={e => handleInputChange('name', e.target.value)}
+                    className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
+                      errors.name ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                    }`}
                     placeholder="Your name"
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    aria-invalid={!!errors.name}
+                    required
                   />
+                  {errors.name && (
+                    <p id="name-error" className="text-destructive text-sm" role="alert">
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-bold">
-                    EMAIL
+                    EMAIL{' '}
+                    <span className="text-destructive" aria-label="required">
+                      *
+                    </span>
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
-                    className="neobrutalist-card bg-input-background focus:ring-primary w-full p-4 focus:ring-2 focus:outline-none"
+                    value={formData.email}
+                    onChange={e => handleInputChange('email', e.target.value)}
+                    className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
+                      errors.email ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                    }`}
                     placeholder="your@email.com"
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    aria-invalid={!!errors.email}
+                    required
                   />
+                  {errors.email && (
+                    <p id="email-error" className="text-destructive text-sm" role="alert">
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="subject" className="text-sm font-bold">
-                  SUBJECT
+                  SUBJECT{' '}
+                  <span className="text-destructive" aria-label="required">
+                    *
+                  </span>
                 </label>
                 <input
                   id="subject"
+                  name="subject"
                   type="text"
-                  className="neobrutalist-card bg-input-background focus:ring-primary w-full p-4 focus:ring-2 focus:outline-none"
+                  value={formData.subject}
+                  onChange={e => handleInputChange('subject', e.target.value)}
+                  className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
+                    errors.subject ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                  }`}
                   placeholder="Project inquiry"
+                  aria-describedby={errors.subject ? 'subject-error' : undefined}
+                  aria-invalid={!!errors.subject}
+                  required
                 />
+                {errors.subject && (
+                  <p id="subject-error" className="text-destructive text-sm" role="alert">
+                    {errors.subject}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-bold">
-                  MESSAGE
+                  MESSAGE{' '}
+                  <span className="text-destructive" aria-label="required">
+                    *
+                  </span>
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={6}
-                  className="neobrutalist-card bg-input-background focus:ring-primary w-full resize-none p-4 focus:ring-2 focus:outline-none"
+                  value={formData.message}
+                  onChange={e => handleInputChange('message', e.target.value)}
+                  className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full resize-none rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
+                    errors.message ? 'ring-destructive ring-2' : 'focus:ring-primary'
+                  }`}
                   placeholder="Tell me about your project..."
+                  aria-describedby={errors.message ? 'message-error' : undefined}
+                  aria-invalid={!!errors.message}
+                  required
                 />
+                {errors.message && (
+                  <p id="message-error" className="text-destructive text-sm" role="alert">
+                    {errors.message}
+                  </p>
+                )}
               </div>
 
-              <Button className="bg-primary text-primary-foreground w-full p-4 text-lg">
-                SEND MESSAGE
+              <Button
+                type="submit"
+                className="bg-primary text-primary-foreground focus:ring-primary focus:ring-offset-background w-full rounded p-4 text-lg focus:ring-4 focus:ring-offset-2 focus:outline-none"
+                disabled={isSubmitting}
+                aria-describedby={isSubmitting ? 'submitting-status' : undefined}
+              >
+                {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
               </Button>
+
+              {isSubmitting && (
+                <p
+                  id="submitting-status"
+                  className="text-muted-foreground text-center"
+                  aria-live="polite"
+                >
+                  Sending your message...
+                </p>
+              )}
             </form>
           </motion.div>
         </div>
@@ -229,7 +424,7 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="border-foreground mt-16 border-t-4 pt-8 text-center"
+          className="border-foreground mt-16 border-t-4 p-8 text-center"
         >
           <p className="text-lg font-medium">
             © 2025 Ashutosh Dash. Built with React, TypeScript, and lots of ☕
