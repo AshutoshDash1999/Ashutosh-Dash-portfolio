@@ -31,6 +31,19 @@
 
   html {
     @apply scroll-smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+
+  body {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    max-width: 100vw; /* Ensure body doesn't exceed viewport width */
+  }
+
+  /* Ensure all motion components respect container bounds */
+  [data-motion] {
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
   }
 
   /* Custom scrollbar with theme support */
@@ -56,6 +69,9 @@
   .neobrutalist-card {
     @apply cursor-pointer border-4 border-black transition-all duration-300 ease-in-out;
     box-shadow: var(--shadow-brutal);
+    /* Ensure the card doesn't cause horizontal overflow during animations */
+    transform-origin: center;
+    will-change: transform;
   }
 
   .neobrutalist-card:hover {
@@ -66,6 +82,9 @@
   .neobrutalist-button {
     @apply border-4 border-black tracking-wider uppercase transition-all duration-300 ease-in-out;
     box-shadow: var(--shadow-brutal);
+    /* Ensure the button doesn't cause horizontal overflow during animations */
+    transform-origin: center;
+    will-change: transform;
   }
 
   .neobrutalist-button:hover {
@@ -81,4 +100,27 @@
 
 @layer utilities {
   /* @layer utilities ← Highest priority (overrides everything); */
+
+  /* Utility class to prevent horizontal overflow */
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  /* Utility class to ensure proper container constraints */
+  .container-constrained {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Utility class for motion components to prevent overflow */
+  .motion-safe {
+    overflow: hidden;
+  }
+
+  /* Ensure animations don't cause horizontal scroll */
+  .animate-safe {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
 }

@@ -155,7 +155,7 @@ export default function ContactSection() {
           className="mb-16 text-center"
         >
           <h2 className="mb-4 text-5xl font-black lg:text-7xl">LET&apos;S CONNECT</h2>
-          <div className="neobrutalist-card bg-accent inline-block p-4">
+          <div className="neobrutalist-card bg-secondary inline-block p-4">
             <p className="text-accent-foreground font-mono">
               Ready to collaborate? Let&apos;s make something amazing together
             </p>

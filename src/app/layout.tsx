@@ -43,7 +43,7 @@ export default async function RootLayout({
   const locale = await detectLocale();
   const messages = (await import(`../messages/${locale}.json`)).default;
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning className="overflow-x-hidden">
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" type="image/x-icon" href="/icons/logo.ico" />
@@ -56,7 +56,7 @@ export default async function RootLayout({
         <meta name="application-name" content="Ashutosh Portfolio" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}>
         <div id="main-content" tabIndex={-1}>
           {children}
         </div>

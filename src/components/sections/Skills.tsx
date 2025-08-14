@@ -1,6 +1,32 @@
 'use client';
 import { motion } from 'motion/react';
 
+// Motion variants for section header
+const sectionHeaderVariants = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+};
+
+// Motion variants for skill category cards
+const skillCategoryVariants = {
+  initial: { opacity: 0, y: 50 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+};
+
+// Motion variants for individual skill items
+const skillItemVariants = {
+  initial: { opacity: 0, x: -20 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true },
+  hover: { x: 8 },
+};
+
+// Individual motion values
+const skillItemHover = { x: 8 };
+const skillItemViewport = { once: true };
+
 const skillCategories = [
   {
     title: 'FRONTEND',
@@ -30,9 +56,9 @@ export default function Skills() {
       <div className="container mx-auto px-6">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={sectionHeaderVariants.initial}
+          whileInView={sectionHeaderVariants.whileInView}
+          viewport={sectionHeaderVariants.viewport}
           className="mb-16 text-center"
         >
           <h2 className="mb-4 text-5xl font-black lg:text-7xl">SKILLS & TECH STACK</h2>
@@ -52,9 +78,9 @@ export default function Skills() {
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={skillCategoryVariants.initial}
+              whileInView={skillCategoryVariants.whileInView}
+              viewport={skillCategoryVariants.viewport}
               transition={{ delay: categoryIndex * 0.1 }}
               className="space-y-4"
             >
@@ -68,11 +94,11 @@ export default function Skills() {
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
                     key={skill}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    initial={skillItemVariants.initial}
+                    whileInView={skillItemVariants.whileInView}
+                    viewport={skillItemViewport}
+                    whileHover={skillItemHover}
                     transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                    whileHover={{ x: 8 }}
                     className="neobrutalist-card bg-card group cursor-pointer p-4"
                   >
                     <div className="flex items-center justify-between">
