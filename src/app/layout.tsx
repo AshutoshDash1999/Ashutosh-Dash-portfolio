@@ -67,7 +67,6 @@ export default async function RootLayout({
           {children}
         </div>
         <Script src="/sw-register.js"></Script>
-        <Script src="/manifest-debug.js"></Script>
       </body>
     </html>
   );
