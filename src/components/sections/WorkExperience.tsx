@@ -57,7 +57,7 @@ export default function WorkExperience() {
                     <div className="neobrutalist-card bg-card space-y-6 p-8">
                       {/* Header */}
                       <div className="space-y-3">
-                        <div className="neobrutalist-card bg-primary inline-block p-2">
+                        <div className={`neobrutalist-card ${color} inline-block p-2`}>
                           <span className="font-mono text-xs font-black text-white">
                             {exp.period}
                           </span>
