@@ -1,0 +1,14 @@
+{
+  "languages": ["TypeScript", "JavaScript", "HTML5", "CSS", "GraphQL"],
+  "frameworks_libraries": [
+    "React Native",
+    "NextJS",
+    "ReactJS",
+    "Mantine",
+    "Chakra UI",
+    "Ant Design",
+    "TailwindCSS",
+    "Bootstrap"
+  ],
+  "tools": ["VS Code", "Firebase", "Hasura", "Git", "PostHog", "Mixpanel", "Figma"]
+}

@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'motion/react';
+import skillsData from '@/data/skills.json';
 
 // Motion variants for section header
 const sectionHeaderVariants = {
@@ -27,28 +28,12 @@ const skillItemVariants = {
 const skillItemHover = { x: 8 };
 const skillItemViewport = { once: true };
 
-const skillCategories = [
-  {
-    title: 'FRONTEND',
-    color: 'bg-primary',
-    skills: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Redux'],
-  },
-  {
-    title: 'BACKEND',
-    color: 'bg-secondary',
-    skills: ['Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'Firebase', 'Supabase'],
-  },
-  {
-    title: 'TOOLS',
-    color: 'bg-accent',
-    skills: ['Git', 'Docker', 'Figma', 'VS Code', 'Webpack', 'Vite'],
-  },
-  {
-    title: 'LANGUAGES',
-    color: 'bg-destructive',
-    skills: ['JavaScript', 'TypeScript', 'Python', 'PHP', 'HTML', 'CSS'],
-  },
-];
+// Map JSON categories to display categories with colors
+const categoryMapping = {
+  languages: { title: 'LANGUAGES', color: 'bg-destructive' },
+  frameworks_libraries: { title: 'FRAMEWORKS & LIBRARIES', color: 'bg-primary' },
+  tools: { title: 'TOOLS & PLATFORMS', color: 'bg-accent' },
+};
 
 export default function Skills() {
   return (
@@ -74,44 +59,49 @@ export default function Skills() {
         </motion.div>
 
         {/* Skills grid */}
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
-              initial={skillCategoryVariants.initial}
-              whileInView={skillCategoryVariants.whileInView}
-              viewport={skillCategoryVariants.viewport}
-              transition={{ delay: categoryIndex * 0.1 }}
-              className="space-y-4"
-            >
-              {/* Category header */}
-              <div className={`neobrutalist-card ${category.color} p-4`}>
-                <h3 className="text-2xl font-black text-white">{category.title}</h3>
-              </div>
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {Object.entries(skillsData).map(([categoryKey, skills], categoryIndex) => {
+            const category = categoryMapping[categoryKey as keyof typeof categoryMapping];
+            if (!category) return null;
 
-              {/* Skills list */}
-              <div className="space-y-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skill}
-                    initial={skillItemVariants.initial}
-                    whileInView={skillItemVariants.whileInView}
-                    viewport={skillItemViewport}
-                    whileHover={skillItemHover}
-                    transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                    className="neobrutalist-card bg-card group cursor-pointer p-4"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="group-hover:text-primary text-lg font-black transition-colors">
-                        {skill}
-                      </span>
-                      <div className="bg-primary group-hover:bg-secondary h-2 w-2 transition-colors" />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+            return (
+              <motion.div
+                key={categoryKey}
+                initial={skillCategoryVariants.initial}
+                whileInView={skillCategoryVariants.whileInView}
+                viewport={skillCategoryVariants.viewport}
+                transition={{ delay: categoryIndex * 0.1 }}
+                className="space-y-4"
+              >
+                {/* Category header */}
+                <div className={`neobrutalist-card ${category.color} p-4`}>
+                  <h3 className="text-2xl font-black text-white">{category.title}</h3>
+                </div>
+
+                {/* Skills list */}
+                <div className="space-y-3">
+                  {skills.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skill}
+                      initial={skillItemVariants.initial}
+                      whileInView={skillItemVariants.whileInView}
+                      viewport={skillItemViewport}
+                      whileHover={skillItemHover}
+                      transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
+                      className="neobrutalist-card bg-card group cursor-pointer p-4"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="group-hover:text-primary text-lg font-black transition-colors">
+                          {skill}
+                        </span>
+                        <div className="bg-primary group-hover:bg-secondary h-2 w-2 transition-colors" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
