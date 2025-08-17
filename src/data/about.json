@@ -1,12 +1,16 @@
 {
-  "name": "Your Name",
+  "name": "Ashutosh Dash",
   "title": "Frontend Developer",
-  "location": "City, Country",
+  "location": "Bhubaneswar, India",
   "bio": "Passionate frontend developer with expertise in building high-performance web applications using modern technologies.",
-  "skills": ["TypeScript", "React", "Next.js", "Tailwind CSS", "Node.js"],
+  "contact": {
+    "email": "dashashutosh1999@gmail.com",
+    "phone": "+919348907638",
+    "resume": "/Ashutosh_Dash_Frontend_Dev.pdf"
+  },
   "social": {
-    "github": "https://github.com/yourusername",
-    "linkedin": "https://linkedin.com/in/yourusername",
-    "twitter": "https://twitter.com/yourusername"
+    "github": "https://github.com/AshutoshDash1999",
+    "linkedin": "https://linkedin.com/in/ashutoshdash1999",
+    "whatsapp": "https://api.whatsapp.com/send/?phone=919348907638&text=Hi%2C+Ashutosh,+I+went+through+your+profile+and+I+really+like+it.+Would+you+mind+sharing+an+opportunity+with+you+?"
   }
 }

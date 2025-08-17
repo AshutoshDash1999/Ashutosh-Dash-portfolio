@@ -18,12 +18,13 @@ import { useFormStatus } from 'react-dom';
 import { submitContactForm, type ContactFormState } from '../../lib/actions/contact';
 import { Button } from '../ui/Button';
 import PWAInstallButton from '../ui/PWAInstallButton';
+import aboutData from '../../data/about.json';
 
 const socialLinks = [
   {
     name: 'GitHub',
     icon: GithubIcon,
-    url: 'https://github.com/ashutoshdash',
+    url: aboutData.social.github,
     color: 'bg-foreground text-background',
     hoverColor: 'hover:bg-primary',
     description: 'Visit my GitHub profile to see my open source contributions',
@@ -31,7 +32,7 @@ const socialLinks = [
   {
     name: 'LinkedIn',
     icon: Linkedin02Icon,
-    url: 'https://linkedin.com/in/ashutoshdash',
+    url: aboutData.social.linkedin,
     color: 'bg-primary text-primary-foreground',
     hoverColor: 'hover:bg-primary-dark',
     description: 'Connect with me on LinkedIn for professional networking',
@@ -39,7 +40,7 @@ const socialLinks = [
   {
     name: 'WhatsApp',
     icon: WhatsappIcon,
-    url: 'https://wa.me/1234567890',
+    url: aboutData.social.whatsapp,
     color: 'bg-accent text-accent-foreground',
     hoverColor: 'hover:bg-accent/80',
     description: 'Contact me directly on WhatsApp for quick communication',
@@ -47,7 +48,7 @@ const socialLinks = [
   {
     name: 'Resume',
     icon: Download03Icon,
-    url: '/resume.pdf',
+    url: aboutData.contact.resume,
     color: 'bg-secondary text-secondary-foreground',
     hoverColor: 'hover:bg-secondary/80',
     description: 'Download my resume in PDF format',
@@ -58,23 +59,23 @@ const contactInfo = [
   {
     icon: Mail01Icon,
     label: 'Email',
-    value: 'hello@ashutoshdash.dev',
-    href: 'mailto:hello@ashutoshdash.dev',
-    description: 'Send me an email at hello@ashutoshdash.dev',
+    value: aboutData.contact.email,
+    href: `mailto:${aboutData.contact.email}`,
+    description: `Send me an email at ${aboutData.contact.email}`,
   },
   {
     icon: Call02Icon,
     label: 'Phone',
-    value: '+1 (555) 123-4567',
-    href: 'tel:+15551234567',
-    description: 'Call me at +1 (555) 123-4567',
+    value: aboutData.contact.phone,
+    href: `tel:${aboutData.contact.phone}`,
+    description: `Call me at ${aboutData.contact.phone}`,
   },
   {
     icon: Location03Icon,
     label: 'Location',
-    value: 'San Francisco, CA',
+    value: aboutData.location,
     href: null,
-    description: 'I am located in San Francisco, California',
+    description: `I am located in ${aboutData.location}`,
   },
 ];
 
