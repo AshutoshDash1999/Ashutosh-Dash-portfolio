@@ -7,6 +7,7 @@ import {
   Linkedin02Icon,
   Location03Icon,
   Mail01Icon,
+  SmartPhone02Icon,
   WhatsappIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -16,6 +17,7 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { submitContactForm, type ContactFormState } from '../../lib/actions/contact';
 import { Button } from '../ui/Button';
+import PWAInstallButton from '../ui/PWAInstallButton';
 
 const socialLinks = [
   {
@@ -356,14 +358,6 @@ export default function ContactSection() {
               </div>
 
               <SubmitButton />
-
-              <p
-                id="submitting-status"
-                className="text-muted-foreground text-center"
-                aria-live="polite"
-              >
-                Form will be processed using server actions
-              </p>
             </form>
           </motion.div>
         </div>
@@ -381,6 +375,8 @@ export default function ContactSection() {
           <p className="text-muted-foreground mt-2">
             Designed with neo-brutalism in mind. Bold, functional, and unapologetically different.
           </p>
+
+          <PWAInstallButton />
         </motion.div>
       </div>
     </section>

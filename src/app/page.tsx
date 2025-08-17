@@ -1,7 +1,6 @@
 'use client';
 
 import Navigation from '@/components/sections/Navigation';
-import { PWAInstall } from '@/components/ui/PWAInstall';
 import dynamic from 'next/dynamic';
 
 // Loading fallback component
@@ -47,8 +46,6 @@ export default function Home() {
       <Projects />
       <FreelanceSection />
       <ContactSection />
-
-      <PWAInstall />
     </main>
   );
 }

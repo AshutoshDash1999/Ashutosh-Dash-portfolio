@@ -3,7 +3,7 @@
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Logo from '../ui/Logo';
 
 const navItems = [
@@ -225,7 +225,6 @@ export default function Navigation() {
                   <HugeiconsIcon icon={Cancel01Icon} />
                 </motion.button>
               </div>
-
               {/* Mobile menu items */}
               <nav className="space-y-4 p-6" role="navigation" aria-label="Mobile navigation">
                 {navItems.map((item, index) => (
@@ -252,12 +251,9 @@ export default function Navigation() {
               </nav>
 
               {/* Mobile menu footer */}
-              <div className="border-foreground mt-auto border-t-4 p-6">
-                <div className="neobrutalist-card bg-accent p-4 text-center">
-                  <p className="text-accent-foreground font-black">ASHUTOSH DASH</p>
-                  <p className="text-accent-foreground/80 font-mono text-sm">Frontend Developer</p>
-                </div>
-              </div>
+              {/* <div className="border-foreground mt-auto border-t-4 p-6">
+               
+              </div> */}
             </motion.div>
           </>
         )}
