@@ -1,20 +1,46 @@
 [
   {
     "id": "1",
-    "name": "Project One",
-    "description": "A high-performance web application built with Next.js and TypeScript",
-    "tags": ["Next.js", "TypeScript", "Tailwind CSS"],
-    "image": "/projects/project-1.jpg",
-    "url": "https://project-one.com",
-    "github": "https://github.com/yourusername/project-one"
+    "name": "Get That API",
+    "technologies": ["React", "Axios", "Git", "GitHub"],
+    "description": "Developed a Chrome extension using React and Axios that allows developers to test API endpoints (GET, POST, PUT, PATCH, DELETE) with authentication and payload support, improving testing speed and reducing reliance on external tools.",
+    "image": "/projects/get-that-api.jpg",
+    "links": {
+      "github": "https://github.com/AshutoshDash1999/get-that-api-browser-extension",
+      "chrome_store": "https://chrome.google.com/webstore/detail/get-that-api/dogjkacjoihbjjhmdnpoidblknfaocao"
+    }
   },
   {
     "id": "2",
-    "name": "Project Two",
-    "description": "A responsive web application with modern UI/UX",
-    "tags": ["React", "TypeScript", "Styled Components"],
-    "image": "/projects/project-2.jpg",
-    "url": "https://project-two.com",
-    "github": "https://github.com/yourusername/project-two"
+    "name": "Placement Notice Generator",
+    "technologies": ["React", "TypeScript", "Mantine", "Vercel", "Git", "GitHub"],
+    "description": "Built a web app using React and TypeScript to generate formatted placement notices, with support for WhatsApp and Telegram-ready text. Deployed on Vercel, reducing manual effort for coordinators and streamlining communication.",
+    "image": "/projects/placement-notice-generator.jpg",
+    "links": {
+      "live": "http://placement-notice-generator.vercel.app/",
+      "github": "https://github.com/AshutoshDash1999/placement-notice-generator"
+    }
+  },
+  {
+    "id": "3",
+    "name": "Live Bidding System",
+    "technologies": ["React", "TypeScript", "Chakra UI", "Firebase", "Vercel", "Git", "GitHub"],
+    "description": "Created a real-time auction platform where sellers can list items and buyers place live bids, leveraging Firebase for real-time data sync. Improved auction transparency and engagement by providing instant updates for all participants.",
+    "image": "/projects/live-bidding-system.jpg",
+    "links": {
+      "live": "http://live-bidding-system.vercel.app/",
+      "github": "https://github.com/AshutoshDash1999/live-bidding-system"
+    }
+  },
+  {
+    "id": "4",
+    "name": "Zigbee",
+    "technologies": ["React", "Next.js", "TailwindCSS", "GitHub Pages"],
+    "description": "Developed the official website for Zigbee Student Developers' Club using React and Next.js, with a modern TailwindCSS UI. Improved online presence and engagement by providing event updates, resources, and membership details to students.",
+    "image": "/projects/zigbee.jpg",
+    "links": {
+      "live": "https://zigbeeoutr.in/",
+      "github": "https://github.com/Zigbee-Student-Developers-Club/zigbee-2"
+    }
   }
 ]
