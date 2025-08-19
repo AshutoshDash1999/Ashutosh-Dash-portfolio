@@ -21,7 +21,6 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
-  const firstMenuItemRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,11 +50,6 @@ export default function Navigation() {
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
       document.body.style.overflow = 'hidden';
-
-      // Focus first menu item when menu opens
-      setTimeout(() => {
-        firstMenuItemRef.current?.focus();
-      }, 100);
     } else {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
@@ -115,7 +109,6 @@ export default function Navigation() {
               onKeyDown={e => handleKeyDown(e, () => scrollToSection('#home'))}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="focus:ring-primary focus:ring-offset-background rounded focus:ring-4 focus:ring-offset-2 focus:outline-none"
               aria-label="Go to home page"
             >
               <Logo size="sm" />
@@ -130,10 +123,10 @@ export default function Navigation() {
                   onKeyDown={e => handleKeyDown(e, () => scrollToSection(item.href))}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`focus:ring-primary focus:ring-offset-background rounded px-4 py-2 text-sm font-black transition-colors focus:ring-4 focus:ring-offset-2 focus:outline-none ${
+                  className={`px-4 py-2 text-sm font-black transition-all duration-300 ${
                     activeSection === item.href.substring(1)
-                      ? 'text-primary'
-                      : 'text-foreground hover:text-primary'
+                      ? 'text-primary border-primary -translate-x-1 -translate-y-1 border-4 shadow-[8px_8px_0px_#000000]'
+                      : 'text-foreground hover:text-primary hover:border-primary hover:-translate-x-1 hover:-translate-y-1 hover:border-4 hover:shadow-[8px_8px_0px_#000000] active:translate-x-1 active:translate-y-1 active:shadow-[4px_4px_0px_#000000]'
                   }`}
                   role="menuitem"
                   aria-label={item.description}
@@ -230,7 +223,6 @@ export default function Navigation() {
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.name}
-                    ref={index === 0 ? firstMenuItemRef : undefined}
                     onClick={() => scrollToSection(item.href)}
                     onKeyDown={e => handleKeyDown(e, () => scrollToSection(item.href))}
                     initial={{ opacity: 0, x: 20 }}
