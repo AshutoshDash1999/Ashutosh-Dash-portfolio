@@ -7,6 +7,7 @@ type InputProps = {
   error?: string;
   required?: boolean;
   helperText?: string;
+  'data-testid'?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export function Input({
@@ -16,11 +17,16 @@ export function Input({
   required = false,
   helperText,
   className,
+  'data-testid': testId,
   ...props
 }: InputProps) {
   return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="flex items-center gap-1 text-sm font-semibold text-black">
+    <div className="flex flex-col gap-1" data-testid={`${testId || id}-container`}>
+      <label
+        htmlFor={id}
+        className="flex items-center gap-1 text-sm font-semibold text-black"
+        data-testid={`${testId || id}-label`}
+      >
         {label}
         {required && (
           <span className="text-red-600" aria-label="required">
@@ -30,6 +36,7 @@ export function Input({
       </label>
       <input
         id={id}
+        data-testid={testId || id}
         className={cn(
           'w-full border-2 border-black bg-white px-3 py-2 text-sm font-medium placeholder-gray-600 shadow-[3px_3px_0_0_black]',
           'focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white',
@@ -44,12 +51,21 @@ export function Input({
         {...props}
       />
       {error && (
-        <p id={`${id}-error`} className="text-sm font-medium text-red-600" role="alert">
+        <p
+          id={`${id}-error`}
+          className="text-sm font-medium text-red-600"
+          role="alert"
+          data-testid={`${testId || id}-error`}
+        >
           {error}
         </p>
       )}
       {helperText && !error && (
-        <p id={`${id}-helper`} className="text-sm text-gray-600">
+        <p
+          id={`${id}-helper`}
+          className="text-sm text-gray-600"
+          data-testid={`${testId || id}-helper`}
+        >
           {helperText}
         </p>
       )}

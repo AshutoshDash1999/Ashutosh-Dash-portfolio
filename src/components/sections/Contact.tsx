@@ -105,10 +105,11 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="bg-muted/30 pt-20" id="contact">
+    <section className="bg-muted/30 pt-20" id="contact" data-testid="contact-section">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <motion.div
+          data-testid="contact-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -129,6 +130,7 @@ export default function ContactSection() {
         <div className="grid items-start gap-12 lg:grid-cols-2">
           {/* Contact info */}
           <motion.div
+            data-testid="contact-info"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -144,10 +146,16 @@ export default function ContactSection() {
               </p>
 
               {/* Contact details */}
-              <div className="space-y-4" role="list" aria-label="Contact information">
+              <div
+                className="space-y-4"
+                role="list"
+                aria-label="Contact information"
+                data-testid="contact-details"
+              >
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={info.label}
+                    data-testid={`contact-info-${info.label.toLowerCase().replaceAll(' ', '-')}`}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -167,6 +175,7 @@ export default function ContactSection() {
                           href={info.href}
                           className="hover:text-primary focus:ring-primary focus:ring-offset-background block rounded text-lg font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
                           aria-label={info.description}
+                          data-testid={`contact-link-${info.label.toLowerCase()}`}
                         >
                           {info.value}
                         </Link>
@@ -182,7 +191,7 @@ export default function ContactSection() {
             </div>
 
             {/* Social links */}
-            <div className="space-y-4">
+            <div className="space-y-4" data-testid="social-links">
               <h4 className="text-xl font-black">FIND ME ONLINE</h4>
 
               <div
@@ -196,6 +205,7 @@ export default function ContactSection() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-testid={`social-link-${link.name.toLowerCase()}`}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -214,6 +224,7 @@ export default function ContactSection() {
 
           {/* Contact form */}
           <motion.div
+            data-testid="contact-form-container"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -224,6 +235,7 @@ export default function ContactSection() {
             {/* Form status messages */}
             {state.success && state.message && (
               <div
+                data-testid="success-message"
                 className="mb-6 rounded border-2 border-green-600 bg-green-100 p-4 text-green-800"
                 role="alert"
                 aria-live="polite"
@@ -234,6 +246,7 @@ export default function ContactSection() {
 
             {!state.success && state.message && (
               <div
+                data-testid="error-message"
                 className="mb-6 rounded border-2 border-red-600 bg-red-100 p-4 text-red-800"
                 role="alert"
                 aria-live="polite"
@@ -244,6 +257,7 @@ export default function ContactSection() {
 
             {state.errors?._form && (
               <div
+                data-testid="form-error"
                 className="mb-6 rounded border-2 border-red-600 bg-red-100 p-4 text-red-800"
                 role="alert"
                 aria-live="polite"
@@ -252,7 +266,13 @@ export default function ContactSection() {
               </div>
             )}
 
-            <form className="space-y-6" action={formAction} noValidate id="contact-form">
+            <form
+              className="space-y-6"
+              action={formAction}
+              noValidate
+              id="contact-form"
+              data-testid="contact-form"
+            >
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-bold">
@@ -265,6 +285,7 @@ export default function ContactSection() {
                     id="name"
                     name="name"
                     type="text"
+                    data-testid="name-input"
                     className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                       state.errors?.name ? 'ring-destructive ring-2' : 'focus:ring-primary'
                     }`}
@@ -274,7 +295,12 @@ export default function ContactSection() {
                     required
                   />
                   {state.errors?.name && (
-                    <p id="name-error" className="text-destructive text-sm" role="alert">
+                    <p
+                      id="name-error"
+                      className="text-destructive text-sm"
+                      role="alert"
+                      data-testid="name-error"
+                    >
                       {state.errors.name.join(', ')}
                     </p>
                   )}
@@ -290,6 +316,7 @@ export default function ContactSection() {
                     id="email"
                     name="email"
                     type="email"
+                    data-testid="email-input"
                     className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                       state.errors?.email ? 'ring-destructive ring-2' : 'focus:ring-primary'
                     }`}
@@ -299,7 +326,12 @@ export default function ContactSection() {
                     required
                   />
                   {state.errors?.email && (
-                    <p id="email-error" className="text-destructive text-sm" role="alert">
+                    <p
+                      id="email-error"
+                      className="text-destructive text-sm"
+                      role="alert"
+                      data-testid="email-error"
+                    >
                       {state.errors.email.join(', ')}
                     </p>
                   )}
@@ -317,6 +349,7 @@ export default function ContactSection() {
                   id="subject"
                   name="subject"
                   type="text"
+                  data-testid="subject-input"
                   className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                     state.errors?.subject ? 'ring-destructive ring-2' : 'focus:ring-primary'
                   }`}
@@ -326,7 +359,12 @@ export default function ContactSection() {
                   required
                 />
                 {state.errors?.subject && (
-                  <p id="subject-error" className="text-destructive text-sm" role="alert">
+                  <p
+                    id="subject-error"
+                    className="text-sm font-medium text-red-600"
+                    role="alert"
+                    data-testid="subject-error"
+                  >
                     {state.errors.subject.join(', ')}
                   </p>
                 )}
@@ -343,6 +381,7 @@ export default function ContactSection() {
                   id="message"
                   name="message"
                   rows={6}
+                  data-testid="message-input"
                   className={`neobrutalist-card bg-input-background focus:ring-offset-background w-full resize-none rounded p-4 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                     state.errors?.message ? 'ring-destructive ring-2' : 'focus:ring-primary'
                   }`}
@@ -352,7 +391,12 @@ export default function ContactSection() {
                   required
                 />
                 {state.errors?.message && (
-                  <p id="message-error" className="text-destructive text-sm" role="alert">
+                  <p
+                    id="message-error"
+                    className="text-sm font-medium text-red-600"
+                    role="alert"
+                    data-testid="message-error"
+                  >
                     {state.errors.message.join(', ')}
                   </p>
                 )}
@@ -365,6 +409,7 @@ export default function ContactSection() {
 
         {/* Footer */}
         <motion.div
+          data-testid="contact-footer"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

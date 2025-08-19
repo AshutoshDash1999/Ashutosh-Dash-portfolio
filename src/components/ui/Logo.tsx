@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 
 type LogoProps = {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  'data-testid'?: string;
 };
 
 const sizeConfig = {
@@ -67,11 +68,12 @@ const sizeConfig = {
   },
 };
 
-export default function Logo({ size = 'xl' }: LogoProps) {
+export default function Logo({ size = 'xl', 'data-testid': testId }: LogoProps) {
   const config = sizeConfig[size];
 
   return (
     <div
+      data-testid={testId || 'logo'}
       className={cn(
         'from-primary-light to-primary-dark relative flex cursor-pointer items-center justify-center bg-gradient-to-br transition-all duration-300 ease-in-out',
         config.container,

@@ -8,11 +8,15 @@ import Script from 'next/script';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
+  display: 'swap',
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -63,7 +67,7 @@ export default async function RootLayout({
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}>
-        <div id="main-content" tabIndex={-1}>
+        <div id="main-content" tabIndex={-1} data-testid="root-content">
           {children}
         </div>
         <Script src="/sw-register.js"></Script>

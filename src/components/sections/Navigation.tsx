@@ -91,6 +91,7 @@ export default function Navigation() {
     <>
       <motion.nav
         id="navigation"
+        data-testid="navigation"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
@@ -105,6 +106,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
             <motion.button
+              data-testid="logo-button"
               onClick={() => scrollToSection('#home')}
               onKeyDown={e => handleKeyDown(e, () => scrollToSection('#home'))}
               whileHover={{ scale: 1.05 }}
@@ -115,10 +117,15 @@ export default function Navigation() {
             </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden items-center gap-6 md:flex" role="menubar">
+            <div
+              className="hidden items-center gap-6 md:flex"
+              role="menubar"
+              data-testid="desktop-navigation"
+            >
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.name}
+                  data-testid={`nav-item-${item.href.substring(1)}`}
                   onClick={() => scrollToSection(item.href)}
                   onKeyDown={e => handleKeyDown(e, () => scrollToSection(item.href))}
                   whileHover={{ scale: 1.05 }}
@@ -138,10 +145,11 @@ export default function Navigation() {
             </div>
 
             {/* Mobile controls */}
-            <div className="flex items-center gap-3 md:hidden">
+            <div className="flex items-center gap-3 md:hidden" data-testid="mobile-controls">
               {/* Mobile menu button */}
               <motion.button
                 ref={mobileMenuButtonRef}
+                data-testid="mobile-menu-button"
                 onClick={toggleMobileMenu}
                 onKeyDown={e => handleKeyDown(e, toggleMobileMenu)}
                 whileHover={{ scale: 1.05 }}
@@ -195,6 +203,7 @@ export default function Navigation() {
             <motion.div
               ref={mobileMenuRef}
               id="mobile-menu"
+              data-testid="mobile-menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -208,6 +217,7 @@ export default function Navigation() {
               <div className="border-foreground flex items-center justify-between border-b-4 p-6">
                 <Logo size="sm" />
                 <motion.button
+                  data-testid="close-mobile-menu-button"
                   onClick={() => setIsMobileMenuOpen(false)}
                   onKeyDown={e => handleKeyDown(e, () => setIsMobileMenuOpen(false))}
                   whileHover={{ scale: 1.05 }}
@@ -219,10 +229,16 @@ export default function Navigation() {
                 </motion.button>
               </div>
               {/* Mobile menu items */}
-              <nav className="space-y-4 p-6" role="navigation" aria-label="Mobile navigation">
+              <nav
+                className="space-y-4 p-6"
+                role="navigation"
+                aria-label="Mobile navigation"
+                data-testid="mobile-navigation"
+              >
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.name}
+                    data-testid={`mobile-nav-item-${item.href.substring(1)}`}
                     onClick={() => scrollToSection(item.href)}
                     onKeyDown={e => handleKeyDown(e, () => scrollToSection(item.href))}
                     initial={{ opacity: 0, x: 20 }}

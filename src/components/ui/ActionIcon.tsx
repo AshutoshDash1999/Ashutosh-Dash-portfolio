@@ -12,6 +12,7 @@ type ActionIconProps = {
   strokeWidth?: number;
   iconColor?: string;
   variant?: 'default' | 'primary' | 'secondary' | 'accent';
+  'data-testid'?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function ActionIcon({
@@ -22,6 +23,7 @@ export function ActionIcon({
   iconColor = 'currentColor',
   variant = 'default',
   className,
+  'data-testid': testId,
   ...props
 }: ActionIconProps) {
   const fallbackLabel = 'Icon';
@@ -35,6 +37,7 @@ export function ActionIcon({
 
   return (
     <button
+      data-testid={testId || 'action-icon'}
       className={cn(
         'neobrutalist-button flex h-10 w-10 items-center justify-center',
         'focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2',

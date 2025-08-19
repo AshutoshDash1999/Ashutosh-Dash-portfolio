@@ -12,10 +12,11 @@ const projectColors = ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-destructiv
 
 export default function Projects() {
   return (
-    <section className="bg-muted/30 py-20" id="projects">
+    <section className="bg-muted/30 py-20" id="projects" data-testid="projects-section">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <motion.div
+          data-testid="projects-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -34,7 +35,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Projects grid */}
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="projects-grid">
           {projectsData.map((project, index) => {
             const projectColor = projectColors[index % projectColors.length];
             const hasLiveLink = 'live' in project.links;
@@ -43,6 +44,7 @@ export default function Projects() {
             return (
               <motion.div
                 key={project.id}
+                data-testid={`project-card-${project.id}`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -61,10 +63,14 @@ export default function Projects() {
                         fill
                         className="h-48 w-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        data-testid={`project-image-${project.id}`}
                       />
                     )}
 
-                    <div className="bg-foreground/80 absolute inset-0 flex items-center justify-center gap-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div
+                      className="bg-foreground/80 absolute inset-0 flex items-center justify-center gap-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      data-testid={`project-overlay-${project.id}`}
+                    >
                       {hasLiveLink && (
                         <motion.a
                           href={project.links.live}
@@ -73,6 +79,7 @@ export default function Projects() {
                           className="neobrutalist-button bg-primary text-primary-foreground p-3"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
+                          data-testid={`project-live-link-${project.id}`}
                         >
                           <HugeiconsIcon icon={LinkSquare01Icon} />
                         </motion.a>
@@ -85,6 +92,7 @@ export default function Projects() {
                           className="neobrutalist-button bg-accent text-accent-foreground p-3"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
+                          data-testid={`project-chrome-store-link-${project.id}`}
                         >
                           <HugeiconsIcon icon={LinkSquare01Icon} />
                         </motion.a>
@@ -96,6 +104,7 @@ export default function Projects() {
                         className="neobrutalist-button bg-secondary text-secondary-foreground p-3"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        data-testid={`project-github-link-${project.id}`}
                       >
                         <HugeiconsIcon icon={Github01Icon} />
                       </motion.a>
@@ -103,27 +112,34 @@ export default function Projects() {
                   </div>
 
                   {/* Project info */}
-                  <div className="space-y-4 p-6">
+                  <div className="space-y-4 p-6" data-testid={`project-info-${project.id}`}>
                     {/* Title and color indicator */}
                     <div className="flex items-start justify-between gap-4">
-                      <h3 className="group-hover:text-primary text-xl font-black transition-colors">
+                      <h3
+                        className="group-hover:text-primary text-xl font-black transition-colors"
+                        data-testid={`project-title-${project.id}`}
+                      >
                         {project.name}
                       </h3>
                       <div className={`h-4 w-4 ${projectColor} flex-shrink-0`} />
                     </div>
 
                     {/* Description */}
-                    <p className="text-muted-foreground line-clamp-3 text-base leading-relaxed">
+                    <p
+                      className="text-muted-foreground line-clamp-3 text-base leading-relaxed"
+                      data-testid={`project-description-${project.id}`}
+                    >
                       {project.description}
                     </p>
 
                     {/* Technologies */}
-                    <div className="space-y-2">
+                    <div className="space-y-2" data-testid={`project-technologies-${project.id}`}>
                       <span className="text-xs">TECH STACK:</span>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map(tech => (
                           <span
                             key={tech}
+                            data-testid={`project-tech-${project.id}-${tech.toLowerCase().replace(/\s+/g, '-')}`}
                             className="neobrutalist-card bg-muted text-muted-foreground px-2 py-1 font-mono text-xs"
                           >
                             {tech}
@@ -133,13 +149,14 @@ export default function Projects() {
                     </div>
 
                     {/* Links */}
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex gap-2 pt-2" data-testid={`project-links-${project.id}`}>
                       {hasLiveLink && project.links.live && (
                         <Link
                           href={project.links.live}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="neobrutalist-button bg-primary text-primary-foreground flex-1 px-4 py-2 text-center text-sm"
+                          data-testid={`project-live-button-${project.id}`}
                         >
                           LIVE SITE
                         </Link>
@@ -150,6 +167,7 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="neobrutalist-button bg-accent text-accent-foreground flex-1 px-4 py-2 text-center text-sm"
+                          data-testid={`project-chrome-store-button-${project.id}`}
                         >
                           CHROME STORE
                         </Link>
@@ -160,6 +178,7 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="neobrutalist-button bg-foreground text-background flex-1 px-4 py-2 text-center text-sm"
+                          data-testid={`project-github-button-${project.id}`}
                         >
                           CODE
                         </Link>

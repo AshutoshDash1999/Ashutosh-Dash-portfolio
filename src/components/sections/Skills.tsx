@@ -37,10 +37,11 @@ const categoryMapping = {
 
 export default function Skills() {
   return (
-    <section className="bg-background py-20" id="skills">
+    <section className="bg-background py-20" id="skills" data-testid="skills-section">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <motion.div
+          data-testid="skills-header"
           initial={sectionHeaderVariants.initial}
           whileInView={sectionHeaderVariants.whileInView}
           viewport={sectionHeaderVariants.viewport}
@@ -59,7 +60,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Skills grid */}
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="skills-grid">
           {Object.entries(skillsData).map(([categoryKey, skills], categoryIndex) => {
             const category = categoryMapping[categoryKey as keyof typeof categoryMapping];
             if (!category) return null;
@@ -67,6 +68,7 @@ export default function Skills() {
             return (
               <motion.div
                 key={categoryKey}
+                data-testid={`skills-category-${categoryKey}`}
                 initial={skillCategoryVariants.initial}
                 whileInView={skillCategoryVariants.whileInView}
                 viewport={skillCategoryVariants.viewport}
@@ -79,10 +81,11 @@ export default function Skills() {
                 </div>
 
                 {/* Skills list */}
-                <div className="space-y-3">
+                <div className="space-y-3" data-testid={`skills-list-${categoryKey}`}>
                   {skills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill}
+                      data-testid={`skill-item-${skill.toLowerCase().replaceAll(' ', '-')}`}
                       initial={skillItemVariants.initial}
                       whileInView={skillItemVariants.whileInView}
                       viewport={skillItemViewport}

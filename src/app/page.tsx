@@ -38,7 +38,12 @@ const WorkExperience = dynamic(() => import('@/components/sections/WorkExperienc
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col gap-4 py-20" role="main" id="main-content">
+    <main
+      className="flex min-h-screen flex-col gap-4 py-20"
+      role="main"
+      id="main-content"
+      data-testid="main-content"
+    >
       <Navigation />
       <Hero />
       <WorkExperience />

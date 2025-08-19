@@ -55,8 +55,14 @@ export default function PWAInstallButton() {
   if (!showInstallButton) return null;
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mt-4"
+      data-testid="pwa-install-container"
+    >
       <button
+        data-testid="pwa-install-button"
         onClick={handleInstallClick}
         className="neobrutalist-card bg-muted/50 hover:bg-muted/70 text-muted-foreground hover:text-foreground focus:ring-primary mt-4 inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
         aria-label="Install this app on your device"

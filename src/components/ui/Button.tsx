@@ -32,6 +32,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
+  'data-testid'?: string;
 };
 
 export function Button({
@@ -40,6 +41,7 @@ export function Button({
   loading = false,
   disabled = false,
   children,
+  'data-testid': testId,
   ...props
 }: ButtonProps) {
   const getColorClasses = (color: TailwindColor) => {
@@ -76,6 +78,7 @@ export function Button({
 
   return (
     <button
+      data-testid={testId}
       className={cn(
         'cursor-pointer border-4 border-black px-8 py-4 text-sm font-bold transition-all duration-300 ease-out',
         'hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0_0_black]',

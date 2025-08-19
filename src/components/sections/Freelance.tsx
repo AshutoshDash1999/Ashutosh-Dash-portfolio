@@ -40,10 +40,11 @@ const services = [
 
 export default function FreelanceSection() {
   return (
-    <section className="bg-background py-20" id="freelance">
+    <section className="bg-background py-20" id="freelance" data-testid="freelance-section">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <motion.div
+          data-testid="freelance-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -62,10 +63,11 @@ export default function FreelanceSection() {
         </motion.div>
 
         {/* Services grid */}
-        <div className="mb-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mb-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4" data-testid="services-grid">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
+              data-testid={`service-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -87,6 +89,7 @@ export default function FreelanceSection() {
 
         {/* Testimonials */}
         <motion.div
+          data-testid="testimonials-section"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -94,10 +97,11 @@ export default function FreelanceSection() {
         >
           <h3 className="mb-8 text-center text-3xl font-black">WHAT CLIENTS SAY</h3>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3" data-testid="testimonials-grid">
             {testimonialsData.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
+                data-testid={`testimonial-card-${index}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -106,26 +110,43 @@ export default function FreelanceSection() {
               >
                 <div className="neobrutalist-card bg-card space-y-4 p-6 transition-all duration-300 ease-in-out">
                   {/* Rating */}
-                  <div className="flex gap-1">
+                  <div className="flex gap-1" data-testid={`testimonial-rating-${index}`}>
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <HugeiconsIcon key={i} icon={StarIcon} fill="#fbbf24" />
                     ))}
                   </div>
 
                   {/* Quote */}
-                  <p className="line-clamp-5 text-base leading-relaxed italic">
+                  <p
+                    className="line-clamp-5 text-base leading-relaxed italic"
+                    data-testid={`testimonial-quote-${index}`}
+                  >
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
 
                   {/* Client info */}
-                  <div className="flex items-center justify-between gap-4">
+                  <div
+                    className="flex items-center justify-between gap-4"
+                    data-testid={`testimonial-client-${index}`}
+                  >
                     <div>
-                      <p className="font-black">{testimonial.name}</p>
-                      <p className="text-muted-foreground text-sm">{testimonial.project}</p>
+                      <p className="font-black" data-testid={`testimonial-name-${index}`}>
+                        {testimonial.name}
+                      </p>
+                      <p
+                        className="text-muted-foreground text-sm"
+                        data-testid={`testimonial-project-${index}`}
+                      >
+                        {testimonial.project}
+                      </p>
                     </div>
 
                     {testimonial.linkedin_profile_url && (
-                      <Link href={testimonial.linkedin_profile_url} target="_blank">
+                      <Link
+                        href={testimonial.linkedin_profile_url}
+                        target="_blank"
+                        data-testid={`testimonial-linkedin-${index}`}
+                      >
                         <ActionIcon
                           icon={Linkedin02Icon}
                           className="bg-sky-600 hover:bg-sky-700"
@@ -142,6 +163,7 @@ export default function FreelanceSection() {
 
         {/* CTA */}
         <motion.div
+          data-testid="freelance-cta"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -156,6 +178,7 @@ export default function FreelanceSection() {
               development.
             </p>
             <Button
+              data-testid="get-quote-button"
               className="bg-primary text-primary-foreground px-8 py-4 text-lg"
               onClick={() => scrollToSection('#contact')}
             >

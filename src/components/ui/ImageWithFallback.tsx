@@ -16,6 +16,7 @@ type ImageWithFallbackProps = Omit<ImageProps, 'onLoad' | 'onError'> & {
   fill?: boolean;
   width?: number;
   height?: number;
+  'data-testid'?: string;
 };
 
 const ImageWithFallback = ({
@@ -32,6 +33,7 @@ const ImageWithFallback = ({
   fill,
   width,
   height,
+  'data-testid': testId,
   ...props
 }: ImageWithFallbackProps) => {
   const [imageStatus, setImageStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -66,6 +68,7 @@ const ImageWithFallback = ({
   if (imageStatus === 'loading') {
     return (
       <div
+        data-testid={`${testId || 'image'}-loading`}
         className={`relative flex items-center justify-center bg-gray-100 ${className} ${sizingClasses}`}
         role="status"
         aria-label="Loading image"
@@ -102,6 +105,7 @@ const ImageWithFallback = ({
   if (imageStatus === 'error') {
     return (
       <div
+        data-testid={`${testId || 'image'}-error`}
         className={`bg-muted border-muted-foreground relative flex items-center justify-center border-2 border-dashed ${className} ${sizingClasses}`}
         role="img"
         aria-label={fallbackText}
@@ -126,7 +130,10 @@ const ImageWithFallback = ({
 
   // Success state - show actual image
   return (
-    <div className={`relative ${className} ${sizingClasses}`}>
+    <div
+      className={`relative ${className} ${sizingClasses}`}
+      data-testid={`${testId || 'image'}-success`}
+    >
       <Image
         src={src}
         alt={alt}
