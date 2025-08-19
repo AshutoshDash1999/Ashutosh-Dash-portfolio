@@ -1,21 +1,9 @@
 'use client';
 import { motion } from 'motion/react';
 import { Button } from '../ui/Button';
+import { scrollToSection } from '@/lib/utils';
 
 const Hero = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      // Focus the target section for screen readers
-      setTimeout(() => {
-        element.setAttribute('tabindex', '-1');
-        (element as HTMLElement).focus();
-        element.removeAttribute('tabindex');
-      }, 500);
-    }
-  };
-
   return (
     <section
       className="bg-background relative flex items-center justify-center overflow-hidden py-2"

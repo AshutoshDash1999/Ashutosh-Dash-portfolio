@@ -1,36 +1,15 @@
 'use client';
+import { scrollToSection } from '@/lib/utils';
 import { Linkedin02Icon, StarIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { motion } from 'motion/react';
+import Link from 'next/link';
+import testimonialsData from '../../data/testimonials.json';
 import { ActionIcon } from '../ui/ActionIcon';
 import { Button } from '../ui/Button';
 
-const testimonials = [
-  {
-    name: 'Sarah Johnson',
-    company: 'StartupCo',
-    text: 'Ashutosh delivered an exceptional website that exceeded our expectations. Professional, creative, and on-time!',
-    rating: 5,
-    project: 'E-commerce Website',
-    color: 'bg-primary',
-  },
-  {
-    name: 'Mike Chen',
-    company: 'TechVentures',
-    text: 'Outstanding frontend development skills. The user interface is both beautiful and highly functional.',
-    rating: 5,
-    project: 'Web Application',
-    color: 'bg-secondary',
-  },
-  {
-    name: 'Lisa Williams',
-    company: 'Creative Agency',
-    text: 'Amazing attention to detail and great communication throughout the project. Highly recommended!',
-    rating: 5,
-    project: 'Portfolio Website',
-    color: 'bg-accent',
-  },
-];
+// Add color mapping for testimonials
+const testimonialColors = ['bg-primary', 'bg-secondary', 'bg-accent'];
 
 const services = [
   {
@@ -116,7 +95,7 @@ export default function FreelanceSection() {
           <h3 className="mb-8 text-center text-3xl font-black">WHAT CLIENTS SAY</h3>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {testimonials.map((testimonial, index) => (
+            {testimonialsData.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -134,7 +113,7 @@ export default function FreelanceSection() {
                   </div>
 
                   {/* Quote */}
-                  <p className="text-base leading-relaxed italic">
+                  <p className="line-clamp-5 text-base leading-relaxed italic">
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
 
@@ -142,14 +121,18 @@ export default function FreelanceSection() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="font-black">{testimonial.name}</p>
-                      <p className="text-muted-foreground text-sm">{testimonial.company}</p>
+                      <p className="text-muted-foreground text-sm">{testimonial.project}</p>
                     </div>
 
-                    <ActionIcon
-                      icon={Linkedin02Icon}
-                      className="bg-sky-600 hover:bg-sky-700"
-                      iconColor="white"
-                    />
+                    {testimonial.linkedin_profile_url && (
+                      <Link href={testimonial.linkedin_profile_url} target="_blank">
+                        <ActionIcon
+                          icon={Linkedin02Icon}
+                          className="bg-sky-600 hover:bg-sky-700"
+                          iconColor="white"
+                        />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -172,7 +155,10 @@ export default function FreelanceSection() {
               Let&apos;s discuss your ideas and bring them to life with cutting-edge web
               development.
             </p>
-            <Button className="bg-primary text-primary-foreground px-8 py-4 text-lg">
+            <Button
+              className="bg-primary text-primary-foreground px-8 py-4 text-lg"
+              onClick={() => scrollToSection('#contact')}
+            >
               GET A QUOTE
             </Button>
           </div>

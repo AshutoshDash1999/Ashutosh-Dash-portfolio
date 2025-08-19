@@ -252,7 +252,7 @@ export default function ContactSection() {
               </div>
             )}
 
-            <form className="space-y-6" action={formAction} noValidate>
+            <form className="space-y-6" action={formAction} noValidate id="contact-form">
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-bold">

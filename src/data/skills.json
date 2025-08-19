@@ -5,10 +5,8 @@
     "NextJS",
     "ReactJS",
     "Mantine",
-    "Chakra UI",
     "Ant Design",
-    "TailwindCSS",
-    "Bootstrap"
+    "TailwindCSS"
   ],
   "tools": ["VS Code", "Firebase", "Hasura", "Git", "PostHog", "Mixpanel", "Figma"]
 }
