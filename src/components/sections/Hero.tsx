@@ -2,6 +2,7 @@
 import { motion } from 'motion/react';
 import { Button } from '../ui/Button';
 import { scrollToSection } from '@/lib/utils';
+import SpaceshipViewer from './SpaceshipViewer';
 
 const Hero = () => {
   return (
@@ -105,6 +106,15 @@ const Hero = () => {
               GET IN TOUCH
             </Button>
           </motion.div>
+        </motion.div>
+        {/* Right content */}
+        <motion.div
+          data-testid="hero-image"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <SpaceshipViewer className="neobrutalist-card shadow-brutal mx-auto h-full w-full max-w-[600px] border-4 border-black bg-gradient-to-br from-gray-100 to-gray-200" />
         </motion.div>
       </div>
     </section>
