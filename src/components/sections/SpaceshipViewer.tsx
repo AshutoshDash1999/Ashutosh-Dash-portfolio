@@ -98,14 +98,6 @@ class DroneAnimationViewer {
   private mixer: THREE.AnimationMixer | null = null;
   private clock: THREE.Clock;
 
-  // Add skybox properties
-  private skybox: THREE.Mesh | null = null;
-  private skyboxRotationSpeed = {
-    x: Math.random() * 0.0005 - 0.00025,
-    y: Math.random() * 0.0005 - 0.00025,
-    z: Math.random() * 0.0005 - 0.00025,
-  };
-
   private isHovering = false;
   private animations: { [key: string]: THREE.AnimationAction } = {};
   private currentAnimation: THREE.AnimationAction | null = null;
@@ -178,8 +170,8 @@ class DroneAnimationViewer {
   }
 
   private init(options: { width: number; height: number }) {
-    // Create skybox instead of flat background
-    this.createSkybox();
+    // Set simple white background
+    this.scene.background = new THREE.Color(0xffffff);
 
     // Camera
     this.camera.position.set(0.5, 1.5, -1.5);
@@ -198,35 +190,28 @@ class DroneAnimationViewer {
     this.container.appendChild(this.renderer.domElement);
 
     this.setupLights();
+    this.setupGroundPlane();
   }
 
-  // New method to create a skybox
-  private createSkybox() {
-    const loader = new THREE.TextureLoader();
+  private setupGroundPlane() {
+    // Create a large plane geometry for the ground
+    const planeGeometry = new THREE.PlaneGeometry(100, 100);
+    const planeMaterial = new THREE.ShadowMaterial({
+      opacity: 0.03, // Extremely light shadow opacity
+    });
 
-    // Load the wall.jpg texture
-    loader.load(
-      '/3DAssets/wall.jpg',
-      texture => {
-        // Create a large sphere for the skybox
-        const geometry = new THREE.SphereGeometry(500, 60, 40);
-        // Flip the geometry inside out
-        geometry.scale(-1, 1, 1);
+    const groundPlane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-        const material = new THREE.MeshBasicMaterial({
-          map: texture,
-        });
+    // Rotate the plane to be horizontal (facing up)
+    groundPlane.rotation.x = -Math.PI / 2;
 
-        // Create the skybox mesh
-        this.skybox = new THREE.Mesh(geometry, material);
-        this.scene.add(this.skybox);
-      },
-      undefined,
-      error => {
-        console.warn('Could not load skybox texture, using default color', error);
-        this.scene.background = new THREE.Color(0xa1a1a1);
-      }
-    );
+    // Position it below the spaceship
+    groundPlane.position.y = -0.75;
+
+    // Enable shadow receiving
+    groundPlane.receiveShadow = true;
+
+    this.scene.add(groundPlane);
   }
 
   private initializeCameraControls() {
@@ -251,14 +236,16 @@ class DroneAnimationViewer {
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
     keyLight.position.set(10, 15, 5);
     keyLight.castShadow = true;
-    keyLight.shadow.mapSize.width = 2048;
-    keyLight.shadow.mapSize.height = 2048;
+    keyLight.shadow.mapSize.width = 4096; // Higher resolution for softer shadows
+    keyLight.shadow.mapSize.height = 4096;
     keyLight.shadow.camera.near = 0.5;
     keyLight.shadow.camera.far = 50;
     keyLight.shadow.camera.left = -10;
     keyLight.shadow.camera.right = 10;
     keyLight.shadow.camera.top = 10;
     keyLight.shadow.camera.bottom = -10;
+    keyLight.shadow.radius = 16; // Much softer shadow edges for thinner outline
+    keyLight.shadow.bias = -0.0001; // Prevent shadow acne
     this.scene.add(keyLight);
 
     // Fill light
@@ -685,10 +672,27 @@ class DroneAnimationViewer {
     this.playAnimation('animation3');
   }
 
-  private playAnimation(animationName: string) {
+  private playAnimation(animationName: string): boolean {
     if (!this.animations[animationName]) {
       console.warn(`Animation ${animationName} not found`);
-      return;
+      return false;
+    }
+
+    // Check if the requested animation is already playing
+    if (
+      this.currentAnimation === this.animations[animationName] &&
+      this.currentAnimation.isRunning()
+    ) {
+      return false; // Don't restart if already playing
+    }
+
+    // Check if we're transitioning from animation2 to animation3 (hover exit)
+    const wasOnAnimation2 = this.currentAnimation === this.animations['animation2'];
+    const isGoingToAnimation3 = animationName === 'animation3';
+
+    if (wasOnAnimation2 && isGoingToAnimation3) {
+      // Play hover-off sound when transitioning from animation2 to animation3
+      this.handleHoverExit();
     }
 
     // Store the current animation as previous (unless it's animation1)
@@ -715,7 +719,11 @@ class DroneAnimationViewer {
         };
         this.mixer?.addEventListener('finished', onFinished);
       }
+
+      return true; // Animation started successfully
     }
+
+    return false;
   }
 
   private setupEventListeners() {
@@ -797,7 +805,7 @@ class DroneAnimationViewer {
     this.isDragging = false;
     if (this.isHovering) {
       this.isHovering = false;
-      this.handleHoverExit();
+      // Transition to animation3, which will trigger hover-off sound via playAnimation
       this.playAnimation('animation3');
     }
   }
@@ -907,13 +915,15 @@ class DroneAnimationViewer {
     this.isHovering = intersects.length > 0;
 
     if (this.isHovering && !wasHovering) {
-      // Started hovering - play Animation 2 and handle audio
-      this.playAnimation('animation2');
-      this.handleHoverEnter();
+      // Started hovering - play Animation 2 and handle audio only if animation actually started
+      const animationStarted = this.playAnimation('animation2');
+      if (animationStarted) {
+        this.handleHoverEnter();
+      }
     } else if (!this.isHovering && wasHovering) {
-      // Stopped hovering - return to idle Animation 3 and handle audio
+      // Stopped hovering - transition to animation3
+      // This will trigger the hover-off sound via the playAnimation method
       this.playAnimation('animation3');
-      this.handleHoverExit();
     }
   }
 
@@ -935,11 +945,6 @@ class DroneAnimationViewer {
 
     if (this.mixer) {
       this.mixer.update(deltaTime);
-    }
-    if (this.skybox) {
-      this.skybox.rotation.x += this.skyboxRotationSpeed.x;
-      this.skybox.rotation.y += this.skyboxRotationSpeed.y;
-      this.skybox.rotation.z += this.skyboxRotationSpeed.z;
     }
     this.updateHoverEffect(deltaTime);
     this.updateParticleSystem(deltaTime);
