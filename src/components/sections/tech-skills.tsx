@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { motion } from "motion/react";
 import data from "@/lib/data.json";
 
 export default function TechSkills() {
@@ -15,12 +16,24 @@ export default function TechSkills() {
       id="skills"
       className="container mx-auto px-4 py-16 md:py-24"
     >
-      <h2 className="text-3xl md:text-4xl font-heading mb-8 md:mb-12">
+      <motion.h2
+        className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         Tech Skills
-      </h2>
+      </motion.h2>
       <div className="space-y-8">
         {skillsByCategory.map(({ category, skills }) => (
-          <div key={category}>
+          <motion.div
+            key={category}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <h3 className="text-xl md:text-2xl font-heading mb-4">
               {category}
             </h3>
@@ -31,7 +44,7 @@ export default function TechSkills() {
                 </Badge>
               ))}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
