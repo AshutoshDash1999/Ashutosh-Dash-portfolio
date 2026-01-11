@@ -1,0 +1,125 @@
+{
+  "personal": {
+    "name": "Ashutosh Dash",
+    "title": "Full Stack Developer",
+    "bio": "Passionate developer building modern web applications with cutting-edge technologies. Specializing in React, Next.js, and cloud-native solutions."
+  },
+  "navbar": {
+    "logo": "A.D.",
+    "links": [
+      { "label": "Skills", "href": "#skills" },
+      { "label": "Experience", "href": "#experience" },
+      { "label": "Projects", "href": "#projects" },
+      { "label": "Reviews", "href": "#reviews" }
+    ]
+  },
+  "techSkills": [
+    { "name": "React", "category": "Frontend" },
+    { "name": "Next.js", "category": "Frontend" },
+    { "name": "TypeScript", "category": "Frontend" },
+    { "name": "Node.js", "category": "Backend" },
+    { "name": "Express", "category": "Backend" },
+    { "name": "PostgreSQL", "category": "Backend" },
+    { "name": "MongoDB", "category": "Backend" },
+    { "name": "Tailwind CSS", "category": "Frontend" },
+    { "name": "Git", "category": "Tools" },
+    { "name": "Docker", "category": "Tools" },
+    { "name": "AWS", "category": "Tools" },
+    { "name": "Python", "category": "Backend" }
+  ],
+  "experience": [
+    {
+      "company": "Tech Innovations Inc.",
+      "role": "Senior Full Stack Developer",
+      "duration": "2022 - Present",
+      "description": "Leading development of scalable web applications using React and Node.js. Mentoring junior developers and implementing best practices.",
+      "technologies": ["React", "Node.js", "TypeScript", "PostgreSQL"]
+    },
+    {
+      "company": "Digital Solutions LLC",
+      "role": "Full Stack Developer",
+      "duration": "2020 - 2022",
+      "description": "Developed and maintained multiple client projects. Collaborated with cross-functional teams to deliver high-quality products.",
+      "technologies": ["React", "Express", "MongoDB", "AWS"]
+    },
+    {
+      "company": "StartupXYZ",
+      "role": "Junior Developer",
+      "duration": "2018 - 2020",
+      "description": "Built responsive web applications and learned modern development practices. Contributed to team projects and code reviews.",
+      "technologies": ["JavaScript", "React", "Node.js"]
+    }
+  ],
+  "projects": [
+    {
+      "title": "E-Commerce Platform",
+      "description": "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
+      "technologies": ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
+      "demo": "https://example.com/demo",
+      "repo": "https://github.com/example/repo"
+    },
+    {
+      "title": "Task Management App",
+      "description": "Collaborative task management tool with real-time updates, team collaboration features, and analytics dashboard.",
+      "technologies": ["React", "Express", "MongoDB", "Socket.io"],
+      "demo": "https://example.com/tasks",
+      "repo": "https://github.com/example/tasks"
+    },
+    {
+      "title": "Portfolio Website",
+      "description": "Personal portfolio website showcasing projects, skills, and experience with modern UI/UX design.",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS"],
+      "demo": "https://example.com/portfolio",
+      "repo": "https://github.com/example/portfolio"
+    }
+  ],
+  "freelance": {
+    "title": "Available for Freelance Projects",
+    "description": "I'm currently accepting new freelance opportunities. Whether you need a complete web application, API development, or consultation, I'd love to hear about your project."
+  },
+  "reviews": [
+    {
+      "clientName": "John Smith",
+      "role": "CEO, Tech Innovations Inc.",
+      "review": "Ashutosh delivered exceptional work on our platform. His technical expertise and attention to detail made the project a huge success.",
+      "rating": 5
+    },
+    {
+      "clientName": "Sarah Johnson",
+      "role": "Product Manager, Digital Solutions",
+      "review": "Working with Ashutosh was a great experience. He's professional, reliable, and always delivers quality code on time.",
+      "rating": 5
+    },
+    {
+      "clientName": "Mike Chen",
+      "role": "Founder, StartupXYZ",
+      "review": "Ashutosh helped us build our MVP quickly and efficiently. His problem-solving skills and dedication are outstanding.",
+      "rating": 5
+    }
+  ],
+  "socialLinks": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/ashutosh-dash",
+      "icon": "github"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/ashutosh-dash",
+      "icon": "linkedin"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/ashutosh_dash",
+      "icon": "twitter"
+    },
+    {
+      "platform": "Email",
+      "url": "mailto:ashutosh@example.com",
+      "icon": "mail"
+    }
+  ],
+  "footer": {
+    "copyright": "© 2024 Ashutosh Dash. All rights reserved."
+  }
+}

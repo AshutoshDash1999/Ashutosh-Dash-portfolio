@@ -64,6 +64,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply text-foreground font-base bg-background;
   }
