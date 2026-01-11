@@ -43,7 +43,7 @@ export default function TechSkills() {
     return (
       <div
         key={skill.name}
-        className="inline-flex items-center gap-2 px-4 py-2"
+        className="inline-flex items-center gap-2 px-12 py-2"
       >
         <Icon className="size-12" />
         <span className="text-2xl font-medium">{skill.name}</span>

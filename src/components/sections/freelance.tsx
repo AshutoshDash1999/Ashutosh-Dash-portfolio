@@ -9,7 +9,7 @@ export default function Freelance() {
   return (
     <section
       id="freelance"
-      className="container mx-auto px-4 py-16 md:py-24 bg-chart-3 border-y-4 border-border"
+      className="container mx-auto px-12 py-16 md:py-24 bg-chart-3 border-y-4 border-border"
     >
       <motion.div
         className="max-w-3xl mx-auto"

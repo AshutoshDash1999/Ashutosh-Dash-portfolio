@@ -13,10 +13,22 @@ import data from "@/lib/data.json";
 import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { navbar } = data;
   const { setTheme, theme } = useTheme();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollThreshold = 50; // Show border after scrolling 50px
+      setIsScrolled(window.scrollY > scrollThreshold);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,7 +49,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b-4 border-border bg-background">
+    <nav
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "border-b-4 border-border bg-main"
+          : "border-b-0 bg-background"
+      }`}
+    >
       <div className="container mx-auto px-12">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
