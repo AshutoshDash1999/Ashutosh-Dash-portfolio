@@ -118,8 +118,5 @@
       "url": "mailto:ashutosh@example.com",
       "icon": "mail"
     }
-  ],
-  "footer": {
-    "copyright": "© 2024 Ashutosh Dash. All rights reserved."
-  }
+  ]
 }

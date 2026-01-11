@@ -1,38 +1,30 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "motion/react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import data from "@/lib/data.json";
+import { motion } from "motion/react";
 
 export default function Experience() {
   const { experience } = data;
 
   return (
-    <section
-      id="experience"
-      className="container mx-auto px-4 py-16 md:py-24"
-    >
+    <section id="experience" className="container mx-auto px-4 py-16 md:py-24">
       <motion.h2
         className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
       >
         Experience
       </motion.h2>
       <div className="space-y-6">
-        {experience.map((exp, index) => (
+        {experience.map((exp) => (
           <motion.div
-            key={index}
+            key={`${exp.company}-${exp.role}`}
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           >
             <Card className="hover:shadow-lg transition-shadow duration-300">
               <CardHeader>

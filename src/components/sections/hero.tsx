@@ -40,12 +40,12 @@ export default function Hero() {
           </motion.p>
         </motion.div>
         <motion.div
-          className="flex-1 w-full min-h-[400px] md:min-h-[500px] flex items-center justify-center"
+          className="flex-1 w-full min-h-96 flex items-center justify-center"
           initial={{ opacity: 0, y: 30, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
         >
-          <div className="w-full h-full min-h-[400px] md:min-h-[500px] border-2 border-border rounded-base bg-secondary-background">
+          <div className="w-full h-full min-h-96 border-2 border-border rounded-base bg-secondary-background">
             {/* 3D Element will be added here */}
           </div>
         </motion.div>

@@ -14,13 +14,16 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <Hero />
-      <TechSkills />
-      <Experience />
-      <Projects />
-      <Freelance />
-      <Reviews />
-      <SocialLinks />
+
+      <div className="px-12 flex flex-col gap-4">
+        <Hero />
+        <TechSkills />
+        <Experience />
+        <Projects />
+        <Freelance />
+        <Reviews />
+        <SocialLinks />
+      </div>
       <Footer />
     </main>
   );
