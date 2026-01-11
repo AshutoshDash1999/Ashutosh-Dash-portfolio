@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import data from "@/lib/data.json";
+import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
 import { motion } from "motion/react";
 
 export default function Projects() {
@@ -64,31 +65,31 @@ export default function Projects() {
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
-                    <Badge key={tech} variant="neutral">
-                      {tech}
-                    </Badge>
+                    <Badge key={tech}>{tech}</Badge>
                   ))}
                 </div>
               </CardContent>
-              <CardFooter className="flex gap-2">
+              <CardFooter className="flex gap-8">
                 {project.demo && (
-                  <Button variant="default" asChild className="flex-1">
+                  <Button asChild className="flex-1 bg-chart-2">
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
+                      <IconExternalLink className="size-4" />
                       Demo
                     </a>
                   </Button>
                 )}
                 {project.repo && (
-                  <Button variant="neutral" asChild className="flex-1">
+                  <Button asChild className="flex-1 bg-chart-3">
                     <a
                       href={project.repo}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
+                      <IconBrandGithub className="size-4" />
                       Code
                     </a>
                   </Button>

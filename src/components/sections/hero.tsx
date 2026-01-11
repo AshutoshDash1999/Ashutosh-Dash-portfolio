@@ -45,7 +45,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
         >
-          <div className="w-full h-full min-h-96 border-2 border-border rounded-base bg-secondary-background">
+          <div className="w-full h-full min-h-96 border-4 border-border rounded-base bg-secondary-background">
             {/* 3D Element will be added here */}
           </div>
         </motion.div>

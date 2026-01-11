@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/navbar";
 import Experience from "@/components/sections/experience";
+import FAQ from "@/components/sections/faq";
 import Footer from "@/components/sections/footer";
 import Freelance from "@/components/sections/freelance";
 import Hero from "@/components/sections/hero";
@@ -15,15 +16,15 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
 
-      <div className="px-12 flex flex-col gap-4">
-        <Hero />
-        <TechSkills />
-        <Experience />
-        <Projects />
-        <Freelance />
-        <Reviews />
-        <SocialLinks />
-      </div>
+      <Hero />
+      <TechSkills />
+      <Experience />
+      <Projects />
+      <Freelance />
+      <Reviews />
+      <FAQ />
+      <SocialLinks />
+
       <Footer />
     </main>
   );

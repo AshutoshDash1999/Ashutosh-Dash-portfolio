@@ -7,7 +7,10 @@ export default function Experience() {
   const { experience } = data;
 
   return (
-    <section id="experience" className="container mx-auto px-4 py-16 md:py-24">
+    <section
+      id="experience"
+      className="container mx-auto px-4 py-16 md:py-24 bg-chart-2 border-y-4 border-border"
+    >
       <motion.h2
         className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -37,7 +40,7 @@ export default function Experience() {
                 <p className="text-foreground">{exp.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech) => (
-                    <Badge key={tech} variant="neutral">
+                    <Badge key={tech} variant="chart3">
                       {tech}
                     </Badge>
                   ))}

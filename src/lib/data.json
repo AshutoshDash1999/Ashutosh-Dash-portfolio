@@ -74,8 +74,8 @@
     }
   ],
   "freelance": {
-    "title": "Available for Freelance Projects",
-    "description": "I'm currently accepting new freelance opportunities. Whether you need a complete web application, API development, or consultation, I'd love to hear about your project."
+    "title": "Available for Freelance/Contract Projects",
+    "description": "I'm currently accepting new freelance/contract based opportunities. Whether you need a complete web application, API development, or consultation, I'd love to hear about your project."
   },
   "reviews": [
     {
@@ -118,5 +118,29 @@
       "url": "mailto:ashutosh@example.com",
       "icon": "mail"
     }
-  ]
+  ],
+  "faq": {
+    "infoPanels": [
+      {
+        "title": "Who made this?",
+        "icon": "asterisk",
+        "content": "My name is Nick, I love creating software. Spotify's collaborative playlists are great, but not everyone has Spotify (including me) so I needed something different."
+      },
+      {
+        "title": "Open Source",
+        "icon": "headphones",
+        "content": "I have some ideas for where this could go! Maybe adding a song could be a \"paid\" feature for businesses to use it like a real jukebox. It's open in case someone else has ideas they want to implement."
+      },
+      {
+        "title": "What does this do?",
+        "icon": "settings",
+        "content": "Right now it's really simple and tiny, kind of a toy project. You can create a \"box\" and then send your friends a link to add songs or do it yourself."
+      },
+      {
+        "title": "Is it fair if I have a large group?",
+        "icon": "star",
+        "content": "Yes! When songs get added to the queue, they're automatically sorted in a fair order. If person A adds two songs and person B adds one, B's song goes between A's. Scales infinitely!"
+      }
+    ]
+  }
 }

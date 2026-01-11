@@ -42,7 +42,7 @@ export default function SocialLinks() {
   };
 
   return (
-    <section id="contact" className="container mx-auto px-4 py-16 md:py-24">
+    <section id="contact" className="container mx-auto px-4 py-16 md:py-24 ">
       <motion.h2
         className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
