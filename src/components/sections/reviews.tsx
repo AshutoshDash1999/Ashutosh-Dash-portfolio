@@ -1,11 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { motion } from "motion/react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import data from "@/lib/data.json";
+import { motion } from "motion/react";
 
 export default function Reviews() {
   const { reviews } = data;
@@ -27,16 +22,13 @@ export default function Reviews() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: [0.4, 0, 0.2, 1] as const,
       },
     },
   };
 
   return (
-    <section
-      id="reviews"
-      className="container mx-auto px-4 py-16 md:py-24"
-    >
+    <section id="reviews" className="container mx-auto px-4 py-16 md:py-24">
       <motion.h2
         className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
         initial={{ opacity: 0, y: 20 }}
@@ -60,9 +52,7 @@ export default function Reviews() {
                 <CardTitle className="text-xl">{review.clientName}</CardTitle>
                 <div className="text-sm text-foreground">{review.role}</div>
                 {review.rating && (
-                  <div className="text-main">
-                    {"★".repeat(review.rating)}
-                  </div>
+                  <div className="text-main">{"★".repeat(review.rating)}</div>
                 )}
               </CardHeader>
               <CardContent>

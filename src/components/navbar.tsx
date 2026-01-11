@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import data from "@/lib/data.json";
-import { Menu, Moon, Sun } from "lucide-react";
+import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
 
@@ -88,7 +88,7 @@ export default function Navbar() {
                       exit={{ rotate: 90, scale: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <Sun className="size-5" />
+                      <IconSun className="size-5" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -98,7 +98,7 @@ export default function Navbar() {
                       exit={{ rotate: -90, scale: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <Moon className="size-5" />
+                      <IconMoon className="size-5" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -115,7 +115,7 @@ export default function Navbar() {
                 className="md:hidden"
                 aria-label="Open menu"
               >
-                <Menu className="size-5" />
+                <IconMenu className="size-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-80 sm:w-96">
@@ -166,7 +166,7 @@ export default function Navbar() {
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="flex items-center"
                         >
-                          <Sun className="size-5 mr-2" />
+                          <IconSun className="size-5 mr-2" />
                           Light Mode
                         </motion.div>
                       ) : (
@@ -178,7 +178,7 @@ export default function Navbar() {
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="flex items-center"
                         >
-                          <Moon className="size-5 mr-2" />
+                          <IconMoon className="size-5 mr-2" />
                           Dark Mode
                         </motion.div>
                       )}

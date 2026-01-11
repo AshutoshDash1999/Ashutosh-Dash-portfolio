@@ -1,13 +1,18 @@
 import { Button } from "@/components/ui/button";
 import data from "@/lib/data.json";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import {
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconBrandTwitter,
+  IconMail,
+} from "@tabler/icons-react";
 import { motion } from "motion/react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  mail: Mail,
+  github: IconBrandGithub,
+  linkedin: IconBrandLinkedin,
+  twitter: IconBrandTwitter,
+  mail: IconMail,
 };
 
 export default function SocialLinks() {
@@ -55,7 +60,7 @@ export default function SocialLinks() {
         viewport={{ once: true, margin: "-50px" }}
       >
         {socialLinks.map((link) => {
-          const Icon = iconMap[link.icon.toLowerCase()] || Mail;
+          const Icon = iconMap[link.icon.toLowerCase()] || IconMail;
           return (
             <motion.div key={link.platform} variants={itemVariants}>
               <Button variant="default" size="lg" asChild>
