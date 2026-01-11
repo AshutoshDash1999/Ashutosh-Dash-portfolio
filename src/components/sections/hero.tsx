@@ -29,6 +29,7 @@ export default function Hero() {
           >
             {personal.title}
           </motion.h2>
+
           <motion.p
             className="text-lg md:text-xl text-foreground max-w-2xl"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}

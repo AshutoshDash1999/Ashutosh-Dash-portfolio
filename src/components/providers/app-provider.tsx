@@ -10,7 +10,6 @@ export default function AppProvider({
       attribute="class"
       defaultTheme="system"
       enableSystem
-      disableTransitionOnChange
     >
       {children}
     </ThemeProvider>

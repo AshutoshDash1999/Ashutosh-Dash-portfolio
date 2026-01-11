@@ -4,36 +4,36 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(94.11% 0.036556 308.0303);
+  --background: oklch(93.88% 0.033 300.19);
   --secondary-background: oklch(100% 0 0);
   --foreground: oklch(0% 0 0);
   --main-foreground: oklch(0% 0 0);
-  --main: oklch(71.9% 0.198 310.03);
+  --main: oklch(70.28% 0.1753 295.36);
   --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
   --shadow: 4px 4px 0px 0px var(--border);
-  --chart-1: #ca7aff;
-  --chart-2: #facc00;
-  --chart-3: #00d696;
-  --chart-4: #ff7a05;
+  --chart-1: #a985ff;
+  --chart-2: #00d696;
+  --chart-3: #facc00;
+  --chart-4: #ff4d50;
   --chart-5: #0099ff;
   --chart-active-dot: #000;
 }
 
 .dark {
-  --background: oklch(29.68% 0.0791 315.62);
+  --background: oklch(30.14% 0.0826 296.5);
   --secondary-background: oklch(23.93% 0 0);
   --foreground: oklch(92.49% 0 0);
   --main-foreground: oklch(0% 0 0);
-  --main: oklch(67.34% 0.2314 309.13);
+  --main: oklch(70.28% 0.1753 295.36);
   --border: oklch(0% 0 0);
   --ring: oklch(100% 0 0);
   --shadow: 4px 4px 0px 0px var(--border);
-  --chart-1: #d494ff;
-  --chart-2: #e0b700;
-  --chart-3: #00bd84;
-  --chart-4: #eb6d00;
+  --chart-1: #a985ff;
+  --chart-2: #00bd84;
+  --chart-3: #e0b700;
+  --chart-4: #ff6669;
   --chart-5: #008ae5;
   --chart-active-dot: #fff;
 }
@@ -64,8 +64,20 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-dm-sans), sans-serif;
+  }
+
   body {
     @apply text-foreground font-base bg-background;
+    font-family: var(--font-dm-sans), sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+      color 0.3s ease;
   }
 
   h1,
@@ -75,5 +87,6 @@
   h5,
   h6 {
     @apply font-heading;
+    font-family: var(--font-dm-sans), sans-serif;
   }
 }
