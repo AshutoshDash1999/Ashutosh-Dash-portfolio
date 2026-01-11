@@ -44,7 +44,7 @@ export default function FAQ() {
 
   return (
     <section
-      id="faq"
+      id="faqs"
       className="container mx-auto px-12 py-16 md:py-24 bg-chart-5 border-y-4 border-border"
     >
       <motion.h2

@@ -47,7 +47,7 @@ export default function Reviews() {
       >
         {reviews.map((review, index) => (
           <motion.div key={index} variants={cardVariants}>
-            <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+            <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background">
               <CardHeader>
                 <CardTitle className="text-xl">{review.clientName}</CardTitle>
                 <div className="text-sm text-foreground">{review.role}</div>

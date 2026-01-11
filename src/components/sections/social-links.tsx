@@ -63,7 +63,7 @@ export default function SocialLinks() {
           const Icon = iconMap[link.icon.toLowerCase()] || IconMail;
           return (
             <motion.div key={link.platform} variants={itemVariants}>
-              <Button variant="default" size="lg" asChild>
+              <Button variant="default" size="xl" asChild>
                 <a
                   href={link.url}
                   target={link.url.startsWith("mailto:") ? undefined : "_blank"}

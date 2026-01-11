@@ -57,7 +57,7 @@ export default function Projects() {
       >
         {projects.map((project, index) => (
           <motion.div key={index} variants={cardVariants}>
-            <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+            <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background">
               <CardHeader>
                 <CardTitle className="text-xl">{project.title}</CardTitle>
                 <CardDescription>{project.description}</CardDescription>

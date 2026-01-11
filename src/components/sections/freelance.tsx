@@ -26,7 +26,7 @@ export default function Freelance() {
           </CardHeader>
           <CardContent className="text-center space-y-6">
             <p className="text-lg text-foreground">{freelance.description}</p>
-            <Button variant="default" size="lg" asChild>
+            <Button variant="default" size="xl" asChild>
               <a href="#contact">Get in Touch</a>
             </Button>
           </CardContent>

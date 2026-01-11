@@ -41,10 +41,7 @@ export default function TechSkills() {
   const skillItems = techSkills.map((skill) => {
     const Icon = iconMap[skill.name] || IconCode;
     return (
-      <div
-        key={skill.name}
-        className="inline-flex items-center gap-2 px-12 py-2"
-      >
+      <div key={skill.name} className="inline-flex items-center gap-2 p-2">
         <Icon className="size-12" />
         <span className="text-2xl font-medium">{skill.name}</span>
       </div>
