@@ -1,0 +1,5 @@
+[build]
+  # Standard Next.js build command
+  command = "npm run build"
+  # Next.js builds output to the .next folder
+  publish = ".next"
