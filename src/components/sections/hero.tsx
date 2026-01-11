@@ -1,5 +1,8 @@
 import data from "@/lib/data.json";
+import { IconFileText } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function Hero() {
   const { personal } = data;
@@ -38,6 +41,25 @@ export default function Hero() {
           >
             {personal.bio}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+          >
+            <Link
+              href="/Ashutosh_Dash_Frontend_Dev.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-foreground/60 hover:text-foreground/80 transition-colors group"
+              aria-label="View resume"
+            >
+              <Button size={"xl"}>
+                <IconFileText className="" />
+                <span className="text-xs">See my work</span>
+              </Button>
+            </Link>
+          </motion.div>
         </motion.div>
         <motion.div
           className="flex-1 w-full min-h-96 flex items-center justify-center"

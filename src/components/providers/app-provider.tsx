@@ -45,7 +45,11 @@ export default function AppProvider({
             </Link>
           </ContextMenuItem>
           <ContextMenuItem asChild>
-            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <Link
+              href="/Ashutosh_Dash_Frontend_Dev.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IconFileText className="mr-2 size-4" />
               View Resume
               <ContextMenuShortcut></ContextMenuShortcut>
