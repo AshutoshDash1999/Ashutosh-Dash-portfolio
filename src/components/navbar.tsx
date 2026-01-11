@@ -5,49 +5,43 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, Moon, Sun } from "lucide-react";
 import data from "@/lib/data.json";
-import { useState } from "react";
+import { Menu, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
   const { navbar } = data;
-  const [isDark, setIsDark] = useState(false);
-
-  // Placeholder function for dark mode toggle
-  const handleDarkModeToggle = () => {
-    setIsDark(!isDark);
-    // Dark mode functionality will be implemented later
-  };
+  const { setTheme, theme } = useTheme();
 
   return (
     <nav className="sticky top-0 z-50 border-b-2 border-border bg-background">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="text-xl md:text-2xl font-heading">
-            {navbar.logo}
-          </div>
+          <div className="text-xl md:text-2xl font-heading">{navbar.logo}</div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-4">
             {navbar.links.map((link) => (
-              <Button
-                key={link.href}
-                variant="neutral"
-                asChild
-              >
+              <Button key={link.href} variant="neutral" asChild>
                 <a href={link.href}>{link.label}</a>
               </Button>
             ))}
             <Button
               variant="neutral"
               size="icon"
-              onClick={handleDarkModeToggle}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle dark mode"
             >
-              {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
+              {theme === "dark" ? (
+                <Sun className="size-5" />
+              ) : (
+                <Moon className="size-5" />
+              )}
             </Button>
           </div>
 
@@ -63,8 +57,11 @@ export default function Navbar() {
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col gap-4 mt-8">
+            <SheetContent side="right" className="w-80 sm:w-96">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col gap-4 p-4">
                 {navbar.links.map((link) => (
                   <SheetClose key={link.href} asChild>
                     <Button
@@ -79,10 +76,10 @@ export default function Navbar() {
                 <Button
                   variant="neutral"
                   className="w-full justify-start"
-                  onClick={handleDarkModeToggle}
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                   aria-label="Toggle dark mode"
                 >
-                  {isDark ? (
+                  {theme === "dark" ? (
                     <>
                       <Sun className="size-5 mr-2" />
                       Light Mode
