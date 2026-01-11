@@ -9,11 +9,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { VERSION } from "@/lib/constants";
 import data from "@/lib/data.json";
 import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Badge } from "./ui/badge";
 
 export default function Navbar() {
   const { navbar } = data;
@@ -65,7 +67,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {navbar.logo}
+            {navbar.logo} <Badge>{VERSION}</Badge>
           </motion.div>
 
           {/* Desktop Navigation */}
