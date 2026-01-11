@@ -57,18 +57,21 @@ export default function Projects() {
       >
         {projects.map((project, index) => (
           <motion.div key={index} variants={cardVariants}>
-            <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background">
-              <CardHeader>
-                <CardTitle className="text-xl">{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <Badge key={tech}>{tech}</Badge>
-                  ))}
-                </div>
-              </CardContent>
+            <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background justify-between">
+              <div className="flex flex-col gap-4">
+                <CardHeader>
+                  <CardTitle className="text-xl">{project.title}</CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <Badge key={tech}>{tech}</Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </div>
+
               <CardFooter className="flex gap-8">
                 {project.demo && (
                   <Button asChild className="flex-1 bg-chart-2">

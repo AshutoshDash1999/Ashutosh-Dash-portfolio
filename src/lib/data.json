@@ -37,47 +37,62 @@
   "experience": [
     {
       "company": "Learningpad",
+      "url": "https://learningpadedu.com",
       "role": "React JS Developer",
       "duration": "May 2024 - Present",
       "description": "Building high-quality dashboards and internal tools using Next.js, React, Mantine, and Refine. Responsible for UI development, performance optimization, analytics implementation, API integrations, and code quality improvements. Mentored interns and participated actively in code reviews.",
-      "technologies": ["Next.js", "React", "Mantine", "Refine", "Node.js"]
+      "technologies": ["Next.js", "React", "Mantine", "Refine", "Firebase"]
     },
     {
       "company": "Badho",
+      "url": "https://badho.in",
       "role": "Full Stack Developer",
       "duration": "October 2023 - April 2024",
       "description": "Worked on a React Native mobile application with a strong focus on UI refactoring, performance tuning, and seamless user experience. Implemented analytics tracking and integrated backend APIs using Node.js while improving component reusability.",
-      "technologies": ["React Native", "Node.js", "JavaScript"]
+      "technologies": [
+        "React Native",
+        "Node.js",
+        "JavaScript",
+        "GraphQL",
+        "Hasura"
+      ]
     },
     {
       "company": "BookingJini",
+      "url": "https://bookingjini.com",
       "role": "Frontend Developer",
       "duration": "February 2023 - September 2023",
       "description": "Developed a QR-based restaurant menu application, built a hotel check-in sub-system, and modernized the booking engine using modular, reusable components. Maintained the BookingJini Icons Pack open-source library.",
-      "technologies": ["React", "JavaScript", "CSS"]
+      "technologies": ["React", "JavaScript"]
     }
   ],
   "projects": [
     {
-      "title": "QR Menu & Ordering System",
-      "description": "A web application that enables restaurant customers to scan QR codes to access menus, view items, and place dine-in orders. Designed for speed, accessibility, and ease of use.",
-      "technologies": ["React", "JavaScript", "Tailwind CSS"],
-      "demo": "",
-      "repo": ""
+      "title": "Get That API",
+      "description": "A free API testing browser extension to test your API with GET, POST, PUT, PATCH, DELETE methods.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Chrome Extension"
+      ],
+      "demo": "https://chrome.google.com/webstore/detail/get-that-api/dogjkacjoihbjjhmdnpoidblknfaocao",
+      "repo": "https://github.com/AshutoshDash1999/get-that-api-browser-extension"
     },
     {
-      "title": "Hotel Walk-In Registration System",
-      "description": "A sub-application for hotel front desks that handles customer walk-ins, registration workflows, and real-time inventory updates. Built with a modular and scalable frontend architecture.",
-      "technologies": ["React", "JavaScript"],
-      "demo": "",
-      "repo": ""
+      "title": "Nextjs Mantine Boilerplate",
+      "description": "A modern, production-ready boilerplate for building web applications with Next.js 16, React 19, and Mantine UI v8.",
+      "technologies": ["NextJS", "Mantine UI", "Typescript", "Vercel"],
+      "demo": "https://nextjs-mantine-boilerplate.vercel.app/",
+      "repo": "https://github.com/AshutoshDash1999/nextjs-mantine-boilerplate"
     },
     {
-      "title": "Booking Engine Revamp",
-      "description": "A complete redesign of the BookingJini booking engine with improved UX, cleaner component structure, reusable UI modules, and better maintainability.",
-      "technologies": ["React", "JavaScript", "CSS"],
+      "title": "Lawyer LLM",
+      "description": "An AI-powered legal assistant specializing exclusively in Indian laws, legal matters, and legal procedures. Get accurate information about Indian Acts, Statutes, Regulations, case law, and legal procedures through an intuitive chat interface.",
+      "technologies": ["NextJS", "Openrouter", "Typescript", "GCP"],
       "demo": "",
-      "repo": ""
+      "repo": "https://github.com/AshutoshDash1999/ugc-agentic-lawyer-frontend"
     }
   ],
   "freelance": {
@@ -86,22 +101,19 @@
   },
   "reviews": [
     {
-      "clientName": "Client Testimonial Placeholder",
-      "role": "Client / Collaborator",
-      "review": "Working with Ashutosh has been a seamless experience. His attention to detail, UI expertise, and ability to deliver quality work on time significantly elevated the project.",
-      "rating": 5
+      "clientName": "Roshni Satpathy",
+      "role": "Designer",
+      "review": "I had the pleasure of working with Ashutosh Dash as his client, and I was truly impressed with his expertise in Frontend Development, React, and JavaScript. He has a great eye for detail, communicates clearly, and always delivers high-quality work on time. Ashutosh not only understood the requirements quickly but also suggested valuable improvements, making the final outcome even better. His mix of technical skill and problem-solving ability makes him a reliable and talented UI/Frontend Developer I would highly recommend."
     },
     {
-      "clientName": "Team Lead",
-      "role": "Engineering Lead",
-      "review": "Ashutosh consistently demonstrates strong problem-solving skills, ownership, and a great sense of design. His contributions have meaningfully improved our product quality.",
-      "rating": 5
+      "clientName": "Ramanujam Gond",
+      "role": "Frontend Developer at Bookingjini",
+      "review": "Ashutosh possesses a rare combination of technical expertise and creative problem-solving abilities that make him a standout developer. His proficiency in React, JavaScript, and UI development is truly commendable, and he consistently demonstrated a strong command over various front-end stacks. One of Ashutosh's standout qualities is his proactive involvement in open-source contributions. Not only did he actively contribute to open-source projects, but he also played a crucial role in fostering a culture of open-source engagement within our team at Bookingjini. His efforts not only enhanced his own skills but also benefited the broader developer community. Ashutosh's commitment to delivering high-quality solutions is unmatched. I wholeheartedly recommend him for any front-end role, and I'm confident he will excel in his new position."
     },
     {
-      "clientName": "Product Manager",
-      "role": "PM / Stakeholder",
-      "review": "A reliable developer who understands requirements quickly and delivers polished results. Highly recommended for any modern frontend project.",
-      "rating": 5
+      "clientName": "Suraj Roy",
+      "role": "Designer at Accenture",
+      "review": "I highly recommend my former college junior Ashutosh. I had the pleasure of working closely with him on numerous projects during our time together in college. Not only did we collaborate effectively as colleagues, but I also had the opportunity to be a client for one of our projects, where he played a crucial role in developing my portfolio. Ashutosh possesses exceptional web development skills, consistently delivering high-quality work on all our projects. His proficiency in frontend technologies is impressive and his ability to turn ideas into functional and aesthetically pleasing web applications is commendable. Moreover, his soft skills are equally impressive. He is an excellent communicator, a dependable team player, and has a strong work ethic. His dedication to meeting deadlines and his willingness to go the extra mile to ensure client satisfaction make him an asset to any team. I have no doubt that he will continue to excel in his role and contribute significantly to the success of the company. He is not only a talented developer but also a person of integrity and professionalism. I wholeheartedly endorse him and believe he will be a valuable addition to any organization fortunate enough to have him on board."
     }
   ],
   "socialLinks": [

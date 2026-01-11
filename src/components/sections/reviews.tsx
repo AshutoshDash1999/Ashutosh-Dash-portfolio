@@ -51,12 +51,11 @@ export default function Reviews() {
               <CardHeader>
                 <CardTitle className="text-xl">{review.clientName}</CardTitle>
                 <div className="text-sm text-foreground">{review.role}</div>
-                {review.rating && (
-                  <div className="text-main">{"★".repeat(review.rating)}</div>
-                )}
               </CardHeader>
               <CardContent>
-                <p className="text-foreground italic">"{review.review}"</p>
+                <p className="text-foreground italic line-clamp-4">
+                  "{review.review}"
+                </p>
               </CardContent>
             </Card>
           </motion.div>
