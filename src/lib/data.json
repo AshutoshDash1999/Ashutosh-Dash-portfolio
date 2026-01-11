@@ -1,8 +1,8 @@
 {
   "personal": {
     "name": "Ashutosh Dash",
-    "title": "Full Stack Developer",
-    "bio": "Passionate developer building modern web applications with cutting-edge technologies. Specializing in React, Next.js, and cloud-native solutions."
+    "title": "Frontend Developer | React & Next.js Specialist",
+    "bio": "Frontend engineer specializing in building fast, intuitive, and scalable web applications. Experienced with React, Next.js, TypeScript, and modern UI frameworks like Shadcn UI, Mantine, Ant Design, Material UI, and Tailwind. Passionate about crafting clean interfaces, improving performance, and contributing to open-source projects."
   },
   "navbar": {
     "logo": "A.D.",
@@ -18,130 +18,135 @@
   "techSkills": [
     { "name": "React", "category": "Frontend" },
     { "name": "Next.js", "category": "Frontend" },
+    { "name": "React Native", "category": "Frontend" },
     { "name": "TypeScript", "category": "Frontend" },
-    { "name": "Node.js", "category": "Backend" },
-    { "name": "Express", "category": "Backend" },
-    { "name": "PostgreSQL", "category": "Backend" },
-    { "name": "MongoDB", "category": "Backend" },
+    { "name": "JavaScript", "category": "Frontend" },
+    { "name": "HTML", "category": "Frontend" },
+    { "name": "CSS", "category": "Frontend" },
+    { "name": "Mantine UI", "category": "Frontend" },
+    { "name": "Ant Design", "category": "Frontend" },
+    { "name": "Material UI", "category": "Frontend" },
+    { "name": "Chakra UI", "category": "Frontend" },
     { "name": "Tailwind CSS", "category": "Frontend" },
+    { "name": "Bootstrap", "category": "Frontend" },
+    { "name": "Node.js", "category": "Backend" },
+    { "name": "Firebase", "category": "Backend" },
     { "name": "Git", "category": "Tools" },
-    { "name": "Docker", "category": "Tools" },
-    { "name": "AWS", "category": "Tools" },
-    { "name": "Python", "category": "Backend" }
+    { "name": "GitHub", "category": "Tools" }
   ],
   "experience": [
     {
-      "company": "Tech Innovations Inc.",
-      "role": "Senior Full Stack Developer",
-      "duration": "2022 - Present",
-      "description": "Leading development of scalable web applications using React and Node.js. Mentoring junior developers and implementing best practices.",
-      "technologies": ["React", "Node.js", "TypeScript", "PostgreSQL"]
+      "company": "Learningpad",
+      "role": "React JS Developer",
+      "duration": "May 2024 - Present",
+      "description": "Building high-quality dashboards and internal tools using Next.js, React, Mantine, and Refine. Responsible for UI development, performance optimization, analytics implementation, API integrations, and code quality improvements. Mentored interns and participated actively in code reviews.",
+      "technologies": ["Next.js", "React", "Mantine", "Refine", "Node.js"]
     },
     {
-      "company": "Digital Solutions LLC",
+      "company": "Badho",
       "role": "Full Stack Developer",
-      "duration": "2020 - 2022",
-      "description": "Developed and maintained multiple client projects. Collaborated with cross-functional teams to deliver high-quality products.",
-      "technologies": ["React", "Express", "MongoDB", "AWS"]
+      "duration": "October 2023 - April 2024",
+      "description": "Worked on a React Native mobile application with a strong focus on UI refactoring, performance tuning, and seamless user experience. Implemented analytics tracking and integrated backend APIs using Node.js while improving component reusability.",
+      "technologies": ["React Native", "Node.js", "JavaScript"]
     },
     {
-      "company": "StartupXYZ",
-      "role": "Junior Developer",
-      "duration": "2018 - 2020",
-      "description": "Built responsive web applications and learned modern development practices. Contributed to team projects and code reviews.",
-      "technologies": ["JavaScript", "React", "Node.js"]
+      "company": "BookingJini",
+      "role": "Frontend Developer",
+      "duration": "February 2023 - September 2023",
+      "description": "Developed a QR-based restaurant menu application, built a hotel check-in sub-system, and modernized the booking engine using modular, reusable components. Maintained the BookingJini Icons Pack open-source library.",
+      "technologies": ["React", "JavaScript", "CSS"]
     }
   ],
   "projects": [
     {
-      "title": "E-Commerce Platform",
-      "description": "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
-      "technologies": ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
-      "demo": "https://example.com/demo",
-      "repo": "https://github.com/example/repo"
+      "title": "QR Menu & Ordering System",
+      "description": "A web application that enables restaurant customers to scan QR codes to access menus, view items, and place dine-in orders. Designed for speed, accessibility, and ease of use.",
+      "technologies": ["React", "JavaScript", "Tailwind CSS"],
+      "demo": "",
+      "repo": ""
     },
     {
-      "title": "Task Management App",
-      "description": "Collaborative task management tool with real-time updates, team collaboration features, and analytics dashboard.",
-      "technologies": ["React", "Express", "MongoDB", "Socket.io"],
-      "demo": "https://example.com/tasks",
-      "repo": "https://github.com/example/tasks"
+      "title": "Hotel Walk-In Registration System",
+      "description": "A sub-application for hotel front desks that handles customer walk-ins, registration workflows, and real-time inventory updates. Built with a modular and scalable frontend architecture.",
+      "technologies": ["React", "JavaScript"],
+      "demo": "",
+      "repo": ""
     },
     {
-      "title": "Portfolio Website",
-      "description": "Personal portfolio website showcasing projects, skills, and experience with modern UI/UX design.",
-      "technologies": ["Next.js", "TypeScript", "Tailwind CSS"],
-      "demo": "https://example.com/portfolio",
-      "repo": "https://github.com/example/portfolio"
+      "title": "Booking Engine Revamp",
+      "description": "A complete redesign of the BookingJini booking engine with improved UX, cleaner component structure, reusable UI modules, and better maintainability.",
+      "technologies": ["React", "JavaScript", "CSS"],
+      "demo": "",
+      "repo": ""
     }
   ],
   "freelance": {
     "title": "Available for Freelance/Contract Projects",
-    "description": "I'm currently accepting new freelance/contract based opportunities. Whether you need a complete web application, API development, or consultation, I'd love to hear about your project."
+    "description": "Open to collaborating on frontend development, UI engineering, React/Next.js applications, and performance-focused web builds. If you have a project in mind, feel free to reach out."
   },
   "reviews": [
     {
-      "clientName": "John Smith",
-      "role": "CEO, Tech Innovations Inc.",
-      "review": "Ashutosh delivered exceptional work on our platform. His technical expertise and attention to detail made the project a huge success.",
+      "clientName": "Client Testimonial Placeholder",
+      "role": "Client / Collaborator",
+      "review": "Working with Ashutosh has been a seamless experience. His attention to detail, UI expertise, and ability to deliver quality work on time significantly elevated the project.",
       "rating": 5
     },
     {
-      "clientName": "Sarah Johnson",
-      "role": "Product Manager, Digital Solutions",
-      "review": "Working with Ashutosh was a great experience. He's professional, reliable, and always delivers quality code on time.",
+      "clientName": "Team Lead",
+      "role": "Engineering Lead",
+      "review": "Ashutosh consistently demonstrates strong problem-solving skills, ownership, and a great sense of design. His contributions have meaningfully improved our product quality.",
       "rating": 5
     },
     {
-      "clientName": "Mike Chen",
-      "role": "Founder, StartupXYZ",
-      "review": "Ashutosh helped us build our MVP quickly and efficiently. His problem-solving skills and dedication are outstanding.",
+      "clientName": "Product Manager",
+      "role": "PM / Stakeholder",
+      "review": "A reliable developer who understands requirements quickly and delivers polished results. Highly recommended for any modern frontend project.",
       "rating": 5
     }
   ],
   "socialLinks": [
     {
       "platform": "GitHub",
-      "url": "https://github.com/ashutosh-dash",
+      "url": "https://github.com/ashutoshdash1999",
       "icon": "github"
     },
     {
       "platform": "LinkedIn",
-      "url": "https://linkedin.com/in/ashutosh-dash",
+      "url": "https://www.linkedin.com/in/ashutoshdash1999",
       "icon": "linkedin"
     },
     {
       "platform": "Twitter",
-      "url": "https://twitter.com/ashutosh_dash",
+      "url": "https://x.com/ashutoshdash99",
       "icon": "twitter"
     },
     {
       "platform": "Email",
-      "url": "mailto:ashutosh@example.com",
+      "url": "mailto:dashashutosh1999@gmail.com",
       "icon": "mail"
     }
   ],
   "faq": {
     "infoPanels": [
       {
-        "title": "Who made this?",
+        "title": "What kind of roles are you looking for?",
         "icon": "asterisk",
-        "content": "My name is Nick, I love creating software. Spotify's collaborative playlists are great, but not everyone has Spotify (including me) so I needed something different."
+        "content": "I am seeking frontend-focused roles where I can work with React, Next.js, and modern UI frameworks. I enjoy building clean, scalable interfaces and would be a strong fit for teams that value quality engineering, thoughtful design, and ownership."
       },
       {
-        "title": "Open Source",
+        "title": "How do you approach problem-solving?",
         "icon": "headphones",
-        "content": "I have some ideas for where this could go! Maybe adding a song could be a \"paid\" feature for businesses to use it like a real jukebox. It's open in case someone else has ideas they want to implement."
+        "content": "I break down problems into smaller components, analyze edge cases, and evaluate trade-offs before committing to a solution. I value clarity, maintainability, and predictable outcomes. I also rely heavily on data—profiling tools, performance metrics, and user insights—to guide optimizations."
       },
       {
-        "title": "What does this do?",
+        "title": "What strengths do you bring to a development team?",
         "icon": "settings",
-        "content": "Right now it's really simple and tiny, kind of a toy project. You can create a \"box\" and then send your friends a link to add songs or do it yourself."
+        "content": "My strengths include strong UI/UX intuition, deep understanding of React and component architecture, clean code practices, and an ability to communicate clearly with designers, PMs, and backend engineers. I’m proactive, detail-oriented, and comfortable owning end-to-end delivery."
       },
       {
-        "title": "Is it fair if I have a large group?",
+        "title": "How do you ensure code quality and maintainability?",
         "icon": "star",
-        "content": "Yes! When songs get added to the queue, they're automatically sorted in a fair order. If person A adds two songs and person B adds one, B's song goes between A's. Scales infinitely!"
+        "content": "I rely on consistent coding standards, reusable components, proper file structures, and strict type-safety when possible. I write clear documentation, perform thorough code reviews, and optimize for readability without compromising performance."
       }
     ]
   }

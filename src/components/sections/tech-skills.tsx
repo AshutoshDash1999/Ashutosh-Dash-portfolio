@@ -1,19 +1,20 @@
 import Marquee from "@/components/ui/marquee";
 import data from "@/lib/data.json";
 import {
-  IconBrandAws,
-  IconBrandDocker,
+  IconBrandBootstrap,
+  IconBrandCss3,
+  IconBrandFirebase,
   IconBrandGit,
+  IconBrandGithub,
+  IconBrandHtml5,
   IconBrandJavascript,
   IconBrandNextjs,
   IconBrandNodejs,
-  IconBrandPython,
   IconBrandReact,
   IconBrandTailwind,
   IconBrandTypescript,
-  IconCloud,
   IconCode,
-  IconDatabase,
+  IconPalette,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 
@@ -23,16 +24,21 @@ const iconMap: Record<
 > = {
   React: IconBrandReact,
   "Next.js": IconBrandNextjs,
+  "React Native": IconBrandReact,
   TypeScript: IconBrandTypescript,
-  "Node.js": IconBrandNodejs,
-  Express: IconCode,
-  PostgreSQL: IconDatabase,
-  MongoDB: IconDatabase,
+  JavaScript: IconBrandJavascript,
+  HTML: IconBrandHtml5,
+  CSS: IconBrandCss3,
+  "Mantine UI": IconPalette,
+  "Ant Design": IconPalette,
+  "Material UI": IconPalette,
+  "Chakra UI": IconPalette,
   "Tailwind CSS": IconBrandTailwind,
+  Bootstrap: IconBrandBootstrap,
+  "Node.js": IconBrandNodejs,
+  Firebase: IconBrandFirebase,
   Git: IconBrandGit,
-  Docker: IconBrandDocker,
-  AWS: IconBrandAws,
-  Python: IconBrandPython,
+  GitHub: IconBrandGithub,
 };
 
 export default function TechSkills() {
