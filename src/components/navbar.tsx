@@ -69,7 +69,7 @@ export default function Navbar() {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <div className="flex items-center">
-              <Image src={navbar.logo} alt="logo" width={150} height={150} />
+              <Image src={navbar.logo} alt="logo" width={100} height={100} />
 
               <Badge variant={isScrolled ? "chart3" : "default"}>
                 {VERSION}
