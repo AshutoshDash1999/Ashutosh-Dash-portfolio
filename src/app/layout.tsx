@@ -77,6 +77,9 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   category: "Portfolio",
+  icons: {
+    icon: "/favicon.ico",
+  },
   other: {
     "contact:email": "dashashutosh1999@gmail.com",
   },

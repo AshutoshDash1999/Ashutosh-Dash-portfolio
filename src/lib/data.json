@@ -1,11 +1,11 @@
 {
   "personal": {
     "name": "Ashutosh Dash",
-    "title": "Frontend Developer | React & Next.js Specialist",
+    "title": "Frontend Developer | React & Next.js",
     "bio": "Frontend engineer specializing in building fast, intuitive, and scalable web applications. Experienced with React, Next.js, TypeScript, and modern UI frameworks like Shadcn UI, Mantine, Ant Design, Material UI, and Tailwind. Passionate about crafting clean interfaces, improving performance, and contributing to open-source projects."
   },
   "navbar": {
-    "logo": "A.D.",
+    "logo": "/logo.png",
     "links": [
       { "label": "Skills", "href": "#skills" },
       { "label": "Experience", "href": "#experience" },
@@ -103,17 +103,20 @@
     {
       "clientName": "Roshni Satpathy",
       "role": "Designer",
-      "review": "I had the pleasure of working with Ashutosh Dash as his client, and I was truly impressed with his expertise in Frontend Development, React, and JavaScript. He has a great eye for detail, communicates clearly, and always delivers high-quality work on time. Ashutosh not only understood the requirements quickly but also suggested valuable improvements, making the final outcome even better. His mix of technical skill and problem-solving ability makes him a reliable and talented UI/Frontend Developer I would highly recommend."
+      "review": "I had the pleasure of working with Ashutosh Dash as his client, and I was truly impressed with his expertise in Frontend Development, React, and JavaScript. He has a great eye for detail, communicates clearly, and always delivers high-quality work on time. Ashutosh not only understood the requirements quickly but also suggested valuable improvements, making the final outcome even better. His mix of technical skill and problem-solving ability makes him a reliable and talented UI/Frontend Developer I would highly recommend.",
+      "linkedin": "https://www.linkedin.com/in/roshnisatpathy"
     },
     {
       "clientName": "Ramanujam Gond",
       "role": "Frontend Developer at Bookingjini",
-      "review": "Ashutosh possesses a rare combination of technical expertise and creative problem-solving abilities that make him a standout developer. His proficiency in React, JavaScript, and UI development is truly commendable, and he consistently demonstrated a strong command over various front-end stacks. One of Ashutosh's standout qualities is his proactive involvement in open-source contributions. Not only did he actively contribute to open-source projects, but he also played a crucial role in fostering a culture of open-source engagement within our team at Bookingjini. His efforts not only enhanced his own skills but also benefited the broader developer community. Ashutosh's commitment to delivering high-quality solutions is unmatched. I wholeheartedly recommend him for any front-end role, and I'm confident he will excel in his new position."
+      "review": "Ashutosh possesses a rare combination of technical expertise and creative problem-solving abilities that make him a standout developer. His proficiency in React, JavaScript, and UI development is truly commendable, and he consistently demonstrated a strong command over various front-end stacks. One of Ashutosh's standout qualities is his proactive involvement in open-source contributions. Not only did he actively contribute to open-source projects, but he also played a crucial role in fostering a culture of open-source engagement within our team at Bookingjini. His efforts not only enhanced his own skills but also benefited the broader developer community. Ashutosh's commitment to delivering high-quality solutions is unmatched. I wholeheartedly recommend him for any front-end role, and I'm confident he will excel in his new position.",
+      "linkedin": "https://www.linkedin.com/in/ramanujamgond"
     },
     {
       "clientName": "Suraj Roy",
       "role": "Designer at Accenture",
-      "review": "I highly recommend my former college junior Ashutosh. I had the pleasure of working closely with him on numerous projects during our time together in college. Not only did we collaborate effectively as colleagues, but I also had the opportunity to be a client for one of our projects, where he played a crucial role in developing my portfolio. Ashutosh possesses exceptional web development skills, consistently delivering high-quality work on all our projects. His proficiency in frontend technologies is impressive and his ability to turn ideas into functional and aesthetically pleasing web applications is commendable. Moreover, his soft skills are equally impressive. He is an excellent communicator, a dependable team player, and has a strong work ethic. His dedication to meeting deadlines and his willingness to go the extra mile to ensure client satisfaction make him an asset to any team. I have no doubt that he will continue to excel in his role and contribute significantly to the success of the company. He is not only a talented developer but also a person of integrity and professionalism. I wholeheartedly endorse him and believe he will be a valuable addition to any organization fortunate enough to have him on board."
+      "review": "I highly recommend my former college junior Ashutosh. I had the pleasure of working closely with him on numerous projects during our time together in college. Not only did we collaborate effectively as colleagues, but I also had the opportunity to be a client for one of our projects, where he played a crucial role in developing my portfolio. Ashutosh possesses exceptional web development skills, consistently delivering high-quality work on all our projects. His proficiency in frontend technologies is impressive and his ability to turn ideas into functional and aesthetically pleasing web applications is commendable. Moreover, his soft skills are equally impressive. He is an excellent communicator, a dependable team player, and has a strong work ethic. His dedication to meeting deadlines and his willingness to go the extra mile to ensure client satisfaction make him an asset to any team. I have no doubt that he will continue to excel in his role and contribute significantly to the success of the company. He is not only a talented developer but also a person of integrity and professionalism. I wholeheartedly endorse him and believe he will be a valuable addition to any organization fortunate enough to have him on board.",
+      "linkedin": "https://www.linkedin.com/in/suraj-roy-721729203"
     }
   ],
   "socialLinks": [

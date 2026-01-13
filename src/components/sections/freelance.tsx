@@ -9,7 +9,7 @@ export default function Freelance() {
   return (
     <section
       id="freelance"
-      className="container mx-auto px-12 py-16 md:py-24 bg-chart-3 border-y-4 border-border"
+      className="  px-12 py-16 md:py-24 bg-chart-3 border-y-4 border-border"
     >
       <motion.div
         className="max-w-3xl mx-auto"
@@ -18,7 +18,7 @@ export default function Freelance() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Card className="hover:shadow-lg transition-shadow duration-300">
+        <Card className="hover:shadow-lg transition-shadow duration-300 bg-secondary-background">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl md:text-3xl">
               {freelance.title}

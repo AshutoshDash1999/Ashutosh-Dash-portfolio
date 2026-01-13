@@ -8,6 +8,7 @@ import {
   IconBrandGithub,
   IconBrandHtml5,
   IconBrandJavascript,
+  IconBrandMantine,
   IconBrandNextjs,
   IconBrandNodejs,
   IconBrandReact,
@@ -29,7 +30,7 @@ const iconMap: Record<
   JavaScript: IconBrandJavascript,
   HTML: IconBrandHtml5,
   CSS: IconBrandCss3,
-  "Mantine UI": IconPalette,
+  "Mantine UI": IconBrandMantine,
   "Ant Design": IconPalette,
   "Material UI": IconPalette,
   "Chakra UI": IconPalette,
@@ -55,7 +56,7 @@ export default function TechSkills() {
   });
 
   return (
-    <section id="skills" className="container mx-auto py-16 md:py-24">
+    <section id="skills" className="  py-16 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}

@@ -45,7 +45,7 @@ export default function FAQ() {
   return (
     <section
       id="faqs"
-      className="container mx-auto px-12 py-16 md:py-24 bg-chart-5 border-y-4 border-border"
+      className="px-12 py-16 md:py-24 bg-chart-5 border-y-4 border-border"
     >
       <motion.h2
         className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
@@ -71,7 +71,9 @@ export default function FAQ() {
             <motion.div key={index} variants={itemVariants}>
               <Card
                 className={`h-full hover:shadow-lg transition-shadow duration-300 ${
-                  isOdd ? "bg-chart-3 text-main-foreground" : "bg-background"
+                  isOdd
+                    ? "bg-chart-3 text-main-foreground"
+                    : "bg-secondary-background"
                 }`}
               >
                 <CardHeader>

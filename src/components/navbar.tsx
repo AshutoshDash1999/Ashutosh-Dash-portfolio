@@ -14,6 +14,7 @@ import data from "@/lib/data.json";
 import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Badge } from "./ui/badge";
 
@@ -58,7 +59,7 @@ export default function Navbar() {
           : "border-b-0 bg-background"
       }`}
     >
-      <div className="container mx-auto px-12">
+      <div className="px-12">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <motion.div
@@ -67,7 +68,13 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {navbar.logo} <Badge>{VERSION}</Badge>
+            <div className="flex items-center">
+              <Image src={navbar.logo} alt="logo" width={150} height={150} />
+
+              <Badge variant={isScrolled ? "chart3" : "default"}>
+                {VERSION}
+              </Badge>
+            </div>
           </motion.div>
 
           {/* Desktop Navigation */}

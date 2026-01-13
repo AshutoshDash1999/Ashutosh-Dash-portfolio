@@ -8,7 +8,7 @@ export default function Hero() {
   const { personal } = data;
 
   return (
-    <section id="hero" className="container mx-auto px-12 py-16 md:py-24">
+    <section id="hero" className="  px-12 py-16 md:py-24">
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <motion.div
           className="flex-1 space-y-4"
