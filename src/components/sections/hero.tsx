@@ -26,7 +26,7 @@ export default function Hero() {
             {personal.name}
           </motion.h1>
           <motion.h2
-            className="text-2xl md:text-3xl lg:text-4xl font-heading text-main"
+            className="text-2xl md:text-3xl lg:text-4xl font-heading text-main inline-block [text-shadow:2px_2px_0_var(--color-border),-1px_-1px_0_var(--color-border),1px_-1px_0_var(--color-border),-1px_1px_0_var(--color-border)]"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}

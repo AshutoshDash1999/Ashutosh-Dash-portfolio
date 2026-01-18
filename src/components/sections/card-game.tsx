@@ -65,10 +65,35 @@ export default function CardGame() {
   const [firstCard, setFirstCard] = useState<Card | null>(null);
   const [secondCard, setSecondCard] = useState<Card | null>(null);
   const [isFlipping, setIsFlipping] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
 
   const idleIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const idleIndexRef = useRef<number>(0);
   const previousSequenceIndicesRef = useRef<number[]>([]);
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
+    },
+  };
 
   const initializeCards = useCallback(() => {
     const pairs = [...ANIMALS, ...ANIMALS];
@@ -95,6 +120,7 @@ export default function CardGame() {
     setGameState("playing");
     setIsFlipping(false);
     idleIndexRef.current = 0;
+    setAnimationKey((prev) => prev + 1);
   };
 
   const restartGame = () => {
@@ -209,11 +235,12 @@ export default function CardGame() {
       const initialCards = initializeCards();
       setCards(initialCards);
       setGameState("idle");
+      setAnimationKey((prev) => prev + 1);
     }
   }, [cards.length, initializeCards]);
 
   return (
-    <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
+    <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4 overflow-hidden">
       {/* Controls */}
       <div className="flex justify-center gap-4">
         {(gameState === "idle") && (
@@ -237,7 +264,13 @@ export default function CardGame() {
       </div>
 
       {/* Game Grid */}
-      <div className="grid grid-cols-4 gap-4 flex-1">
+      <motion.div
+        key={animationKey}
+        className="grid grid-cols-4 gap-4 flex-1"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {cards.map((card) => {
           const Icon = card.animalIcon;
           const isFlipped = card.flipped || card.matched;
@@ -248,6 +281,7 @@ export default function CardGame() {
               key={card.id}
               className="relative cursor-pointer perspective-[1000px] hover:scale-105 transition-all duration-300"
               onClick={() => handleCardClick(card)}
+              variants={cardVariants}
             >
               <motion.div
                 className="relative w-full h-full rounded-lg border-2 border-border shadow-shadow transform-3d "
@@ -281,7 +315,7 @@ export default function CardGame() {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }
