@@ -216,7 +216,7 @@ export default function CardGame() {
     <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
       {/* Controls */}
       <div className="flex justify-center gap-4">
-        {(gameState === "idle" || gameState === "ended") && (
+        {(gameState === "idle") && (
           <Button onClick={startGame} size="lg" className="bg-chart-2">
             <IconDeviceGamepad2 className=" size-5" />
             Start Game
