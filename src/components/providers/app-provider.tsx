@@ -1,12 +1,11 @@
 "use client";
 import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuShortcut,
-  ContextMenuTrigger,
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuShortcut,
+    ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import data from "@/lib/data.json";
 import { IconBrandGithub, IconFileText, IconMail } from "@tabler/icons-react";
 import Link from "next/link";
 import { ThemeProvider } from "./theme-provider";

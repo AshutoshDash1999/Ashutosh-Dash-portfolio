@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
 } from "@/components/ui/sheet";
 import { VERSION } from "@/lib/constants";
 import data from "@/lib/data.json";
@@ -106,14 +106,15 @@ export default function Navbar() {
                 aria-label="Toggle dark mode"
                 className="relative overflow-hidden"
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="sync" initial={false}>
                   {theme === "dark" ? (
                     <motion.div
                       key="sun"
                       initial={{ rotate: -90, scale: 0, opacity: 0 }}
                       animate={{ rotate: 0, scale: 1, opacity: 1 }}
                       exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      transition={{ duration: 0.15, ease: "easeOut" }}
+                      className="absolute inset-0 flex items-center justify-center"
                     >
                       <IconSun className="size-5" />
                     </motion.div>
@@ -123,7 +124,8 @@ export default function Navbar() {
                       initial={{ rotate: 90, scale: 0, opacity: 0 }}
                       animate={{ rotate: 0, scale: 1, opacity: 1 }}
                       exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      transition={{ duration: 0.15, ease: "easeOut" }}
+                      className="absolute inset-0 flex items-center justify-center"
                     >
                       <IconMoon className="size-5" />
                     </motion.div>
@@ -177,20 +179,20 @@ export default function Navbar() {
                 >
                   <Button
                     variant="neutral"
-                    className="w-full justify-start"
+                    className="w-full justify-start relative overflow-hidden"
                     onClick={() =>
                       setTheme(theme === "dark" ? "light" : "dark")
                     }
                     aria-label="Toggle dark mode"
                   >
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence mode="sync" initial={false}>
                       {theme === "dark" ? (
                         <motion.div
                           key="sun-mobile"
                           initial={{ rotate: -90, scale: 0, opacity: 0 }}
                           animate={{ rotate: 0, scale: 1, opacity: 1 }}
                           exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
                           className="flex items-center"
                         >
                           <IconSun className="size-5 mr-2" />
@@ -202,7 +204,7 @@ export default function Navbar() {
                           initial={{ rotate: 90, scale: 0, opacity: 0 }}
                           animate={{ rotate: 0, scale: 1, opacity: 1 }}
                           exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
                           className="flex items-center"
                         >
                           <IconMoon className="size-5 mr-2" />
