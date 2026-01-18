@@ -3,6 +3,7 @@ import { IconFileText } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import CardGame from "./card-game";
 
 export default function Hero() {
   const { personal } = data;
@@ -67,9 +68,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
         >
-          <div className="w-full h-full min-h-96 border-4 border-border rounded-base bg-secondary-background">
-            {/* 3D Element will be added here */}
-          </div>
+          <CardGame />
         </motion.div>
       </div>
     </section>

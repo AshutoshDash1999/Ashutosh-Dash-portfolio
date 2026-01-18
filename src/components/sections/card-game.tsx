@@ -1,0 +1,287 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+    IconButterfly,
+    IconCardsFilled,
+    IconCat,
+    IconDeer,
+    IconDeviceGamepad2,
+    IconDog,
+    IconFish,
+    IconPig,
+    IconRefresh,
+    IconRotateClockwise
+} from "@tabler/icons-react";
+import { motion } from "motion/react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
+type GameState = "idle" | "playing" | "ended";
+
+type AnimalIconType = React.ComponentType<{
+  className?: string;
+  size?: number;
+}>;
+
+type Card = {
+  id: string;
+  animalIcon: AnimalIconType;
+  animalKey: string;
+  backgroundColor: string;
+  flipped: boolean;
+  matched: boolean;
+};
+
+const ANIMALS: { icon: AnimalIconType; key: string; backgroundColor: string }[] = [
+  { icon: IconDog, key: "dog", backgroundColor: "var(--chart-8)" },
+  { icon: IconCat, key: "cat", backgroundColor: "var(--chart-2)" },
+  { icon: IconDeer, key: "deer", backgroundColor: "var(--chart-3)" },
+  { icon: IconFish, key: "fish", backgroundColor: "var(--chart-4)" },
+  { icon: IconPig, key: "pig", backgroundColor: "var(--chart-5)" },
+  { icon: IconButterfly, key: "butterfly", backgroundColor: "var(--chart-6)" },
+];
+
+// Idle flip sequence: defines which card indices (0-based) flip at each second
+// Pattern repeats cyclically (for 12 cards in 3x4 grid)
+const idleFlipSequence: number[][] = [
+    [0, 5, 10],   // Card 0 (row 0, col 0), Card 5 (row 1, col 1), Card 10 (row 2, col 2)
+    [3, 4, 9],    // Card 3 (row 0, col 3), Card 4 (row 1, col 0), Card 9 (row 2, col 1)
+    [1, 7, 11],   // Card 1 (row 0, col 1), Card 7 (row 1, col 3), Card 11 (row 2, col 3)
+    [2, 6, 8],    // Card 2 (row 0, col 2), Card 6 (row 1, col 2), Card 8 (row 2, col 0)
+];
+
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+export default function CardGame() {
+  const [gameState, setGameState] = useState<GameState>("idle");
+  const [cards, setCards] = useState<Card[]>([]);
+  const [firstCard, setFirstCard] = useState<Card | null>(null);
+  const [secondCard, setSecondCard] = useState<Card | null>(null);
+  const [isFlipping, setIsFlipping] = useState(false);
+
+  const idleIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const idleIndexRef = useRef<number>(0);
+  const previousSequenceIndicesRef = useRef<number[]>([]);
+
+  const initializeCards = useCallback(() => {
+    const pairs = [...ANIMALS, ...ANIMALS];
+    const shuffled = shuffleArray(pairs);
+    return shuffled.map((animal, idx) => ({
+      id: `${idx}-${animal.key}`,
+      animalIcon: animal.icon,
+      animalKey: animal.key,
+      backgroundColor: animal.backgroundColor,
+      flipped: false,
+      matched: false,
+    }));
+  }, []);
+
+  const startGame = () => {
+    if (idleIntervalRef.current) {
+      clearInterval(idleIntervalRef.current);
+      idleIntervalRef.current = null;
+    }
+    const newCards = initializeCards();
+    setCards(newCards);
+    setFirstCard(null);
+    setSecondCard(null);
+    setGameState("playing");
+    setIsFlipping(false);
+    idleIndexRef.current = 0;
+  };
+
+  const restartGame = () => {
+    startGame();
+  };
+
+  const handleCardClick = (card: Card) => {
+    if (
+      gameState !== "playing" ||
+      card.flipped ||
+      card.matched ||
+      isFlipping
+    )
+      return;
+
+    if (firstCard === null) {
+      setCards((prev) =>
+        prev.map((c) => (c.id === card.id ? { ...c, flipped: true } : c))
+      );
+      setFirstCard(card);
+    } else if (secondCard === null && card.id !== firstCard.id) {
+      setCards((prev) =>
+        prev.map((c) => (c.id === card.id ? { ...c, flipped: true } : c))
+      );
+      setSecondCard(card);
+      setIsFlipping(true);
+    }
+  };
+
+  // Handle matching logic
+  useEffect(() => {
+    if (firstCard && secondCard && isFlipping) {
+      const timer = setTimeout(() => {
+        if (firstCard.animalKey === secondCard.animalKey) {
+          // Match found
+          setCards((prev) =>
+            prev.map((c) =>
+              c.animalKey === firstCard.animalKey
+                ? { ...c, matched: true }
+                : c
+            )
+          );
+        } else {
+          // No match - flip back
+          setCards((prev) =>
+            prev.map((c) =>
+              c.id === firstCard.id || c.id === secondCard.id
+                ? { ...c, flipped: false }
+                : c
+            )
+          );
+        }
+        setFirstCard(null);
+        setSecondCard(null);
+        setIsFlipping(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [firstCard, secondCard, isFlipping]);
+
+  // Check if game is won
+  useEffect(() => {
+    if (
+      gameState === "playing" &&
+      cards.length > 0 &&
+      cards.every((card) => card.matched)
+    ) {
+      setGameState("ended");
+    }
+  }, [cards, gameState]);
+
+  // Idle mode auto-flip with hardcoded sequence
+  useEffect(() => {
+    if (gameState === "idle" && cards.length > 0) {
+      idleIntervalRef.current = setInterval(() => {
+        const sequenceIndex = idleIndexRef.current % idleFlipSequence.length;
+        const cardIndices = idleFlipSequence[sequenceIndex];
+        const previousIndices = previousSequenceIndicesRef.current;
+        
+        setCards((prev) =>
+          prev.map((card, idx) => {
+            // First, flip back cards from previous sequence
+            if (previousIndices.includes(idx)) {
+              return { ...card, flipped: false };
+            }
+            // Then, flip new cards in current sequence
+            if (cardIndices.includes(idx)) {
+              return { ...card, flipped: true };
+            }
+            return card;
+          })
+        );
+        
+        // Update previous sequence for next iteration
+        previousSequenceIndicesRef.current = cardIndices;
+        idleIndexRef.current += 1;
+      }, 1000);
+    }
+
+    return () => {
+      if (idleIntervalRef.current) {
+        clearInterval(idleIntervalRef.current);
+        idleIntervalRef.current = null;
+      }
+    };
+  }, [gameState, cards.length]);
+
+  // Initialize cards on mount
+  useEffect(() => {
+    if (cards.length === 0) {
+      const initialCards = initializeCards();
+      setCards(initialCards);
+      setGameState("idle");
+    }
+  }, [cards.length, initializeCards]);
+
+  return (
+    <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
+      {/* Controls */}
+      <div className="flex justify-center gap-4">
+        {(gameState === "idle" || gameState === "ended") && (
+          <Button onClick={startGame} size="lg" className="bg-chart-2">
+            <IconDeviceGamepad2 className=" size-5" />
+            Start Game
+          </Button>
+        )}
+        {gameState === "playing" && (
+          <Button onClick={restartGame} size="lg" variant="neutral" className="bg-chart-15">
+            <IconRefresh className=" size-5" />
+            Restart Game
+          </Button>
+        )}
+        {gameState === "ended" && (
+          <Button onClick={restartGame} size="lg">
+            <IconRotateClockwise className="mr-2 size-5" />
+            Play Again
+          </Button>
+        )}
+      </div>
+
+      {/* Game Grid */}
+      <div className="grid grid-cols-4 gap-4 flex-1">
+        {cards.map((card) => {
+          const Icon = card.animalIcon;
+          const isFlipped = card.flipped || card.matched;
+    
+
+          return (
+            <motion.div
+              key={card.id}
+              className="relative cursor-pointer perspective-[1000px] hover:scale-105 transition-all duration-300"
+              onClick={() => handleCardClick(card)}
+            >
+              <motion.div
+                className="relative w-full h-full rounded-lg border-2 border-border shadow-shadow transform-3d "
+                animate={{
+                  rotateY: isFlipped ? 180 : 0,
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                {/* Card Front (Animal Icon) */}
+                <div
+                  className="absolute inset-0 rounded-base flex items-center justify-center backface-hidden transform-[rotateY(180deg)]"
+                  style={{
+                    backgroundColor: card.backgroundColor,
+                  }}
+                >
+                  <Icon className="size-12 text-secondary-background" />
+                </div>
+
+                {/* Card Back (PlayCard Icon) */}
+                <div
+                  className="absolute inset-0 rounded-base flex items-center justify-center bg-chart-7 backface-hidden"
+                >
+                  <IconCardsFilled className="size-12 text-secondary-background" />
+                </div>
+              </motion.div>
+
+              {/* Overlay for matched cards */}
+              {card.matched && (
+                <div className="absolute inset-0 rounded-base  bg-main/10 pointer-events-none" />
+              )}
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

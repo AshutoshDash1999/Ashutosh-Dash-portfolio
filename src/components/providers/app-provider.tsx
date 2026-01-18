@@ -23,9 +23,6 @@ export default function AppProvider({
     }
   };
 
-  const githubUrl =
-    data.socialLinks.find((link) => link.platform === "GitHub")?.url ||
-    "https://github.com";
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <ContextMenu>
@@ -38,7 +35,13 @@ export default function AppProvider({
             <ContextMenuShortcut></ContextMenuShortcut>
           </ContextMenuItem>
           <ContextMenuItem asChild>
-            <Link href={githubUrl} target="_blank" rel="noopener noreferrer">
+            <Link
+              href={
+                "https://github.com/AshutoshDash1999/Ashutosh-Dash-portfolio"
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IconBrandGithub className="mr-2 size-4" />
               View Source Code
               <ContextMenuShortcut></ContextMenuShortcut>
