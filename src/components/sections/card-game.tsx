@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    IconButterfly,
+    IconBrandJavascript,
+    IconBrandNextjs,
+    IconBrandNodejs,
+    IconBrandReact,
+    IconBrandTailwind,
+    IconBrandTypescript,
     IconCardsFilled,
-    IconCat,
-    IconDeer,
     IconDeviceGamepad2,
-    IconDog,
-    IconFish,
-    IconPig,
     IconRefresh,
     IconRotateClockwise
 } from "@tabler/icons-react";
@@ -18,27 +18,27 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 type GameState = "idle" | "playing" | "ended";
 
-type AnimalIconType = React.ComponentType<{
+type TechIconType = React.ComponentType<{
   className?: string;
   size?: number;
 }>;
 
 type Card = {
   id: string;
-  animalIcon: AnimalIconType;
-  animalKey: string;
+  techIcon: TechIconType;
+  techKey: string;
   backgroundColor: string;
   flipped: boolean;
   matched: boolean;
 };
 
-const ANIMALS: { icon: AnimalIconType; key: string; backgroundColor: string }[] = [
-  { icon: IconDog, key: "dog", backgroundColor: "var(--chart-8)" },
-  { icon: IconCat, key: "cat", backgroundColor: "var(--chart-2)" },
-  { icon: IconDeer, key: "deer", backgroundColor: "var(--chart-3)" },
-  { icon: IconFish, key: "fish", backgroundColor: "var(--chart-4)" },
-  { icon: IconPig, key: "pig", backgroundColor: "var(--chart-5)" },
-  { icon: IconButterfly, key: "butterfly", backgroundColor: "var(--chart-6)" },
+const TECH_STACK: { icon: TechIconType; key: string; backgroundColor: string }[] = [
+  { icon: IconBrandReact, key: "react", backgroundColor: "var(--chart-8)" },
+  { icon: IconBrandNextjs, key: "nextjs", backgroundColor: "var(--chart-2)" },
+  { icon: IconBrandTypescript, key: "typescript", backgroundColor: "var(--chart-3)" },
+  { icon: IconBrandJavascript, key: "javascript", backgroundColor: "var(--chart-4)" },
+  { icon: IconBrandNodejs, key: "nodejs", backgroundColor: "var(--chart-5)" },
+  { icon: IconBrandTailwind, key: "tailwind", backgroundColor: "var(--chart-6)" },
 ];
 
 // Idle flip sequence: defines which card indices (0-based) flip at each second
@@ -96,13 +96,13 @@ export default function CardGame() {
   };
 
   const initializeCards = useCallback(() => {
-    const pairs = [...ANIMALS, ...ANIMALS];
+    const pairs = [...TECH_STACK, ...TECH_STACK];
     const shuffled = shuffleArray(pairs);
-    return shuffled.map((animal, idx) => ({
-      id: `${idx}-${animal.key}`,
-      animalIcon: animal.icon,
-      animalKey: animal.key,
-      backgroundColor: animal.backgroundColor,
+    return shuffled.map((tech, idx) => ({
+      id: `${idx}-${tech.key}`,
+      techIcon: tech.icon,
+      techKey: tech.key,
+      backgroundColor: tech.backgroundColor,
       flipped: false,
       matched: false,
     }));
@@ -154,11 +154,11 @@ export default function CardGame() {
   useEffect(() => {
     if (firstCard && secondCard && isFlipping) {
       const timer = setTimeout(() => {
-        if (firstCard.animalKey === secondCard.animalKey) {
+        if (firstCard.techKey === secondCard.techKey) {
           // Match found
           setCards((prev) =>
             prev.map((c) =>
-              c.animalKey === firstCard.animalKey
+              c.techKey === firstCard.techKey
                 ? { ...c, matched: true }
                 : c
             )
@@ -272,7 +272,7 @@ export default function CardGame() {
         animate="visible"
       >
         {cards.map((card) => {
-          const Icon = card.animalIcon;
+          const Icon = card.techIcon;
           const isFlipped = card.flipped || card.matched;
     
 
@@ -290,7 +290,7 @@ export default function CardGame() {
                 }}
                 transition={{ duration: 0.5 }}
               >
-                {/* Card Front (Animal Icon) */}
+                {/* Card Front (Tech Icon) */}
                 <div
                   className="absolute inset-0 rounded-base flex items-center justify-center backface-hidden transform-[rotateY(180deg)]"
                   style={{
@@ -302,7 +302,7 @@ export default function CardGame() {
 
                 {/* Card Back (PlayCard Icon) */}
                 <div
-                  className="absolute inset-0 rounded-base flex items-center justify-center bg-chart-7 backface-hidden"
+                  className="absolute inset-0 rounded-base flex items-center justify-center bg-chart-10 backface-hidden"
                 >
                   <IconCardsFilled className="size-12 text-secondary-background" />
                 </div>
