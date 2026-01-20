@@ -53,171 +53,170 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
+            className={`sticky top-0 z-50 transition-all duration-300 px-6 md:px-12 ${isScrolled
                 ? "border-b-4 border-border bg-main"
                 : "border-b-0 bg-background"
                 }`}
         >
-            <div className="px-12">
-                <div className="flex items-center justify-between h-16 md:h-20">
-                    {/* Logo */}
-                    <motion.div
-                        className="text-xl md:text-2xl font-heading"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                    >
-                        <div className="flex items-center">
-                            <Image src={navbar.logo} alt="logo" width={100} height={100} />
 
-                            <Badge variant={isScrolled ? "chart3" : "default"}>
-                                {VERSION}
-                            </Badge>
-                        </div>
-                    </motion.div>
+            <div className="flex items-center justify-between h-16 md:h-20">
+                {/* Logo */}
+                <motion.div
+                    className="text-xl md:text-2xl font-heading"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                    <div className="flex items-center">
+                        <Image src={navbar.logo} alt="logo" width={100} height={100} />
 
-                    {/* Desktop Navigation */}
-                    <motion.div
-                        className="hidden md:flex items-center gap-4"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        {navbar.links.map((link) => (
-                            <motion.div
-                                key={link.href}
-                                variants={itemVariants}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                            >
-                                <Button variant="neutral" asChild>
-                                    <a href={link.href}>{link.label}</a>
-                                </Button>
-                            </motion.div>
-                        ))}
+                        <Badge variant={isScrolled ? "chart3" : "default"}>
+                            {VERSION}
+                        </Badge>
+                    </div>
+                </motion.div>
+
+                {/* Desktop Navigation */}
+                <motion.div
+                    className="hidden md:flex items-center gap-4"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    {navbar.links.map((link) => (
                         <motion.div
+                            key={link.href}
                             variants={itemVariants}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
-                            <Button
-                                variant="neutral"
-                                size="icon"
-                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                aria-label="Toggle dark mode"
-                                className="relative overflow-hidden cursor-pointer"
-                            >
-                                <AnimatePresence mode="sync" initial={false}>
-                                    {theme === "dark" ? (
-                                        <motion.div
-                                            key="sun"
-                                            initial={{ rotate: -90, scale: 0, opacity: 0 }}
-                                            animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                                            exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                                            transition={{ duration: 0.15, ease: "easeOut" }}
-                                            className="absolute inset-0 flex items-center justify-center"
-                                        >
-                                            <IconSun className="size-5" />
-                                        </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key="moon"
-                                            initial={{ rotate: 90, scale: 0, opacity: 0 }}
-                                            animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                                            exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                                            transition={{ duration: 0.15, ease: "easeOut" }}
-                                            className="absolute inset-0 flex items-center justify-center"
-                                        >
-                                            <IconMoon className="size-5" />
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                            <Button variant="neutral" asChild>
+                                <a href={link.href}>{link.label}</a>
                             </Button>
                         </motion.div>
-                    </motion.div>
-
-                    {/* Mobile Menu Button */}
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button
-                                variant="neutral"
-                                size="icon"
-                                className="md:hidden"
-                                aria-label="Open menu"
-                            >
-                                <IconMenu className="size-5" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="right" className="w-80 sm:w-96">
-                            <SheetHeader>
-                                <SheetTitle>Menu</SheetTitle>
-                            </SheetHeader>
-                            <motion.div
-                                className="flex flex-col gap-4 p-4"
-                                variants={containerVariants}
-                                initial="hidden"
-                                animate="visible"
-                            >
-                                {navbar.links.map((link) => (
-                                    <SheetClose key={link.href} asChild>
-                                        <motion.div
-                                            variants={itemVariants}
-                                            transition={{ duration: 0.4, ease: "easeOut" }}
-                                        >
-                                            <Button
-                                                variant="neutral"
-                                                className="w-full justify-start"
-                                                asChild
-                                            >
-                                                <a href={link.href}>{link.label}</a>
-                                            </Button>
-                                        </motion.div>
-                                    </SheetClose>
-                                ))}
-                                <motion.div
-                                    variants={itemVariants}
-                                    transition={{ duration: 0.4, ease: "easeOut" }}
-                                >
-                                    <Button
-                                        variant="neutral"
-                                        className="w-full justify-start relative overflow-hidden"
-                                        onClick={() =>
-                                            setTheme(theme === "dark" ? "light" : "dark")
-                                        }
-                                        aria-label="Toggle dark mode"
+                    ))}
+                    <motion.div
+                        variants={itemVariants}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                    >
+                        <Button
+                            variant="neutral"
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            aria-label="Toggle dark mode"
+                            className="relative overflow-hidden cursor-pointer size-10"
+                        >
+                            <AnimatePresence mode="sync" initial={false}>
+                                {theme === "dark" ? (
+                                    <motion.div
+                                        key="sun"
+                                        initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                                        animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                                        exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                                        transition={{ duration: 0.15, ease: "easeOut" }}
+                                        className="absolute inset-0 flex items-center justify-center"
                                     >
-                                        <AnimatePresence mode="sync" initial={false}>
-                                            {theme === "dark" ? (
-                                                <motion.div
-                                                    key="sun-mobile"
-                                                    initial={{ rotate: -90, scale: 0, opacity: 0 }}
-                                                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                                                    exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                                                    transition={{ duration: 0.15, ease: "easeOut" }}
-                                                    className="flex items-center"
-                                                >
-                                                    <IconSun className="size-5 mr-2" />
-                                                    Light Mode
-                                                </motion.div>
-                                            ) : (
-                                                <motion.div
-                                                    key="moon-mobile"
-                                                    initial={{ rotate: 90, scale: 0, opacity: 0 }}
-                                                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                                                    exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                                                    transition={{ duration: 0.15, ease: "easeOut" }}
-                                                    className="flex items-center"
-                                                >
-                                                    <IconMoon className="size-5 mr-2" />
-                                                    Dark Mode
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </Button>
-                                </motion.div>
+                                        <IconSun className="size-5" />
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="moon"
+                                        initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                                        animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                                        exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                                        transition={{ duration: 0.15, ease: "easeOut" }}
+                                        className="absolute inset-0 flex items-center justify-center"
+                                    >
+                                        <IconMoon className="size-5" />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </Button>
+                    </motion.div>
+                </motion.div>
+
+                {/* Mobile Menu Button */}
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button
+                            variant="neutral"
+                            size="icon"
+                            className="md:hidden"
+                            aria-label="Open menu"
+                        >
+                            <IconMenu className="size-5" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-80 sm:w-96">
+                        <SheetHeader>
+                            <SheetTitle>Menu</SheetTitle>
+                        </SheetHeader>
+                        <motion.div
+                            className="flex flex-col gap-4 p-4"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {navbar.links.map((link) => (
+                                <SheetClose key={link.href} asChild>
+                                    <motion.div
+                                        variants={itemVariants}
+                                        transition={{ duration: 0.4, ease: "easeOut" }}
+                                    >
+                                        <Button
+                                            variant="neutral"
+                                            className="w-full justify-start"
+                                            asChild
+                                        >
+                                            <a href={link.href}>{link.label}</a>
+                                        </Button>
+                                    </motion.div>
+                                </SheetClose>
+                            ))}
+                            <motion.div
+                                variants={itemVariants}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                            >
+                                <Button
+                                    variant="neutral"
+                                    className="w-full justify-start relative overflow-hidden"
+                                    onClick={() =>
+                                        setTheme(theme === "dark" ? "light" : "dark")
+                                    }
+                                    aria-label="Toggle dark mode"
+                                >
+                                    <AnimatePresence mode="sync" initial={false}>
+                                        {theme === "dark" ? (
+                                            <motion.div
+                                                key="sun-mobile"
+                                                initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                                                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                                                exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                                                transition={{ duration: 0.15, ease: "easeOut" }}
+                                                className="flex items-center"
+                                            >
+                                                <IconSun className="size-5 mr-2" />
+                                                Light Mode
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div
+                                                key="moon-mobile"
+                                                initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                                                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                                                exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                                                transition={{ duration: 0.15, ease: "easeOut" }}
+                                                className="flex items-center"
+                                            >
+                                                <IconMoon className="size-5 mr-2" />
+                                                Dark Mode
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </Button>
                             </motion.div>
-                        </SheetContent>
-                    </Sheet>
-                </div>
+                        </motion.div>
+                    </SheetContent>
+                </Sheet>
             </div>
+
         </nav>
     );
 }

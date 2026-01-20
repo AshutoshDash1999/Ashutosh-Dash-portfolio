@@ -45,7 +45,7 @@ export default function FAQ() {
     return (
         <section
             id="faqs"
-            className="px-12 py-16 md:py-24 bg-chart-4 border-y-4 border-border"
+            className="px-6 md:px-12 py-16 md:py-24 bg-chart-4 border-y-4 border-border"
         >
             <motion.h2
                 className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
@@ -76,8 +76,8 @@ export default function FAQ() {
                                     }`}
                             >
                                 <CardHeader>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <Icon className="size-6" />
+                                    <div className="flex items-center gap-3">
+                                        <Icon className="size-16" />
                                         <CardTitle className="text-xl">{panel.title}</CardTitle>
                                     </div>
                                 </CardHeader>

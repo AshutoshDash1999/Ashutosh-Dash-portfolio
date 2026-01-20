@@ -5,15 +5,17 @@ import {
     IconBrandGithub,
     IconBrandLinkedin,
     IconBrandTwitter,
+    IconBrandX,
     IconMail,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     github: IconBrandGithub,
     linkedin: IconBrandLinkedin,
-    twitter: IconBrandTwitter,
+    twitter: IconBrandX,
     mail: IconMail,
 };
 
@@ -44,7 +46,7 @@ export default function SocialLinks() {
     };
 
     return (
-        <section id="contact" className="bg-chart-3 border-y-4 border-border  px-12 py-16 md:py-24 ">
+        <section id="contact" className="bg-chart-3 border-y-4 border-border px-6 md:px-12 py-16 md:py-24 ">
 
             <motion.div
                 className="max-w-4xl mx-auto"
@@ -62,7 +64,7 @@ export default function SocialLinks() {
                     <CardContent className="text-center space-y-6">
                         <p className="text-lg text-foreground">{data.freelance.description}</p>
                         <motion.div
-                            className="flex flex-wrap justify-center gap-4"
+                            className="flex flex-col md:flex-row justify-center gap-4"
                             variants={containerVariants}
                             initial="hidden"
                             whileInView="visible"
@@ -72,8 +74,8 @@ export default function SocialLinks() {
                                 const Icon = iconMap[link.icon.toLowerCase()] || IconMail;
                                 return (
                                     <motion.div key={link.platform} variants={itemVariants}>
-                                        <Button variant="default" size="xl" asChild>
-                                            <a
+                                        <Button variant="default" size="xl" asChild className="w-full md:w-44">
+                                            <Link
                                                 href={link.url}
                                                 target={link.url.startsWith("mailto:") ? undefined : "_blank"}
                                                 rel={
@@ -84,7 +86,7 @@ export default function SocialLinks() {
                                             >
                                                 <Icon className="size-5" />
                                                 {link.platform}
-                                            </a>
+                                            </Link>
                                         </Button>
                                     </motion.div>
                                 );

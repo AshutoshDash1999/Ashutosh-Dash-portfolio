@@ -41,7 +41,7 @@
       "role": "React JS Developer",
       "duration": "May 2024 - Present",
       "description": "Building high-quality dashboards and internal tools using Next.js, React, Mantine, and Refine. Responsible for UI development, performance optimization, analytics implementation, API integrations, and code quality improvements. Mentored interns and participated actively in code reviews.",
-      "technologies": ["Next.js", "React", "Mantine", "Refine", "Firebase"]
+      "technologies": ["Next.js", "React", "Mantine UI", "Refine", "Firebase"]
     },
     {
       "company": "Badho",
@@ -63,7 +63,7 @@
       "role": "Frontend Developer",
       "duration": "February 2023 - September 2023",
       "description": "Developed a QR-based restaurant menu application, built a hotel check-in sub-system, and modernized the booking engine using modular, reusable components. Maintained the BookingJini Icons Pack open-source library.",
-      "technologies": ["React", "JavaScript"]
+      "technologies": ["React", "JavaScript", "Bootstrap", "Mantine UI"]
     }
   ],
   "projects": [
