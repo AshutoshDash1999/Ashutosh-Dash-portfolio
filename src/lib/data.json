@@ -88,11 +88,31 @@
       "repo": "https://github.com/AshutoshDash1999/nextjs-mantine-boilerplate"
     },
     {
-      "title": "Lawyer LLM",
+      "title": "LearningPad API Client Example",
+      "description": "An example repo for how to use the LearningPad API in a frontend application.",
+      "technologies": ["NextJS", "Shadcn UI", "Typescript"],
+      "demo": "https://learningpad-api-client.netlify.app",
+      "repo": "https://github.com/AshutoshDash1999/learningpad-api-client-example"
+    },
+    {
+      "title": "GPT Lawyer",
       "description": "An AI-powered legal assistant specializing exclusively in Indian laws, legal matters, and legal procedures. Get accurate information about Indian Acts, Statutes, Regulations, case law, and legal procedures through an intuitive chat interface.",
       "technologies": ["NextJS", "Openrouter", "Typescript", "GCP"],
-      "demo": "",
+      "demo": "https://gpt-lawyer.netlify.app",
       "repo": "https://github.com/AshutoshDash1999/ugc-agentic-lawyer-frontend"
+    },
+    {
+      "title": "ICCCT 2023",
+      "description": "Official website for the ICCCT 2023 conference.",
+      "technologies": ["NextJS", "Chakra UI", "Typescript"],
+      "demo": "https://iccct-2023.vercel.app",
+      "repo": "https://github.com/AshutoshDash1999/iccct-2023"
+    },
+    {
+      "title": "Roshni Satpathy Portfolio",
+      "description": "Portfolio website for Roshni Satpathy as Designer.",
+      "technologies": ["NextJS", "Shadcn UI", "Tailwind CSS", "Typescript"],
+      "demo": "https://hi-i-am-roshni.netlify.app"
     }
   ],
   "freelance": {
