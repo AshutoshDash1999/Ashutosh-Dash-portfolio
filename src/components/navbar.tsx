@@ -54,8 +54,8 @@ export default function Navbar() {
     return (
         <nav
             className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
-                    ? "border-b-4 border-border bg-main"
-                    : "border-b-0 bg-background"
+                ? "border-b-4 border-border bg-main"
+                : "border-b-0 bg-background"
                 }`}
         >
             <div className="px-12">

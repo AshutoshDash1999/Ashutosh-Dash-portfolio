@@ -314,7 +314,7 @@ export default function CardGame() {
                     </Button>
                 )}
                 {gameState === "ended" && (
-                    <Button onClick={restartGame} size="lg">
+                    <Button onClick={restartGame} size="lg" className="bg-chart-3">
                         <IconRotateClockwise className="mr-2 size-5" />
                         Play Again
                     </Button>
