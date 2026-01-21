@@ -7,10 +7,7 @@
 ---
 
 <p align="center">
-  <img src="./public/cover.webp" alt="Portfolio Preview" width="100%" />
-</p>
-<p align="center">
-  <i>[Replace the image above with a screenshot of your portfolio]</i>
+  <img width="480" height="270" alt="image" src="https://github.com/user-attachments/assets/ea61fb2e-ed1c-4db5-8dff-9250d855b2ca" />
 </p>
 
 ## 🚀 Features
