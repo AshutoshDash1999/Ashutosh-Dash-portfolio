@@ -1,4 +1,5 @@
 import AppProvider from "@/components/providers/app-provider";
+import { WebVitals } from "@/components/web-vitals";
 import data from "@/lib/data.json";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
@@ -114,6 +115,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${dmSans.variable} antialiased`}>
+                <WebVitals />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

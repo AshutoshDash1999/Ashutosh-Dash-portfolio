@@ -76,7 +76,7 @@ export default function Projects() {
 
                             <CardFooter className="flex gap-3 md:gap-4">
                                 {project.repo && (
-                                    <Button asChild className="flex-1 bg-chart-3 h-12 md:h-10">
+                                    <Button asChild className="flex-1 bg-chart-2 h-12 md:h-10">
                                         <a
                                             href={project.repo}
                                             target="_blank"
