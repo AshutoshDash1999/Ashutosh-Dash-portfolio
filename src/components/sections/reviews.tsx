@@ -66,23 +66,29 @@ export default function Reviews() {
                             onClick={() => setSelectedReview(index)}
                         >
                             <CardHeader>
-                                <div className="flex items-center gap-2 justify-between">
-                                    <div>
-                                        <CardTitle className="text-xl">
+                                <div className="flex items-center gap-3 md:gap-2 justify-between">
+                                    <div className="min-w-0 flex-1">
+                                        <CardTitle className="text-lg md:text-xl">
                                             {review.clientName}
                                         </CardTitle>
-                                        <div className="text-sm text-foreground">{review.role}</div>
+                                        <div className="text-base md:text-sm text-foreground">{review.role}</div>
                                     </div>
-                                    <Link href={review?.linkedin} target="_blank">
-                                        <Button size="icon" className="cursor-pointer">
-                                            <IconBrandLinkedin />
+                                    <Link
+                                        href={review?.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`View ${review.clientName}'s LinkedIn profile`}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <Button size="icon" className="cursor-pointer size-12 md:size-10 shrink-0" aria-label={`LinkedIn profile of ${review.clientName}`}>
+                                            <IconBrandLinkedin className="size-5 md:size-4" />
                                         </Button>
                                     </Link>
                                 </div>
                             </CardHeader>
 
                             <CardContent>
-                                <p className="text-foreground italic line-clamp-4">
+                                <p className="text-base md:text-base text-foreground italic line-clamp-4 leading-relaxed">
                                     "{review.review}"
                                 </p>
                             </CardContent>
@@ -96,25 +102,30 @@ export default function Reviews() {
                 onOpenChange={(open) => !open && setSelectedReview(null)}
             >
                 {selectedReview !== null && (
-                    <DialogContent className="max-w-2xl">
+                    <DialogContent className="max-w-2xl mx-4 md:mx-auto">
                         <DialogHeader>
-                            <div className="flex items-center gap-2 justify-between">
-                                <div>
-                                    <DialogTitle>
+                            <div className="flex items-center gap-3 md:gap-2 justify-between">
+                                <div className="min-w-0 flex-1">
+                                    <DialogTitle className="text-lg md:text-xl">
                                         {reviews[selectedReview].clientName}
                                     </DialogTitle>
-                                    <DialogDescription>
+                                    <DialogDescription className="text-base md:text-sm">
                                         {reviews[selectedReview].role}
                                     </DialogDescription>
                                 </div>
-                                <Link href={reviews[selectedReview].linkedin} target="_blank">
-                                    <Button size="icon" className="cursor-pointer">
-                                        <IconBrandLinkedin />
+                                <Link
+                                    href={reviews[selectedReview].linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={`View ${reviews[selectedReview].clientName}'s LinkedIn profile`}
+                                >
+                                    <Button size="icon" className="cursor-pointer size-12 md:size-10 shrink-0" aria-label={`LinkedIn profile of ${reviews[selectedReview].clientName}`}>
+                                        <IconBrandLinkedin className="size-5 md:size-4" />
                                     </Button>
                                 </Link>
                             </div>
                         </DialogHeader>
-                        <p className="text-foreground italic leading-relaxed">
+                        <p className="text-base md:text-base text-foreground italic leading-relaxed">
                             "{reviews[selectedReview].review}"
                         </p>
                     </DialogContent>

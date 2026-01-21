@@ -1,12 +1,13 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import data from "@/lib/data.json";
 import {
     IconBrandGithub,
     IconBrandLinkedin,
-    IconBrandTwitter,
     IconBrandX,
-    IconMail,
+    IconMail
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -57,14 +58,14 @@ export default function SocialLinks() {
             >
                 <Card className="hover:shadow-lg transition-shadow duration-300 bg-secondary-background">
                     <CardHeader className="text-center">
-                        <CardTitle className="text-2xl md:text-3xl">
+                        <CardTitle className="text-xl md:text-3xl leading-tight">
                             {data.freelance.title}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="text-center space-y-6">
-                        <p className="text-lg text-foreground">{data.freelance.description}</p>
+                        <p className="text-base md:text-lg text-foreground leading-relaxed">{data.freelance.description}</p>
                         <motion.div
-                            className="flex flex-col md:flex-row justify-center gap-4"
+                            className="flex flex-col md:flex-row justify-center gap-3 md:gap-4"
                             variants={containerVariants}
                             initial="hidden"
                             whileInView="visible"
@@ -74,7 +75,7 @@ export default function SocialLinks() {
                                 const Icon = iconMap[link.icon.toLowerCase()] || IconMail;
                                 return (
                                     <motion.div key={link.platform} variants={itemVariants}>
-                                        <Button variant="default" size="xl" asChild className="w-full md:w-44">
+                                        <Button variant="default" size="xl" asChild className="w-full md:w-44 h-14 md:h-12">
                                             <Link
                                                 href={link.url}
                                                 target={link.url.startsWith("mailto:") ? undefined : "_blank"}
@@ -83,9 +84,10 @@ export default function SocialLinks() {
                                                         ? undefined
                                                         : "noopener noreferrer"
                                                 }
+                                                aria-label={`Contact via ${link.platform}${link.url.startsWith("mailto:") ? "" : " (opens in new tab)"}`}
                                             >
-                                                <Icon className="size-5" />
-                                                {link.platform}
+                                                <Icon className="size-6 md:size-5" aria-hidden="true" />
+                                                <span className="text-base md:text-sm">{link.platform}</span>
                                             </Link>
                                         </Button>
                                     </motion.div>

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-base text-sm font-base ring-offset-white transition-all gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center whitespace-nowrap rounded-base text-base md:text-sm font-base ring-offset-white transition-all gap-2 [&_svg]:pointer-events-none [&_svg]:size-5 md:[&_svg]:size-4 [&_svg]:shrink-0 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
     {
         variants: {
             variant: {
@@ -18,11 +18,11 @@ const buttonVariants = cva(
                     "text-main-foreground bg-main border-2 border-border hover:translate-x-reverseBoxShadowX hover:translate-y-reverseBoxShadowY hover:shadow-shadow",
             },
             size: {
-                default: "h-10 px-6 py-2",
-                sm: "h-9 px-3",
-                lg: "h-11 px-8",
-                icon: "size-10",
-                xl: "h-12 px-6 md:px-12",
+                default: "h-12 md:h-10 px-6 py-2",
+                sm: "h-11 md:h-9 px-4 md:px-3",
+                lg: "h-12 md:h-11 px-8",
+                icon: "size-12 md:size-10",
+                xl: "h-14 md:h-12 px-8 md:px-12",
             },
         },
         defaultVariants: {

@@ -68,7 +68,7 @@ export default function Navbar() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                     <div className="flex items-center">
-                        <Image src={navbar.logo} alt="logo" width={100} height={100} />
+                        <Image src={navbar.logo} alt="Ashutosh Dash - Home" width={100} height={100} priority />
 
                         <Badge variant={isScrolled ? "chart3" : "default"}>
                             {VERSION}
@@ -139,18 +139,18 @@ export default function Navbar() {
                         <Button
                             variant="neutral"
                             size="icon"
-                            className="md:hidden"
+                            className="md:hidden size-12"
                             aria-label="Open menu"
                         >
-                            <IconMenu className="size-5" />
+                            <IconMenu className="size-6" />
                         </Button>
                     </SheetTrigger>
-                    <SheetContent side="right" className="w-80 sm:w-96">
+                    <SheetContent side="right" className="w-[85vw] max-w-96">
                         <SheetHeader>
-                            <SheetTitle>Menu</SheetTitle>
+                            <SheetTitle className="text-xl">Menu</SheetTitle>
                         </SheetHeader>
                         <motion.div
-                            className="flex flex-col gap-4 p-4"
+                            className="flex flex-col gap-3 p-4"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
@@ -163,7 +163,8 @@ export default function Navbar() {
                                     >
                                         <Button
                                             variant="neutral"
-                                            className="w-full justify-start"
+                                            size="lg"
+                                            className="w-full justify-start text-base h-14 px-4"
                                             asChild
                                         >
                                             <a href={link.href}>{link.label}</a>
@@ -177,7 +178,8 @@ export default function Navbar() {
                             >
                                 <Button
                                     variant="neutral"
-                                    className="w-full justify-start relative overflow-hidden"
+                                    size="lg"
+                                    className="w-full justify-start relative overflow-hidden text-base h-14 px-4"
                                     onClick={() =>
                                         setTheme(theme === "dark" ? "light" : "dark")
                                     }
@@ -193,7 +195,7 @@ export default function Navbar() {
                                                 transition={{ duration: 0.15, ease: "easeOut" }}
                                                 className="flex items-center"
                                             >
-                                                <IconSun className="size-5 mr-2" />
+                                                <IconSun className="size-6 mr-3" />
                                                 Light Mode
                                             </motion.div>
                                         ) : (
@@ -205,7 +207,7 @@ export default function Navbar() {
                                                 transition={{ duration: 0.15, ease: "easeOut" }}
                                                 className="flex items-center"
                                             >
-                                                <IconMoon className="size-5 mr-2" />
+                                                <IconMoon className="size-6 mr-3" />
                                                 Dark Mode
                                             </motion.div>
                                         )}

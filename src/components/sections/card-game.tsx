@@ -261,6 +261,15 @@ export default function CardGame() {
                             className="relative cursor-pointer perspective-[1000px] hover:scale-105 transition-all duration-300"
                             onClick={() => handleCardClick(card)}
                             variants={cardVariants}
+                            role="button"
+                            tabIndex={gameState === "playing" ? 0 : -1}
+                            aria-label={card.flipped || card.matched ? `Card showing ${card.techKey}` : "Hidden card - click to flip"}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    handleCardClick(card);
+                                }
+                            }}
                         >
                             <motion.div
                                 className="relative w-full h-full rounded-lg border-2 border-border shadow-shadow transform-3d "
@@ -302,20 +311,20 @@ export default function CardGame() {
             {/* Controls */}
             <div className="flex justify-center gap-4">
                 {(gameState === "idle") && (
-                    <Button onClick={startGame} size="lg" className="bg-chart-2">
-                        <IconDeviceGamepad2 className=" size-5" />
+                    <Button onClick={startGame} size="lg" className="bg-chart-2" aria-label="Start the memory card game">
+                        <IconDeviceGamepad2 className=" size-5" aria-hidden="true" />
                         Start Game
                     </Button>
                 )}
                 {gameState === "playing" && (
-                    <Button onClick={restartGame} size="lg" variant="neutral" className="bg-chart-4 text-secondary-background">
-                        <IconRefresh className=" size-5" />
+                    <Button onClick={restartGame} size="lg" variant="neutral" className="bg-chart-4 text-secondary-background" aria-label="Restart the memory card game">
+                        <IconRefresh className=" size-5" aria-hidden="true" />
                         Restart Game
                     </Button>
                 )}
                 {gameState === "ended" && (
-                    <Button onClick={restartGame} size="lg" className="bg-chart-3">
-                        <IconRotateClockwise className="mr-2 size-5" />
+                    <Button onClick={restartGame} size="lg" className="bg-chart-3" aria-label="Play the memory card game again">
+                        <IconRotateClockwise className="mr-2 size-5" aria-hidden="true" />
                         Play Again
                     </Button>
                 )}

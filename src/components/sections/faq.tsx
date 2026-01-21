@@ -76,16 +76,16 @@ export default function FAQ() {
                                     }`}
                             >
                                 <CardHeader>
-                                    <div className="flex items-center gap-3">
-                                        <Icon className="size-16" />
-                                        <CardTitle className="text-xl">{panel.title}</CardTitle>
+                                    <div className="flex items-center gap-3 md:gap-3">
+                                        <Icon className="size-12 md:size-16 shrink-0" />
+                                        <CardTitle className="text-lg md:text-xl leading-tight">{panel.title}</CardTitle>
                                     </div>
                                 </CardHeader>
                                 <CardContent>
                                     <p
-                                        className={
+                                        className={`text-base md:text-base leading-relaxed ${
                                             isOdd ? "text-main-foreground" : "text-foreground"
-                                        }
+                                        }`}
                                     >
                                         {panel.content}
                                     </p>

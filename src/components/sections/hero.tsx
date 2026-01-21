@@ -1,9 +1,30 @@
+"use client";
+
 import data from "@/lib/data.json";
 import { IconFileText } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import CardGame from "./card-game";
+import { Skeleton } from "../ui/skeleton";
+
+const CardGameSkeleton = () => (
+    <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
+        <div className="grid grid-cols-4 gap-4 flex-1">
+            {Array.from({ length: 12 }).map((_, i) => (
+                <Skeleton key={i} className="w-full aspect-square" />
+            ))}
+        </div>
+        <div className="flex justify-center">
+            <Skeleton className="h-11 w-36" />
+        </div>
+    </div>
+);
+
+const CardGame = dynamic(() => import("./card-game"), {
+    ssr: false,
+    loading: () => <CardGameSkeleton />,
+});
 
 export default function Hero() {
     const { personal } = data;
@@ -52,12 +73,12 @@ export default function Hero() {
                             href="/Ashutosh_Dash_Frontend_Dev.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm text-foreground/60 hover:text-foreground/80 transition-colors group"
+                            className="inline-flex items-center gap-1.5 transition-colors group"
                             aria-label="View resume"
                         >
                             <Button size={"xl"}>
-                                <IconFileText className="" />
-                                <span className="text-xs">See my work</span>
+                                <IconFileText className="size-5" />
+                                <span className="text-base md:text-sm">See my work</span>
                             </Button>
                         </Link>
                     </motion.div>

@@ -32,7 +32,7 @@
 - **Components**: [Radix UI](https://www.radix-ui.com/) and [Neobrutalism](https://www.neobrutalism.dev)
 - **Animations**: [Motion (Framer Motion)](https://motion.dev/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Icons**: [Tabler Icons](https://tabler.io/icons) & [React Icons](https://react-icons.github.io/react-icons/)
+- **Icons**: [Tabler Icons](https://tabler.io/icons)
 - **Tooling**: [Biome](https://biomejs.dev/) (Linting & Formatting)
 
 ## 🏁 Getting Started

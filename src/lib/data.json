@@ -2,7 +2,7 @@
   "personal": {
     "name": "Ashutosh Dash",
     "title": "Frontend Developer | React & Next.js",
-    "bio": "Frontend engineer specializing in building fast, intuitive, and scalable web applications. Experienced with React, Next.js, TypeScript, and modern UI frameworks like Shadcn UI, Mantine, Ant Design, Material UI, and Tailwind. Passionate about crafting clean interfaces, improving performance, and contributing to open-source projects."
+    "bio": "Frontend engineer building fast, scalable web apps with React, Next.js & TypeScript. Skilled in modern UI frameworks and passionate about crafting clean interfaces."
   },
   "navbar": {
     "logo": "/logo.png",

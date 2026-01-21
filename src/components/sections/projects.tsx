@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -60,8 +62,8 @@ export default function Projects() {
                         <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background justify-between">
                             <div className="flex flex-col gap-4">
                                 <CardHeader>
-                                    <CardTitle className="text-xl">{project.title}</CardTitle>
-                                    <CardDescription>{project.description}</CardDescription>
+                                    <CardTitle className="text-lg md:text-xl">{project.title}</CardTitle>
+                                    <CardDescription className="text-base md:text-sm leading-relaxed">{project.description}</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex flex-wrap gap-2">
@@ -72,29 +74,31 @@ export default function Projects() {
                                 </CardContent>
                             </div>
 
-                            <CardFooter className="flex gap-4">
+                            <CardFooter className="flex gap-3 md:gap-4">
                                 {project.repo && (
-                                    <Button asChild className="flex-1 bg-chart-3">
+                                    <Button asChild className="flex-1 bg-chart-3 h-12 md:h-10">
                                         <a
                                             href={project.repo}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            aria-label={`View source code for ${project.title} on GitHub`}
                                         >
-                                            <IconBrandGithub className="size-4" />
-                                            Code
+                                            <IconBrandGithub className="size-5 md:size-4" aria-hidden="true" />
+                                            <span className="text-base md:text-sm">Code</span>
                                         </a>
                                     </Button>
                                 )}
 
                                 {project.demo && (
-                                    <Button asChild className="flex-1 chart-1">
+                                    <Button asChild className="flex-1 chart-1 h-12 md:h-10">
                                         <a
                                             href={project.demo}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            aria-label={`View live demo of ${project.title}`}
                                         >
-                                            <IconExternalLink className="size-4" />
-                                            Demo
+                                            <IconExternalLink className="size-5 md:size-4" aria-hidden="true" />
+                                            <span className="text-base md:text-sm">Demo</span>
                                         </a>
                                     </Button>
                                 )}

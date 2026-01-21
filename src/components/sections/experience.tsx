@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import data from "@/lib/data.json";
@@ -30,15 +32,15 @@ export default function Experience() {
                         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                     >
                         <Card className="hover:shadow-lg transition-shadow duration-300">
-                            <CardHeader>
-                                <CardTitle className="text-2xl">{exp.role}</CardTitle>
-                                <div className="text-lg text-foreground">
+                            <CardHeader className="space-y-2">
+                                <CardTitle className="text-xl md:text-2xl leading-tight">{exp.role}</CardTitle>
+                                <div className="text-base md:text-lg text-foreground">
                                     {exp.company} · {exp.duration}
                                 </div>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <p className="text-foreground">{exp.description}</p>
-                                <div className="flex flex-wrap gap-2">
+                                <p className="text-base md:text-lg text-foreground leading-relaxed">{exp.description}</p>
+                                <div className="flex flex-wrap gap-2 md:gap-2">
                                     {exp.technologies.map((tech) => (
                                         <Badge key={tech} variant="chart3">
                                             {tech}
