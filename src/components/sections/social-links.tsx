@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
 import {
     IconBrandGithub,
@@ -20,30 +21,40 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     mail: IconMail,
 };
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.9 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+            ease: [0.4, 0, 0.2, 1] as const,
+        },
+    },
+};
+
+const cardContainerVariants = {
+    initial: { opacity: 0, y: 30, scale: 0.95 },
+    whileInView: { opacity: 1, y: 0, scale: 1 },
+};
+
 export default function SocialLinks() {
     const { socialLinks } = data;
+    const { trackEvent } = useTrackEvent();
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20, scale: 0.9 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1] as const,
-            },
-        },
+    const handleSocialLinkClick = (platform: string, url: string) => {
+        trackEvent("social_link_click", { platform: platform.toLowerCase(), url });
     };
 
     return (
@@ -51,8 +62,8 @@ export default function SocialLinks() {
 
             <motion.div
                 className="max-w-4xl mx-auto"
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={cardContainerVariants.initial}
+                whileInView={cardContainerVariants.whileInView}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
@@ -85,6 +96,7 @@ export default function SocialLinks() {
                                                         : "noopener noreferrer"
                                                 }
                                                 aria-label={`Contact via ${link.platform}${link.url.startsWith("mailto:") ? "" : " (opens in new tab)"}`}
+                                                onClick={() => handleSocialLinkClick(link.platform, link.url)}
                                             >
                                                 <Icon className="size-6 md:size-5" aria-hidden="true" />
                                                 <span className="text-base md:text-sm">{link.platform}</span>

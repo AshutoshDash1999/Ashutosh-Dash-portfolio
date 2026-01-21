@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
 import {
     IconBrandJavascript,
     IconBrandNextjs,
@@ -61,6 +62,30 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     return shuffled;
 };
 
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const cardVariants = {
+    hidden: {
+        opacity: 0,
+        y: 50,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: [0.4, 0, 0.2, 1] as const,
+        },
+    },
+};
+
 export default function CardGame() {
     const [gameState, setGameState] = useState<GameState>("idle");
     const [cards, setCards] = useState<Card[]>([]);
@@ -68,34 +93,11 @@ export default function CardGame() {
     const [secondCard, setSecondCard] = useState<Card | null>(null);
     const [isFlipping, setIsFlipping] = useState(false);
     const [animationKey, setAnimationKey] = useState(0);
+    const { trackEvent } = useTrackEvent();
 
     const idleIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const idleIndexRef = useRef<number>(0);
     const previousSequenceIndicesRef = useRef<number[]>([]);
-
-    const containerVariants = {
-        hidden: {},
-        visible: {
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
-    };
-
-    const cardVariants = {
-        hidden: {
-            opacity: 0,
-            y: 50,
-        },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1] as const,
-            },
-        },
-    };
 
     const initializeCards = useCallback(() => {
         const pairs = [...TECH_STACK, ...TECH_STACK];
@@ -149,6 +151,21 @@ export default function CardGame() {
             setSecondCard(card);
             setIsFlipping(true);
         }
+    };
+
+    const handleStartGame = () => {
+        startGame();
+        trackEvent("game_start_click");
+    };
+
+    const handleRestartGame = () => {
+        restartGame();
+        trackEvent("game_restart_click");
+    };
+
+    const handlePlayAgain = () => {
+        restartGame();
+        trackEvent("game_play_again_click");
     };
 
     // Handle matching logic
@@ -311,19 +328,19 @@ export default function CardGame() {
             {/* Controls */}
             <div className="flex justify-center gap-4">
                 {(gameState === "idle") && (
-                    <Button onClick={startGame} size="lg" className="bg-chart-2" aria-label="Start the memory card game">
+                    <Button onClick={handleStartGame} size="lg" className="bg-chart-2" aria-label="Start the memory card game">
                         <IconDeviceGamepad2 className=" size-5" aria-hidden="true" />
                         Start Game
                     </Button>
                 )}
                 {gameState === "playing" && (
-                    <Button onClick={restartGame} size="lg" variant="neutral" className="bg-chart-4 text-secondary-background" aria-label="Restart the memory card game">
+                    <Button onClick={handleRestartGame} size="lg" variant="neutral" className="bg-chart-4 text-secondary-background" aria-label="Restart the memory card game">
                         <IconRefresh className=" size-5" aria-hidden="true" />
                         Restart Game
                     </Button>
                 )}
                 {gameState === "ended" && (
-                    <Button onClick={restartGame} size="lg" className="bg-chart-3" aria-label="Play the memory card game again">
+                    <Button onClick={handlePlayAgain} size="lg" className="bg-chart-3" aria-label="Play the memory card game again">
                         <IconRotateClockwise className="mr-2 size-5" aria-hidden="true" />
                         Play Again
                     </Button>

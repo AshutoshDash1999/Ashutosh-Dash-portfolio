@@ -8,6 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
 import { IconBrandLinkedin } from "@tabler/icons-react";
 import { motion } from "motion/react";
@@ -15,30 +16,45 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: [0.4, 0, 0.2, 1] as const,
+        },
+    },
+};
+
 export default function Reviews() {
     const { reviews } = data;
     const [selectedReview, setSelectedReview] = useState<number | null>(null);
+    const { trackEvent } = useTrackEvent();
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
+    const handleReviewCardClick = (index: number, clientName: string) => {
+        setSelectedReview(index);
+        trackEvent("review_card_click", { client_name: clientName });
     };
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1] as const,
-            },
-        },
+    const handleLinkedInClick = (e: React.MouseEvent, clientName: string, url: string) => {
+        e.stopPropagation();
+        trackEvent("review_linkedin_click", { client_name: clientName, url });
+    };
+
+    const handleDialogLinkedInClick = (clientName: string, url: string) => {
+        trackEvent("review_linkedin_click", { client_name: clientName, url });
     };
 
     return (
@@ -63,7 +79,7 @@ export default function Reviews() {
                     <motion.div key={index} variants={cardVariants}>
                         <Card
                             className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background cursor-pointer"
-                            onClick={() => setSelectedReview(index)}
+                            onClick={() => handleReviewCardClick(index, review.clientName)}
                         >
                             <CardHeader>
                                 <div className="flex items-center gap-3 md:gap-2 justify-between">
@@ -78,7 +94,7 @@ export default function Reviews() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={`View ${review.clientName}'s LinkedIn profile`}
-                                        onClick={(e) => e.stopPropagation()}
+                                        onClick={(e) => handleLinkedInClick(e, review.clientName, review.linkedin)}
                                     >
                                         <Button size="icon" className="cursor-pointer size-12 md:size-10 shrink-0" aria-label={`LinkedIn profile of ${review.clientName}`}>
                                             <IconBrandLinkedin className="size-5 md:size-4" />
@@ -118,6 +134,7 @@ export default function Reviews() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`View ${reviews[selectedReview].clientName}'s LinkedIn profile`}
+                                    onClick={() => handleDialogLinkedInClick(reviews[selectedReview].clientName, reviews[selectedReview].linkedin)}
                                 >
                                     <Button size="icon" className="cursor-pointer size-12 md:size-10 shrink-0" aria-label={`LinkedIn profile of ${reviews[selectedReview].clientName}`}>
                                         <IconBrandLinkedin className="size-5 md:size-4" />

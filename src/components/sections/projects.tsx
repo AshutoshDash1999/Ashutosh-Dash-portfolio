@@ -10,33 +10,43 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
 import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
 import { motion } from "motion/react";
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: [0.4, 0, 0.2, 1] as const,
+        },
+    },
+};
+
 export default function Projects() {
     const { projects } = data;
+    const { trackEvent } = useTrackEvent();
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
+    const handleCodeClick = (title: string, url: string) => {
+        trackEvent("project_code_click", { project_title: title, url });
     };
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1] as const,
-            },
-        },
+    const handleDemoClick = (title: string, url: string) => {
+        trackEvent("project_demo_click", { project_title: title, url });
     };
 
     return (
@@ -82,6 +92,7 @@ export default function Projects() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label={`View source code for ${project.title} on GitHub`}
+                                            onClick={() => handleCodeClick(project.title, project.repo)}
                                         >
                                             <IconBrandGithub className="size-5 md:size-4" aria-hidden="true" />
                                             <span className="text-base md:text-sm">Code</span>
@@ -96,6 +107,7 @@ export default function Projects() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label={`View live demo of ${project.title}`}
+                                            onClick={() => handleDemoClick(project.title, project.demo)}
                                         >
                                             <IconExternalLink className="size-5 md:size-4" aria-hidden="true" />
                                             <span className="text-base md:text-sm">Demo</span>

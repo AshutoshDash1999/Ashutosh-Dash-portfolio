@@ -9,6 +9,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
 import { VERSION } from "@/lib/constants";
 import data from "@/lib/data.json";
 import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
@@ -18,14 +19,41 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Badge } from "./ui/badge";
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+    },
+};
+
+const themeIconVariants = {
+    initial: { rotate: -90, scale: 0, opacity: 0 },
+    animate: { rotate: 0, scale: 1, opacity: 1 },
+    exit: { rotate: 90, scale: 0, opacity: 0 },
+};
+
+const themeIconTransition = { duration: 0.15, ease: "easeOut" } as const;
+
 export default function Navbar() {
     const { navbar } = data;
     const { setTheme, theme } = useTheme();
     const [isScrolled, setIsScrolled] = useState(false);
+    const { trackEvent } = useTrackEvent();
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollThreshold = 50; // Show border after scrolling 50px
+            const scrollThreshold = 50;
             setIsScrolled(window.scrollY > scrollThreshold);
         };
 
@@ -33,22 +61,18 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
+    const handleNavLinkClick = (label: string) => {
+        trackEvent("nav_link_click", { section: label.toLowerCase() });
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: -20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-        },
+    const handleThemeToggle = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+        trackEvent("theme_toggle_click", { theme: newTheme });
+    };
+
+    const handleMobileMenuOpen = () => {
+        trackEvent("mobile_menu_open");
     };
 
     return (
@@ -90,7 +114,12 @@ export default function Navbar() {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
                             <Button variant="neutral" asChild>
-                                <a href={link.href}>{link.label}</a>
+                                <a
+                                    href={link.href}
+                                    onClick={() => handleNavLinkClick(link.label)}
+                                >
+                                    {link.label}
+                                </a>
                             </Button>
                         </motion.div>
                     ))}
@@ -100,7 +129,7 @@ export default function Navbar() {
                     >
                         <Button
                             variant="neutral"
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            onClick={handleThemeToggle}
                             aria-label="Toggle dark mode"
                             className="relative overflow-hidden cursor-pointer size-10"
                         >
@@ -108,10 +137,10 @@ export default function Navbar() {
                                 {theme === "dark" ? (
                                     <motion.div
                                         key="sun"
-                                        initial={{ rotate: -90, scale: 0, opacity: 0 }}
-                                        animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                                        exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                                        transition={{ duration: 0.15, ease: "easeOut" }}
+                                        initial={themeIconVariants.initial}
+                                        animate={themeIconVariants.animate}
+                                        exit={themeIconVariants.exit}
+                                        transition={themeIconTransition}
                                         className="absolute inset-0 flex items-center justify-center"
                                     >
                                         <IconSun className="size-5" />
@@ -120,9 +149,9 @@ export default function Navbar() {
                                     <motion.div
                                         key="moon"
                                         initial={{ rotate: 90, scale: 0, opacity: 0 }}
-                                        animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                                        animate={themeIconVariants.animate}
                                         exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                                        transition={{ duration: 0.15, ease: "easeOut" }}
+                                        transition={themeIconTransition}
                                         className="absolute inset-0 flex items-center justify-center"
                                     >
                                         <IconMoon className="size-5" />
@@ -141,6 +170,7 @@ export default function Navbar() {
                             size="icon"
                             className="md:hidden size-12"
                             aria-label="Open menu"
+                            onClick={handleMobileMenuOpen}
                         >
                             <IconMenu className="size-6" />
                         </Button>
@@ -167,7 +197,12 @@ export default function Navbar() {
                                             className="w-full justify-start text-base h-14 px-4"
                                             asChild
                                         >
-                                            <a href={link.href}>{link.label}</a>
+                                            <a
+                                                href={link.href}
+                                                onClick={() => handleNavLinkClick(link.label)}
+                                            >
+                                                {link.label}
+                                            </a>
                                         </Button>
                                     </motion.div>
                                 </SheetClose>
@@ -180,19 +215,17 @@ export default function Navbar() {
                                     variant="neutral"
                                     size="lg"
                                     className="w-full justify-start relative overflow-hidden text-base h-14 px-4"
-                                    onClick={() =>
-                                        setTheme(theme === "dark" ? "light" : "dark")
-                                    }
+                                    onClick={handleThemeToggle}
                                     aria-label="Toggle dark mode"
                                 >
                                     <AnimatePresence mode="sync" initial={false}>
                                         {theme === "dark" ? (
                                             <motion.div
                                                 key="sun-mobile"
-                                                initial={{ rotate: -90, scale: 0, opacity: 0 }}
-                                                animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                                                exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                                                transition={{ duration: 0.15, ease: "easeOut" }}
+                                                initial={themeIconVariants.initial}
+                                                animate={themeIconVariants.animate}
+                                                exit={themeIconVariants.exit}
+                                                transition={themeIconTransition}
                                                 className="flex items-center"
                                             >
                                                 <IconSun className="size-6 mr-3" />
@@ -202,9 +235,9 @@ export default function Navbar() {
                                             <motion.div
                                                 key="moon-mobile"
                                                 initial={{ rotate: 90, scale: 0, opacity: 0 }}
-                                                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                                                animate={themeIconVariants.animate}
                                                 exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                                                transition={{ duration: 0.15, ease: "easeOut" }}
+                                                transition={themeIconTransition}
                                                 className="flex items-center"
                                             >
                                                 <IconMoon className="size-6 mr-3" />
