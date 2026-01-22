@@ -83,7 +83,7 @@ export default function Navbar() {
                 }`}
         >
 
-            <div className="flex items-center justify-between h-16 md:h-20">
+            <div className="flex items-center justify-between h-16 md:h-20 gap-4">
                 {/* Logo */}
                 <motion.div
                     className="text-xl md:text-2xl font-heading"
@@ -92,7 +92,7 @@ export default function Navbar() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                     <div className="flex items-center">
-                        <Image src={navbar.logo} alt="Ashutosh Dash - Home" width={100} height={100} priority />
+                        <Image src={navbar.logo} alt="Ashutosh Dash Logo" width={100} height={100} priority />
 
                         <Badge variant={isScrolled ? "chart3" : "default"}>
                             {VERSION}
