@@ -1,5 +1,6 @@
 "use client";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
     Card,
     CardContent,
@@ -14,14 +15,10 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { TrafficSource } from "@/lib/api/types";
+import { useTraffic } from "@/lib/api/hooks";
+import { IconAlertTriangle } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
-
-interface TrafficSourcesChartProps {
-    data: TrafficSource[] | null;
-    isLoading: boolean;
-}
 
 // Brand colors for known traffic sources
 const sourceColors: Record<string, string> = {
@@ -117,20 +114,63 @@ function TrafficSourcesChartSkeleton() {
     );
 }
 
+function TrafficSourcesChartError() {
+    return (
+        <Card className="h-full">
+            <CardHeader>
+                <CardTitle>Traffic Sources</CardTitle>
+                <CardDescription>Where your visitors come from</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Alert variant="destructive">
+                    <IconAlertTriangle className="size-4" />
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>
+                        Failed to load traffic sources data.
+                    </AlertDescription>
+                </Alert>
+            </CardContent>
+        </Card>
+    );
+}
+
+function TrafficSourcesChartEmpty() {
+    return (
+        <Card className="h-full">
+            <CardHeader>
+                <CardTitle>Traffic Sources</CardTitle>
+                <CardDescription>Where your visitors come from</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className="text-sm text-foreground/70 text-center py-8">
+                    No traffic sources data available yet
+                </p>
+            </CardContent>
+        </Card>
+    );
+}
+
 function truncateSource(source: string, maxLength = 12): string {
     if (source.length <= maxLength) return source;
     return `${source.slice(0, maxLength)}...`;
 }
 
-export function TrafficSourcesChart({
-    data,
-    isLoading,
-}: TrafficSourcesChartProps) {
-    if (isLoading || !data) {
+export function TrafficSourcesChart() {
+    const { trafficSources, isTrafficLoading, trafficError } = useTraffic();
+
+    if (isTrafficLoading) {
         return <TrafficSourcesChartSkeleton />;
     }
 
-    const chartData = data.slice(0, 8).map((item, index) => ({
+    if (trafficError) {
+        return <TrafficSourcesChartError />;
+    }
+
+    if (!trafficSources?.length) {
+        return <TrafficSourcesChartEmpty />;
+    }
+
+    const chartData = trafficSources.slice(0, 8).map((item, index) => ({
         source: truncateSource(item.source),
         fullSource: item.source,
         visitors: item.visitors,
@@ -177,10 +217,8 @@ export function TrafficSourcesChart({
                                 content={
                                     <ChartTooltipContent
                                         labelFormatter={(_, payload) => {
-                                            if (payload?.[0]?.payload?.fullSource) {
-                                                return payload[0].payload.fullSource;
-                                            }
-                                            return "";
+                                            const fullSource = payload?.[0]?.payload?.fullSource;
+                                            return typeof fullSource === "string" ? fullSource : "";
                                         }}
                                     />
                                 }

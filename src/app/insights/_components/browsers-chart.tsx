@@ -1,5 +1,6 @@
 "use client";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
     Card,
     CardContent,
@@ -14,14 +15,10 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { BrowserStats } from "@/lib/api/types";
+import { useDevices } from "@/lib/api/hooks";
+import { IconAlertTriangle } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
-
-interface BrowsersChartProps {
-    data: BrowserStats[] | null;
-    isLoading: boolean;
-}
 
 const chartColors = [
     "var(--chart-1)",
@@ -48,12 +45,58 @@ function BrowsersChartSkeleton() {
     );
 }
 
-export function BrowsersChart({ data, isLoading }: BrowsersChartProps) {
-    if (isLoading || !data) {
+function BrowsersChartError() {
+    return (
+        <Card className="h-full">
+            <CardHeader>
+                <CardTitle>Browser Distribution</CardTitle>
+                <CardDescription>Most popular browsers among visitors</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Alert variant="destructive">
+                    <IconAlertTriangle className="size-4" />
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>
+                        Failed to load browser data.
+                    </AlertDescription>
+                </Alert>
+            </CardContent>
+        </Card>
+    );
+}
+
+function BrowsersChartEmpty() {
+    return (
+        <Card className="h-full">
+            <CardHeader>
+                <CardTitle>Browser Distribution</CardTitle>
+                <CardDescription>Most popular browsers among visitors</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className="text-sm text-foreground/70 text-center py-8">
+                    No browser data available yet
+                </p>
+            </CardContent>
+        </Card>
+    );
+}
+
+export function BrowsersChart() {
+    const { browsers, isDevicesLoading, devicesError } = useDevices();
+
+    if (isDevicesLoading) {
         return <BrowsersChartSkeleton />;
     }
 
-    const chartData = data.slice(0, 6).map((item, index) => ({
+    if (devicesError) {
+        return <BrowsersChartError />;
+    }
+
+    if (!browsers?.length) {
+        return <BrowsersChartEmpty />;
+    }
+
+    const chartData = browsers.slice(0, 6).map((item, index) => ({
         browser: item.browser,
         count: item.count,
         percentage: item.percentage,

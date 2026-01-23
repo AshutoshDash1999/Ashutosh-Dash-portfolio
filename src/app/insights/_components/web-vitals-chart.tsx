@@ -1,5 +1,6 @@
 "use client";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
     Card,
     CardContent,
@@ -8,14 +9,11 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useVitals } from "@/lib/api/hooks";
 import type { WebVitalsMetrics } from "@/lib/api/types";
 import { cn } from "@/lib/utils";
+import { IconAlertTriangle } from "@tabler/icons-react";
 import { motion } from "motion/react";
-
-interface WebVitalsChartProps {
-    data: WebVitalsMetrics | null;
-    isLoading: boolean;
-}
 
 // Thresholds based on Google's Core Web Vitals
 const vitalsConfig = {
@@ -90,18 +88,64 @@ function WebVitalsChartSkeleton() {
     );
 }
 
-export function WebVitalsChart({ data, isLoading }: WebVitalsChartProps) {
-    if (isLoading || !data) {
+function WebVitalsChartError() {
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Web Vitals</CardTitle>
+                <CardDescription>Core Web Vitals performance metrics</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Alert variant="destructive">
+                    <IconAlertTriangle className="size-4" />
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>
+                        Failed to load web vitals data.
+                    </AlertDescription>
+                </Alert>
+            </CardContent>
+        </Card>
+    );
+}
+
+function WebVitalsChartEmpty() {
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Web Vitals</CardTitle>
+                <CardDescription>Core Web Vitals performance metrics</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className="text-sm text-foreground/70 text-center py-8">
+                    No web vitals data available yet
+                </p>
+            </CardContent>
+        </Card>
+    );
+}
+
+export function WebVitalsChart() {
+    const { vitals, isVitalsLoading, vitalsError } = useVitals();
+
+    if (isVitalsLoading) {
         return <WebVitalsChartSkeleton />;
     }
 
+    if (vitalsError) {
+        return <WebVitalsChartError />;
+    }
+
+    if (!vitals) {
+        return <WebVitalsChartEmpty />;
+    }
+
     const metrics = Object.entries(vitalsConfig).map(([key, config]) => {
-        const metricData = data[key as keyof WebVitalsMetrics];
+        const metricData = vitals[key as keyof WebVitalsMetrics];
         return {
             key,
             ...config,
-            value: metricData.p75,
-            count: metricData.count,
+            value: metricData?.p75 ?? 0,
+            count: metricData?.count ?? 0,
         };
     });
 
@@ -109,19 +153,7 @@ export function WebVitalsChart({ data, isLoading }: WebVitalsChartProps) {
     const activeMetrics = metrics.filter((m) => m.count > 0);
 
     if (activeMetrics.length === 0) {
-        return (
-            <Card>
-                <CardHeader>
-                    <CardTitle>Web Vitals</CardTitle>
-                    <CardDescription>Core Web Vitals performance metrics</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-sm text-foreground/70 text-center py-8">
-                        No web vitals data available yet
-                    </p>
-                </CardContent>
-            </Card>
-        );
+        return <WebVitalsChartEmpty />;
     }
 
     return (

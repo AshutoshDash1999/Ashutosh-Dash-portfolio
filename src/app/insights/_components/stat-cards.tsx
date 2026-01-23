@@ -1,5 +1,6 @@
 "use client";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -8,8 +9,15 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+    useEngagement,
+    usePageviews,
+    useSession,
+    useVisitors,
+} from "@/lib/api/hooks";
 import { cn } from "@/lib/utils";
 import {
+    IconAlertTriangle,
     IconClock,
     IconEye,
     IconUserCheck,
@@ -19,18 +27,13 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 
-export interface StatsData {
+interface StatsData {
     totalPageviews: number;
     uniqueVisitors: number;
     avgSessionDuration: number;
     totalSessions: number;
     newVisitors: number;
     returningVisitors: number;
-}
-
-interface StatCardsProps {
-    data: StatsData | null;
-    isLoading: boolean;
 }
 
 function formatDuration(seconds: number): string {
@@ -140,7 +143,27 @@ function StatCardSkeleton() {
     );
 }
 
-export function StatCards({ data, isLoading }: StatCardsProps) {
+function StatCardsError() {
+    return (
+        <Alert variant="destructive">
+            <IconAlertTriangle className="size-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+                Failed to load statistics. Please try again later.
+            </AlertDescription>
+        </Alert>
+    );
+}
+
+export function StatCards() {
+    const { totalPageviews, isPageviewsLoading, pageviewsError } = usePageviews();
+    const { uniqueVisitors, isVisitorsLoading, visitorsError } = useVisitors();
+    const { avgSessionDuration, isSessionLoading, sessionError } = useSession();
+    const { engagement, isEngagementLoading, engagementError } = useEngagement();
+
+    const isLoading = isPageviewsLoading || isVisitorsLoading || isSessionLoading || isEngagementLoading;
+    const hasError = pageviewsError || visitorsError || sessionError || engagementError;
+
     if (isLoading) {
         return (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -151,9 +174,18 @@ export function StatCards({ data, isLoading }: StatCardsProps) {
         );
     }
 
-    if (!data) {
-        return null;
+    if (hasError) {
+        return <StatCardsError />;
     }
+
+    const data: StatsData = {
+        totalPageviews: totalPageviews ?? 0,
+        uniqueVisitors: uniqueVisitors ?? 0,
+        avgSessionDuration: avgSessionDuration ?? 0,
+        totalSessions: engagement?.totalSessions ?? 0,
+        newVisitors: engagement?.newVisitors ?? 0,
+        returningVisitors: engagement?.returningVisitors ?? 0,
+    };
 
     return (
         <TooltipProvider delayDuration={300}>
