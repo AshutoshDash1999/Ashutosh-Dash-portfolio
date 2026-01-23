@@ -275,7 +275,7 @@ export default function CardGame() {
                     return (
                         <motion.div
                             key={card.id}
-                            className="relative cursor-pointer perspective-[1000px] hover:scale-105 transition-all duration-300"
+                            className={`relative ${gameState === "playing" ? "cursor-pointer" : "cursor-default"} perspective-[1000px] hover:scale-105 transition-all duration-300`}
                             onClick={() => handleCardClick(card)}
                             variants={cardVariants}
                             role="button"

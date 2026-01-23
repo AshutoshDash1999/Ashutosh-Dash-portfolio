@@ -16,6 +16,7 @@ import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Badge } from "./ui/badge";
 
@@ -91,13 +92,15 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                 >
-                    <div className="flex items-center">
-                        <Image src={navbar.logo} alt="Ashutosh Dash Logo" width={100} height={100} priority />
+                    <Link href="/">
+                        <div className="flex items-center">
+                            <Image src={navbar.logo} alt="Ashutosh Dash Logo" width={100} height={100} priority />
 
-                        <Badge variant={isScrolled ? "chart3" : "default"}>
-                            {VERSION}
-                        </Badge>
-                    </div>
+                            <Badge variant={isScrolled ? "chart3" : "default"}>
+                                {VERSION}
+                            </Badge>
+                        </div>
+                    </Link>
                 </motion.div>
 
                 {/* Desktop Navigation */}
