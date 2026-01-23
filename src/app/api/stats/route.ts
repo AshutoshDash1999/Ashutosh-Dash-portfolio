@@ -19,6 +19,7 @@ export async function GET() {
       pageviewsByDay: "/api/stats/pages/views",
       topPages: "/api/stats/pages/top",
       vitals: "/api/stats/vitals",
+      engagement: "/api/stats/engagement",
     },
   });
 }

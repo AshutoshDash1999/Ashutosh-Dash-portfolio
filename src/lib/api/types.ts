@@ -107,9 +107,16 @@ export interface WebVitalsMetrics {
   lcp: { avg: number; p75: number; p95: number; count: number };
   fcp: { avg: number; p75: number; p95: number; count: number };
   cls: { avg: number; p75: number; p95: number; count: number };
-  ttfb: { avg: number; p75: number; p95: number; count: number };
-  fid: { avg: number; p75: number; p95: number; count: number };
   inp: { avg: number; p75: number; p95: number; count: number };
+}
+
+export interface EngagementStats {
+  bounceRate: number;
+  totalSessions: number;
+  bouncedSessions: number;
+  avgPagesPerSession: number;
+  newVisitors: number;
+  returningVisitors: number;
 }
 
 export interface StatsOverview {

@@ -80,6 +80,21 @@ export const visitorsQueries = {
   `,
 } as const;
 
+// Dynamic query functions with configurable time range
+export function getVisitorsOverTimeQuery(days: number) {
+  return `
+    SELECT 
+      toDate(timestamp) AS date,
+      count(DISTINCT properties.distinct_id) AS visitors
+    FROM events
+    WHERE 
+      event = '$pageview'
+      AND timestamp >= now() - INTERVAL ${days} DAY
+    GROUP BY date
+    ORDER BY date ASC
+  `;
+}
+
 // ============================================
 // Traffic Queries
 // ============================================
@@ -182,15 +197,106 @@ export const pageQueries = {
   `,
 } as const;
 
+export function getPageviewsByDayQuery(days: number) {
+  return `
+    SELECT 
+      toDate(timestamp) AS date,
+      count() AS pageview_count
+    FROM events
+    WHERE 
+      event = '$pageview'
+      AND timestamp >= now() - INTERVAL ${days} DAY
+    GROUP BY date
+    ORDER BY date ASC
+  `;
+}
+
+// ============================================
+// Engagement Queries
+// ============================================
+
+export const engagementQueries = {
+  // Bounce rate - sessions with only one pageview
+  bounceRate: `
+    SELECT 
+      countIf(session_pageviews = 1) AS bounced_sessions,
+      count() AS total_sessions,
+      round(countIf(session_pageviews = 1) * 100.0 / count(), 2) AS bounce_rate
+    FROM (
+      SELECT 
+        properties.$session_id AS session_id,
+        count() AS session_pageviews
+      FROM events
+      WHERE 
+        event = '$pageview'
+        AND properties.$session_id IS NOT NULL
+        AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      GROUP BY session_id
+    )
+  `,
+
+  // New vs returning visitors - simplified approach
+  // Counts visitors whose first pageview in our data is within the time range
+  newVsReturning: `
+    SELECT 
+      visitor_type,
+      count() AS count
+    FROM (
+      SELECT 
+        properties.distinct_id AS visitor_id,
+        if(
+          min(timestamp) >= now() - INTERVAL ${TIME_RANGE},
+          'New',
+          'Returning'
+        ) AS visitor_type
+      FROM events
+      WHERE 
+        event = '$pageview'
+        AND properties.distinct_id IS NOT NULL
+      GROUP BY visitor_id
+      HAVING max(timestamp) >= now() - INTERVAL ${TIME_RANGE}
+    )
+    GROUP BY visitor_type
+  `,
+
+  // Average pages per session
+  pagesPerSession: `
+    SELECT 
+      round(avg(pages), 2) AS avg_pages_per_session
+    FROM (
+      SELECT 
+        properties.$session_id AS session_id,
+        count() AS pages
+      FROM events
+      WHERE 
+        event = '$pageview'
+        AND properties.$session_id IS NOT NULL
+        AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      GROUP BY session_id
+    )
+  `,
+
+  // Total sessions
+  totalSessions: `
+    SELECT 
+      count(DISTINCT properties.$session_id) AS total_sessions
+    FROM events
+    WHERE 
+      event = '$pageview'
+      AND properties.$session_id IS NOT NULL
+      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+  `,
+} as const;
+
 // ============================================
 // Web Vitals Queries
 // ============================================
 
 const createWebVitalsQuery = (metric: string) => `
   SELECT 
-    avg(toFloat64OrNull(properties.$web_vitals_${metric}_value)) AS avg_value,
-    quantile(0.75)(toFloat64OrNull(properties.$web_vitals_${metric}_value)) AS p75,
-    quantile(0.95)(toFloat64OrNull(properties.$web_vitals_${metric}_value)) AS p95,
+    avg(toFloat(properties.$web_vitals_${metric}_value)) AS avg_value,
+    quantile(0.75)(toFloat(properties.$web_vitals_${metric}_value)) AS p75,
+    quantile(0.95)(toFloat(properties.$web_vitals_${metric}_value)) AS p95,
     count() AS count
   FROM events
   WHERE 
@@ -203,8 +309,6 @@ export const vitalsQueries = {
   lcp: createWebVitalsQuery("LCP"),
   fcp: createWebVitalsQuery("FCP"),
   cls: createWebVitalsQuery("CLS"),
-  ttfb: createWebVitalsQuery("TTFB"),
-  fid: createWebVitalsQuery("FID"),
   inp: createWebVitalsQuery("INP"),
 } as const;
 
