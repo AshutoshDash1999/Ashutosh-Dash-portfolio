@@ -16,7 +16,10 @@ export default function Marquee({ items }: { items: ReactNode[] }) {
         })}
       </div>
 
-      <div className="absolute top-0 animate-marquee2 whitespace-nowrap py-12">
+      <div
+        className="absolute top-0 animate-marquee2 whitespace-nowrap py-12"
+        aria-hidden="true"
+      >
         {items.map((item, index) => {
           return (
             <span
