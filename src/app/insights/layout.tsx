@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 const { personal } = data;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ashutoshdash.in";
+const coverImageUrl = `${siteUrl}/insights-cover.webp`;
 
 export const metadata: Metadata = {
     title: `Site Insights | ${personal.name}`,
@@ -16,6 +17,18 @@ export const metadata: Metadata = {
         description: `Analytics and visitor statistics for ${personal.name}'s portfolio website.`,
         url: `${siteUrl}/insights`,
         type: "website",
+        images: [
+            {
+                url: coverImageUrl,
+                width: 1200,
+                height: 630,
+                alt: `Site Insights | ${personal.name}`,
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        images: [coverImageUrl],
     },
 };
 

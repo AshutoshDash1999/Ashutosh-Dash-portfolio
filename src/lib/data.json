@@ -7,12 +7,12 @@
   "navbar": {
     "logo": "/logo.png",
     "links": [
-      { "label": "Skills", "href": "#skills" },
-      { "label": "Experience", "href": "#experience" },
-      { "label": "Projects", "href": "#projects" },
-      { "label": "Reviews", "href": "#reviews" },
-      { "label": "FAQs", "href": "#faqs" },
-      { "label": "Contact", "href": "#contact" }
+      { "label": "Skills", "href": "/#skills" },
+      { "label": "Experience", "href": "/#experience" },
+      { "label": "Projects", "href": "/#projects" },
+      { "label": "Reviews", "href": "/#reviews" },
+      { "label": "FAQs", "href": "/#faqs" },
+      { "label": "Contact", "href": "/#contact" }
     ]
   },
   "techSkills": [
