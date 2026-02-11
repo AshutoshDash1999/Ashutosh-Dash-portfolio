@@ -24,13 +24,35 @@
   ],
   "clientWork": [
     {
-      "title": "LearningPad Dashboard",
-      "client": "LearningPad",
-      "url": "https://learningpadedu.com",
-      "description": "Built and maintained high-quality dashboards and internal tools for the LearningPad education platform.",
-      "technologies": ["Next.js", "React", "Mantine UI", "Refine", "Firebase"],
-      "year": "2024",
-      "category": "Web Application"
+      "title": "Roshni Satpathy's Portfolio",
+      "description": "Portfolio website for Roshni Satpathy as Designer.",
+      "technologies": [
+        "NextJS",
+        "Shadcn UI",
+        "Tailwind CSS",
+        "Typescript",
+        "Firebase",
+        "Netlify"
+      ],
+      "url": "https://hi-i-am-roshni.netlify.app"
+    },
+    {
+      "title": "Samvaad Sathi",
+      "description": "Samvaad Sathi is a platform for the Barabari Collective for interview preparation.",
+      "technologies": ["NextJS", "Daisy UI", "Tailwind CSS", "Typescript"],
+      "url": "https://www.samvaad-sathi.barabaricollective.org"
+    },
+    {
+      "title": "Suraj Roy's Portfolio",
+      "description": "Portfolio website for Suraj Roy as Designer.",
+      "technologies": [
+        "NextJS",
+        "Shadcn UI",
+        "Tailwind CSS",
+        "Typescript",
+        "Appwrite"
+      ],
+      "url": "https://roydesign.in"
     }
   ],
   "techSkills": [
@@ -125,12 +147,6 @@
       "technologies": ["NextJS", "Chakra UI", "Typescript"],
       "demo": "https://iccct-2023.vercel.app",
       "repo": "https://github.com/AshutoshDash1999/iccct-2023"
-    },
-    {
-      "title": "Roshni Satpathy Portfolio",
-      "description": "Portfolio website for Roshni Satpathy as Designer.",
-      "technologies": ["NextJS", "Shadcn UI", "Tailwind CSS", "Typescript"],
-      "demo": "https://hi-i-am-roshni.netlify.app"
     }
   ],
   "freelance": {

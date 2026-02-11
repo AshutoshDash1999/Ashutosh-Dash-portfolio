@@ -74,7 +74,7 @@ export default function Projects() {
                             <div className="flex flex-col gap-4">
                                 <CardHeader>
                                     <CardTitle className="text-lg md:text-xl">{project.title}</CardTitle>
-                                    <CardDescription className="text-base md:text-sm leading-relaxed">{project.description}</CardDescription>
+                                    <CardDescription className="text-base md:text-sm leading-relaxed line-clamp-3">{project.description}</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex flex-wrap gap-2">
