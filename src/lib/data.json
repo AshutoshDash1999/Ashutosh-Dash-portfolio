@@ -32,7 +32,8 @@
         "Tailwind CSS",
         "Typescript",
         "Firebase",
-        "Netlify"
+        "Netlify",
+        "Motion"
       ],
       "url": "https://hi-i-am-roshni.netlify.app"
     },
@@ -50,7 +51,9 @@
         "Shadcn UI",
         "Tailwind CSS",
         "Typescript",
-        "Appwrite"
+        "Appwrite",
+        "Motion",
+        "Vercel"
       ],
       "url": "https://roydesign.in"
     }

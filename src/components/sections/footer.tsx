@@ -1,6 +1,16 @@
+"use client";
+
+import { motion } from "motion/react";
+
 export default function Footer() {
     return (
-        <footer className="border-t-4 border-border py-8 md:py-8">
+        <motion.footer
+            className="border-t-4 border-border py-8 md:py-8"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+        >
             <div className="px-6 md:px-12">
                 <div className="text-center text-foreground">
                     <p className="text-base md:text-base">
@@ -8,6 +18,6 @@ export default function Footer() {
                     </p>
                 </div>
             </div>
-        </footer>
+        </motion.footer>
     );
 }
