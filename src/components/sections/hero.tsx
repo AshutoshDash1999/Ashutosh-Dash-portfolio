@@ -1,11 +1,13 @@
 "use client";
 
+import { FirstLoadContext } from "@/components/layout/first-load-animation";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
 import { IconFileText } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useContext } from "react";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 
@@ -45,6 +47,7 @@ const cardGameContainerVariants = {
 export default function Hero() {
     const { personal } = data;
     const { trackEvent } = useTrackEvent();
+    const firstLoadComplete = useContext(FirstLoadContext);
 
     const handleResumeClick = () => {
         trackEvent("resume_button_click");
@@ -56,13 +59,13 @@ export default function Hero() {
                 <motion.div
                     className="flex-1 space-y-4"
                     initial={containerVariants.initial}
-                    animate={containerVariants.animate}
+                    animate={firstLoadComplete ? containerVariants.animate : containerVariants.initial}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
                     <motion.h1
                         className="text-4xl md:text-5xl lg:text-6xl font-heading"
                         initial={headingVariants.initial}
-                        animate={headingVariants.animate}
+                        animate={firstLoadComplete ? headingVariants.animate : headingVariants.initial}
                         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                     >
                         {personal.name}
@@ -70,7 +73,7 @@ export default function Hero() {
                     <motion.h2
                         className="text-2xl md:text-3xl lg:text-4xl font-heading text-main inline-block"
                         initial={headingVariants.initial}
-                        animate={headingVariants.animate}
+                        animate={firstLoadComplete ? headingVariants.animate : headingVariants.initial}
                         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                     >
                         {personal.title}
@@ -79,7 +82,7 @@ export default function Hero() {
                     <motion.p
                         className="text-lg md:text-xl text-foreground max-w-2xl"
                         initial={headingVariants.initial}
-                        animate={headingVariants.animate}
+                        animate={firstLoadComplete ? headingVariants.animate : headingVariants.initial}
                         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                     >
                         {personal.bio}
@@ -87,7 +90,7 @@ export default function Hero() {
 
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        animate={firstLoadComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                         transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
                     >
                         <Link
@@ -108,7 +111,7 @@ export default function Hero() {
                 <motion.div
                     className="flex-1 w-full min-h-96 flex items-center justify-center"
                     initial={cardGameContainerVariants.initial}
-                    animate={cardGameContainerVariants.animate}
+                    animate={firstLoadComplete ? cardGameContainerVariants.animate : cardGameContainerVariants.initial}
                     transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
                 >
                     <CardGame />

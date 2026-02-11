@@ -1,5 +1,10 @@
 import AppProvider from "@/components/providers/app-provider";
+import { FirstLoadAnimation } from "@/components/layout/first-load-animation";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/sections/footer";
+import SocialLinks from "@/components/sections/social-links";
 import { WebVitals } from "@/components/web-vitals";
+import { ViewTransitions } from "next-view-transitions";
 import data from "@/lib/data.json";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
@@ -122,21 +127,38 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${dmSans.variable} antialiased`}>
-        <a
-          href="#hero"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-main focus:text-main-foreground focus:border-2 focus:border-border focus:rounded-base focus:shadow-shadow"
-        >
-          Skip to content
-        </a>
-        <WebVitals />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <AppProvider>{children}</AppProvider>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${dmSans.variable} antialiased`}>
+          <a
+            href="#hero"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-main focus:text-main-foreground focus:border-2 focus:border-border focus:rounded-base focus:shadow-shadow"
+          >
+            Skip to content
+          </a>
+          <WebVitals />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+          <AppProvider>
+            <FirstLoadAnimation>
+              <div className="vt-layout-nav">
+                <Navbar />
+              </div>
+              <div className="vt-main-content">
+                {children}
+              </div>
+              <div className="vt-layout-social">
+                <SocialLinks />
+              </div>
+              <div className="vt-layout-footer">
+                <Footer />
+              </div>
+            </FirstLoadAnimation>
+          </AppProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

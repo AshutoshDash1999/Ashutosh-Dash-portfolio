@@ -12,25 +12,7 @@ import {
 } from "@/components/ui/card";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import { IconExternalLink } from "@tabler/icons-react";
-import { motion } from "motion/react";
 import Link from "next/link";
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: { staggerChildren: 0.1 },
-    },
-};
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as const },
-    },
-};
 
 export type ClientWorkItem = {
     title: string;
@@ -48,12 +30,7 @@ export function ClientWorkContent({ clientWork }: { clientWork: ClientWorkItem[]
 
     return (
         <>
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-12"
-            >
+            <div className="mb-12">
                 <h1 className="text-3xl md:text-4xl font-heading mb-4">
                     Client Work
                 </h1>
@@ -61,15 +38,10 @@ export function ClientWorkContent({ clientWork }: { clientWork: ClientWorkItem[]
                     Selected projects and engagements with clients—web applications,
                     mobile apps, and internal tools.
                 </p>
-            </motion.div>
-            <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clientWork.map((item) => (
-                    <motion.div key={item.url} variants={cardVariants}>
+                    <div key={item.url}>
                         <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background flex flex-col">
                             <CardHeader>
                                 <CardTitle className="text-lg md:text-xl">
@@ -103,9 +75,9 @@ export function ClientWorkContent({ clientWork }: { clientWork: ClientWorkItem[]
                                 </Button>
                             </CardFooter>
                         </Card>
-                    </motion.div>
+                    </div>
                 ))}
-            </motion.div>
+            </div>
         </>
     );
 }

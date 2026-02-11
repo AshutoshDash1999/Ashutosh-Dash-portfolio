@@ -178,3 +178,58 @@
     padding: 0.25rem 0;
   }
 }
+
+/* View Transitions API: shell (nav, social, footer) stay constant; only main content transitions */
+:root {
+  view-transition-name: none;
+}
+
+.vt-layout-nav {
+  view-transition-name: layout-nav;
+}
+
+.vt-main-content {
+  view-transition-name: main-content;
+}
+
+.vt-layout-social {
+  view-transition-name: layout-social;
+}
+
+.vt-layout-footer {
+  view-transition-name: layout-footer;
+}
+
+/* Shell elements: no animation so they stay constant */
+::view-transition-old(layout-nav),
+::view-transition-new(layout-nav),
+::view-transition-old(layout-social),
+::view-transition-new(layout-social),
+::view-transition-old(layout-footer),
+::view-transition-new(layout-footer) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Main content: custom router transition (slide + scale) */
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96) translateX(-8%);
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateX(8%);
+  }
+}
+
+::view-transition-old(main-content) {
+  animation: 0.35s ease-out both vt-out;
+}
+
+::view-transition-new(main-content) {
+  animation: 0.35s ease-out both vt-in;
+}

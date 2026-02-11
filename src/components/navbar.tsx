@@ -14,10 +14,11 @@ import { VERSION } from "@/lib/constants";
 import data from "@/lib/data.json";
 import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
+import { FirstLoadContext } from "@/components/layout/first-load-animation";
 import { useTheme } from "next-themes";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Badge } from "./ui/badge";
 
 const containerVariants = {
@@ -51,6 +52,7 @@ export default function Navbar() {
   const { setTheme, theme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const { trackEvent } = useTrackEvent();
+  const firstLoadComplete = useContext(FirstLoadContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,7 +91,7 @@ export default function Navbar() {
         <motion.div
           className="text-xl md:text-2xl font-heading"
           initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          animate={firstLoadComplete ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <Link href="/">
@@ -114,7 +116,7 @@ export default function Navbar() {
           className="hidden md:flex items-center gap-4"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={firstLoadComplete ? "visible" : "hidden"}
         >
           {navbar.links.map((link) => (
             <motion.div
@@ -201,7 +203,7 @@ export default function Navbar() {
               className="flex flex-col gap-3 p-4"
               variants={containerVariants}
               initial="hidden"
-              animate="visible"
+              animate={firstLoadComplete ? "visible" : "hidden"}
             >
               {navbar.links.map((link) => (
                 <SheetClose key={link.href} asChild>
