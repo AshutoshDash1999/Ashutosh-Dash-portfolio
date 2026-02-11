@@ -1,5 +1,6 @@
 import AppProvider from "@/components/providers/app-provider";
 import { FirstLoadAnimation } from "@/components/layout/first-load-animation";
+import { InitialLoadingGate } from "@/components/layout/initial-loading-gate";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/sections/footer";
 import SocialLinks from "@/components/sections/social-links";
@@ -142,20 +143,22 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
           />
           <AppProvider>
-            <FirstLoadAnimation>
-              <div className="vt-layout-nav">
-                <Navbar />
-              </div>
-              <div className="vt-main-content">
-                {children}
-              </div>
-              <div className="vt-layout-social">
-                <SocialLinks />
-              </div>
-              <div className="vt-layout-footer">
-                <Footer />
-              </div>
-            </FirstLoadAnimation>
+            <InitialLoadingGate userName={personal.name}>
+              <FirstLoadAnimation>
+                <div className="vt-layout-nav">
+                  <Navbar />
+                </div>
+                <div className="vt-main-content">
+                  {children}
+                </div>
+                <div className="vt-layout-social">
+                  <SocialLinks />
+                </div>
+                <div className="vt-layout-footer">
+                  <Footer />
+                </div>
+              </FirstLoadAnimation>
+            </InitialLoadingGate>
           </AppProvider>
         </body>
       </html>

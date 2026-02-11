@@ -10,9 +10,29 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { FirstLoadContext } from "@/components/layout/first-load-animation";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import { IconExternalLink } from "@tabler/icons-react";
+import { motion } from "motion/react";
 import Link from "next/link";
+import { useContext } from "react";
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1 },
+    },
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as const },
+    },
+};
 
 export type ClientWorkItem = {
     title: string;
@@ -23,6 +43,7 @@ export type ClientWorkItem = {
 
 export function ClientWorkContent({ clientWork }: { clientWork: ClientWorkItem[] }) {
     const { trackEvent } = useTrackEvent();
+    const firstLoadComplete = useContext(FirstLoadContext);
 
     const handleProjectClick = (title: string, url: string) => {
         trackEvent("client_work_click", { project: title, url });
@@ -39,9 +60,14 @@ export function ClientWorkContent({ clientWork }: { clientWork: ClientWorkItem[]
                     mobile apps, and internal tools.
                 </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                variants={containerVariants}
+                initial="hidden"
+                animate={firstLoadComplete ? "visible" : "hidden"}
+            >
                 {clientWork.map((item) => (
-                    <div key={item.url}>
+                    <motion.div key={item.url} variants={cardVariants}>
                         <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background flex flex-col">
                             <CardHeader>
                                 <CardTitle className="text-lg md:text-xl">
@@ -75,9 +101,9 @@ export function ClientWorkContent({ clientWork }: { clientWork: ClientWorkItem[]
                                 </Button>
                             </CardFooter>
                         </Card>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </>
     );
 }

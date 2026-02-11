@@ -31,7 +31,12 @@ const CardGame = dynamic(() => import("./card-game"), {
 
 const containerVariants = {
     initial: { opacity: 0, y: 30, scale: 0.95 },
-    animate: { opacity: 1, y: 0, scale: 1 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.6, ease: "easeOut" as const },
+    },
 };
 
 const headingVariants = {
@@ -39,9 +44,47 @@ const headingVariants = {
     animate: { opacity: 1, y: 0, scale: 1 },
 };
 
+const heading1Variants = {
+    initial: headingVariants.initial,
+    animate: {
+        ...headingVariants.animate,
+        transition: { duration: 0.6, delay: 0.1, ease: "easeOut" as const },
+    },
+};
+
+const heading2Variants = {
+    initial: headingVariants.initial,
+    animate: {
+        ...headingVariants.animate,
+        transition: { duration: 0.6, delay: 0.2, ease: "easeOut" as const },
+    },
+};
+
+const heading3Variants = {
+    initial: headingVariants.initial,
+    animate: {
+        ...headingVariants.animate,
+        transition: { duration: 0.6, delay: 0.3, ease: "easeOut" as const },
+    },
+};
+
 const cardGameContainerVariants = {
     initial: { opacity: 0, y: 30, scale: 0.9 },
-    animate: { opacity: 1, y: 0, scale: 1 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.6, delay: 0.4, ease: "easeOut" as const },
+    },
+};
+
+const resumeLinkVariants = {
+    initial: { opacity: 0, y: 10 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.4, delay: 0.4, ease: "easeOut" as const },
+    },
 };
 
 export default function Hero() {
@@ -54,69 +97,71 @@ export default function Hero() {
     };
 
     return (
-        <section id="hero" className="px-6 md:px-12 py-16 md:py-24">
-            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                <motion.div
-                    className="flex-1 space-y-4"
-                    initial={containerVariants.initial}
-                    animate={firstLoadComplete ? containerVariants.animate : containerVariants.initial}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                    <motion.h1
-                        className="text-4xl md:text-5xl lg:text-6xl font-heading"
-                        initial={headingVariants.initial}
-                        animate={firstLoadComplete ? headingVariants.animate : headingVariants.initial}
-                        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                    >
-                        {personal.name}
-                    </motion.h1>
-                    <motion.h2
-                        className="text-2xl md:text-3xl lg:text-4xl font-heading text-main inline-block"
-                        initial={headingVariants.initial}
-                        animate={firstLoadComplete ? headingVariants.animate : headingVariants.initial}
-                        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                    >
-                        {personal.title}
-                    </motion.h2>
-
-                    <motion.p
-                        className="text-lg md:text-xl text-foreground max-w-2xl"
-                        initial={headingVariants.initial}
-                        animate={firstLoadComplete ? headingVariants.animate : headingVariants.initial}
-                        transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                    >
-                        {personal.bio}
-                    </motion.p>
-
+        <>
+            <section id="hero" className="px-6 md:px-12 py-16 md:py-24">
+                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={firstLoadComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                        transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+                        className="flex-1 space-y-4"
+                        initial="initial"
+                        animate={firstLoadComplete ? "animate" : "initial"}
+                        variants={containerVariants}
                     >
-                        <Link
-                            href="/Ashutosh_Dash_Frontend_Dev.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 transition-colors group"
-                            aria-label="View resume"
-                            onClick={handleResumeClick}
+                        <motion.h1
+                            className="text-4xl md:text-5xl lg:text-6xl font-heading"
+                            initial="initial"
+                            animate={firstLoadComplete ? "animate" : "initial"}
+                            variants={heading1Variants}
                         >
-                            <Button size={"xl"}>
-                                <IconFileText className="size-5" />
-                                <span className="text-base md:text-sm">See my work</span>
-                            </Button>
-                        </Link>
+                            {personal.name}
+                        </motion.h1>
+                        <motion.h2
+                            className="text-2xl md:text-3xl lg:text-4xl font-heading text-main inline-block"
+                            initial="initial"
+                            animate={firstLoadComplete ? "animate" : "initial"}
+                            variants={heading2Variants}
+                        >
+                            {personal.title}
+                        </motion.h2>
+
+                        <motion.p
+                            className="text-lg md:text-xl text-foreground max-w-2xl"
+                            initial="initial"
+                            animate={firstLoadComplete ? "animate" : "initial"}
+                            variants={heading3Variants}
+                        >
+                            {personal.bio}
+                        </motion.p>
+
+                        <motion.div
+                            initial="initial"
+                            animate={firstLoadComplete ? "animate" : "initial"}
+                            variants={resumeLinkVariants}
+                        >
+                            <Link
+                                href="/Ashutosh_Dash_Frontend_Dev.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 transition-colors group"
+                                aria-label="View resume"
+                                onClick={handleResumeClick}
+                            >
+                                <Button size="xl">
+                                    <IconFileText className="size-5" />
+                                    <span className="text-base md:text-sm">See my work</span>
+                                </Button>
+                            </Link>
+                        </motion.div>
                     </motion.div>
-                </motion.div>
-                <motion.div
-                    className="flex-1 w-full min-h-96 flex items-center justify-center"
-                    initial={cardGameContainerVariants.initial}
-                    animate={firstLoadComplete ? cardGameContainerVariants.animate : cardGameContainerVariants.initial}
-                    transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                >
-                    <CardGame />
-                </motion.div>
-            </div>
-        </section>
+                    <motion.div
+                        className="flex-1 w-full min-h-96 flex items-center justify-center"
+                        initial="initial"
+                        animate={firstLoadComplete ? "animate" : "initial"}
+                        variants={cardGameContainerVariants}
+                    >
+                        <CardGame />
+                    </motion.div>
+                </div>
+            </section>
+        </>
     );
 }
