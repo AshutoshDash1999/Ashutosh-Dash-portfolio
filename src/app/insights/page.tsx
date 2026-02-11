@@ -1,7 +1,6 @@
 "use client";
 
-import Navbar from "@/components/navbar";
-import Footer from "@/components/sections/footer";
+import PageLayout from "@/components/layout/page-layout";
 import { motion } from "motion/react";
 import {
     BrowsersChart,
@@ -15,9 +14,7 @@ import {
 
 export default function InsightsPage() {
     return (
-        <main className="min-h-screen">
-            <Navbar />
-
+        <PageLayout>
             <section className="px-6 md:px-12 py-12 md:py-16">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -60,8 +57,6 @@ export default function InsightsPage() {
                     <WebVitalsChart />
                 </div>
             </section>
-
-            <Footer />
-        </main>
+        </PageLayout>
     );
 }

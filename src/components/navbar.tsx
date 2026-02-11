@@ -123,12 +123,21 @@ export default function Navbar() {
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <Button variant="neutral" asChild>
-                <a
-                  href={link.href}
-                  onClick={() => handleNavLinkClick(link.label)}
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith("/") && !link.href.includes("#") ? (
+                  <Link
+                    href={link.href}
+                    onClick={() => handleNavLinkClick(link.label)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    onClick={() => handleNavLinkClick(link.label)}
+                  >
+                    {link.label}
+                  </a>
+                )}
               </Button>
             </motion.div>
           ))}
@@ -206,12 +215,21 @@ export default function Navbar() {
                       className="w-full justify-start text-base h-14 px-4"
                       asChild
                     >
-                      <a
-                        href={link.href}
-                        onClick={() => handleNavLinkClick(link.label)}
-                      >
-                        {link.label}
-                      </a>
+                      {link.href.startsWith("/") && !link.href.includes("#") ? (
+                        <Link
+                          href={link.href}
+                          onClick={() => handleNavLinkClick(link.label)}
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          onClick={() => handleNavLinkClick(link.label)}
+                        >
+                          {link.label}
+                        </a>
+                      )}
                     </Button>
                   </motion.div>
                 </SheetClose>

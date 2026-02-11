@@ -14,6 +14,7 @@ import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
 import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -87,7 +88,7 @@ export default function Projects() {
                             <CardFooter className="flex gap-3 md:gap-4">
                                 {project.repo && (
                                     <Button asChild className="flex-1 bg-chart-2 h-12 md:h-10">
-                                        <a
+                                        <Link
                                             href={project.repo}
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -96,13 +97,13 @@ export default function Projects() {
                                         >
                                             <IconBrandGithub className="size-5 md:size-4" aria-hidden="true" />
                                             <span className="text-base md:text-sm">Code</span>
-                                        </a>
+                                        </Link>
                                     </Button>
                                 )}
 
                                 {project.demo && (
                                     <Button asChild className="flex-1 chart-1 h-12 md:h-10">
-                                        <a
+                                        <Link
                                             href={project.demo}
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -111,7 +112,7 @@ export default function Projects() {
                                         >
                                             <IconExternalLink className="size-5 md:size-4" aria-hidden="true" />
                                             <span className="text-base md:text-sm">Demo</span>
-                                        </a>
+                                        </Link>
                                     </Button>
                                 )}
                             </CardFooter>

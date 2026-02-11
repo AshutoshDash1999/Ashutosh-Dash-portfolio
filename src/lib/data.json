@@ -7,14 +7,32 @@
   "navbar": {
     "logo": "/logo.png",
     "links": [
-      { "label": "Skills", "href": "/#skills" },
-      { "label": "Experience", "href": "/#experience" },
-      { "label": "Projects", "href": "/#projects" },
-      { "label": "Reviews", "href": "/#reviews" },
-      { "label": "FAQs", "href": "/#faqs" },
-      { "label": "Contact", "href": "/#contact" }
+      { "label": "Insights", "href": "/insights" },
+      { "label": "Open Source Contributions", "href": "/open-source" },
+      { "label": "Client's Work", "href": "/client-work" }
     ]
   },
+  "openSourceContributions": [
+    {
+      "repo": "Mantine",
+      "org": "mantine-ui",
+      "url": "https://github.com/mantinedev/mantine",
+      "description": "Boilerplate template with Next.js 15, React 19, Mantine UI v8, and TypeScript for building dashboards and internal tools. Boilerplate for Tanstack Query, i18n, localization, and more.",
+      "technologies": ["React", "TypeScript", "Mantine UI"],
+      "issueUrl": "https://github.com/mantinedev/mantine/issues/8563#event-22153333473"
+    }
+  ],
+  "clientWork": [
+    {
+      "title": "LearningPad Dashboard",
+      "client": "LearningPad",
+      "url": "https://learningpadedu.com",
+      "description": "Built and maintained high-quality dashboards and internal tools for the LearningPad education platform.",
+      "technologies": ["Next.js", "React", "Mantine UI", "Refine", "Firebase"],
+      "year": "2024",
+      "category": "Web Application"
+    }
+  ],
   "techSkills": [
     { "name": "React", "category": "Frontend" },
     { "name": "Next.js", "category": "Frontend" },
