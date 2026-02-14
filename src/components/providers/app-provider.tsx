@@ -1,4 +1,5 @@
 "use client";
+import { AnalyticsBanner } from "@/components/analytics-banner";
 import {
     ContextMenu,
     ContextMenuContent,
@@ -90,6 +91,7 @@ function AppProvider({
                     </ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
+            <AnalyticsBanner />
         </ThemeProvider>
     );
 }
