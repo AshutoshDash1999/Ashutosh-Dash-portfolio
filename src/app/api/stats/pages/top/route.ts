@@ -1,24 +1,15 @@
-import { PostHogQueryError, queryPostHog } from "@/lib/api/posthog";
-import { pageQueries } from "@/lib/api/queries";
+import { getCachedTopPages } from "@/lib/api/cached-stats";
+import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-import type { TopPage } from "@/lib/api/types";
-
-export const dynamic = "force-dynamic";
 
 /**
  * GET /api/stats/pages/top
- * Returns top pages by pageview count (last 30 days)
+ * Returns top pages by pageview count (last 30 days). Cached via use cache.
  */
 export async function GET() {
   try {
-    const result = await queryPostHog<[string, number][]>(pageQueries.topPages);
-
-    const topPages: TopPage[] = result.results.map(([pathname, count]) => ({
-      pathname,
-      count,
-    }));
-
-    return successResponse({ topPages });
+    const data = await getCachedTopPages();
+    return successResponse(data);
   } catch (error) {
     console.error("Top pages API error:", error);
 

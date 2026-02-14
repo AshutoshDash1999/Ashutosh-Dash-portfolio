@@ -1,19 +1,15 @@
-import { PostHogQueryError, queryPostHog } from "@/lib/api/posthog";
-import { queries } from "@/lib/api/queries";
+import { getCachedSession } from "@/lib/api/cached-stats";
+import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-
-export const dynamic = "force-dynamic";
 
 /**
  * GET /api/stats/session
- * Returns average session duration in seconds (last 30 days)
+ * Returns average session duration in seconds (last 30 days). Cached via use cache.
  */
 export async function GET() {
   try {
-    const result = await queryPostHog<[[number]]>(queries.avgSessionDuration);
-    const avgSessionDuration = Math.round(result.results[0]?.[0] ?? 0);
-
-    return successResponse({ avgSessionDuration });
+    const data = await getCachedSession();
+    return successResponse(data);
   } catch (error) {
     console.error("Session API error:", error);
 

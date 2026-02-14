@@ -1,7 +1,5 @@
 import { successResponse } from "@/lib/api/response";
 
-export const dynamic = "force-dynamic";
-
 /**
  * GET /api/stats
  * Returns available endpoints for stats API

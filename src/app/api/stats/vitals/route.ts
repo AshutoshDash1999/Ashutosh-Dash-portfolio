@@ -1,35 +1,15 @@
-import { PostHogQueryError, queryPostHog } from "@/lib/api/posthog";
-import { formatVitalsResult, vitalsQueries } from "@/lib/api/queries";
+import { getCachedVitals } from "@/lib/api/cached-stats";
+import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-import type { WebVitalsMetrics } from "@/lib/api/types";
 
-export const dynamic = "force-dynamic";
-
+/**
+ * GET /api/stats/vitals
+ * Returns web vitals (LCP, FCP, CLS, INP). Cached via use cache.
+ */
 export async function GET() {
   try {
-    const [lcpResult, fcpResult, clsResult, inpResult] = await Promise.all([
-      queryPostHog<[[number, number, number, number]]>(vitalsQueries.lcp),
-      queryPostHog<[[number, number, number, number]]>(vitalsQueries.fcp),
-      queryPostHog<[[number, number, number, number]]>(vitalsQueries.cls),
-      queryPostHog<[[number, number, number, number]]>(vitalsQueries.inp),
-    ]);
-
-    const webVitals: WebVitalsMetrics = {
-      lcp: formatVitalsResult(
-        lcpResult.results as [[number, number, number, number]]
-      ),
-      fcp: formatVitalsResult(
-        fcpResult.results as [[number, number, number, number]]
-      ),
-      cls: formatVitalsResult(
-        clsResult.results as [[number, number, number, number]]
-      ),
-      inp: formatVitalsResult(
-        inpResult.results as [[number, number, number, number]]
-      ),
-    };
-
-    return successResponse(webVitals);
+    const data = await getCachedVitals();
+    return successResponse(data);
   } catch (error) {
     console.error("Vitals API error:", error);
 

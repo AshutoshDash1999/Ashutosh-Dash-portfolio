@@ -1,19 +1,15 @@
-import { PostHogQueryError, queryPostHog } from "@/lib/api/posthog";
-import { queries } from "@/lib/api/queries";
+import { getCachedPageviews } from "@/lib/api/cached-stats";
+import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-
-export const dynamic = "force-dynamic";
 
 /**
  * GET /api/stats/pageviews
- * Returns total pageview count (last 30 days)
+ * Returns total pageview count (last 30 days). Cached via use cache.
  */
 export async function GET() {
   try {
-    const result = await queryPostHog<[[number]]>(queries.totalPageviews);
-    const totalPageviews = result.results[0]?.[0] ?? 0;
-
-    return successResponse({ totalPageviews });
+    const data = await getCachedPageviews();
+    return successResponse(data);
   } catch (error) {
     console.error("Pageviews API error:", error);
 

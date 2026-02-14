@@ -1,26 +1,15 @@
-import { PostHogQueryError, queryPostHog } from "@/lib/api/posthog";
-import { trafficQueries } from "@/lib/api/queries";
+import { getCachedTraffic } from "@/lib/api/cached-stats";
+import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-import type { TrafficSource } from "@/lib/api/types";
 
-export const dynamic = "force-dynamic";
-
+/**
+ * GET /api/stats/traffic
+ * Returns traffic sources. Cached via use cache.
+ */
 export async function GET() {
   try {
-    const trafficSourcesResult = await queryPostHog<[string, number][]>(
-      trafficQueries.sources
-    );
-
-    const trafficSources: TrafficSource[] = trafficSourcesResult.results.map(
-      ([source, visitors]) => ({
-        source: source || "Direct",
-        visitors,
-      })
-    );
-
-    return successResponse({
-      trafficSources,
-    });
+    const data = await getCachedTraffic();
+    return successResponse(data);
   } catch (error) {
     console.error("Traffic API error:", error);
 

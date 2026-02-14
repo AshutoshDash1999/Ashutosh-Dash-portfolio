@@ -1,29 +1,15 @@
-import { PostHogQueryError, queryPostHog } from "@/lib/api/posthog";
-import { visitorsQueries } from "@/lib/api/queries";
+import { getCachedVisitorsByCountry } from "@/lib/api/cached-stats";
+import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-import type { VisitorsByCountry } from "@/lib/api/types";
-
-export const dynamic = "force-dynamic";
 
 /**
  * GET /api/stats/visitors/countries
- * Returns visitor breakdown by country (last 30 days)
+ * Returns visitor breakdown by country (last 30 days). Cached via use cache.
  */
 export async function GET() {
   try {
-    const result = await queryPostHog<[string, string, number][]>(
-      visitorsQueries.byCountry
-    );
-
-    const visitorsByCountry: VisitorsByCountry[] = result.results.map(
-      ([country, countryCode, visitors]) => ({
-        country,
-        countryCode,
-        visitors,
-      })
-    );
-
-    return successResponse({ visitorsByCountry });
+    const data = await getCachedVisitorsByCountry();
+    return successResponse(data);
   } catch (error) {
     console.error("Visitors by country API error:", error);
 
