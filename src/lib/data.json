@@ -17,17 +17,17 @@
       "repo": "Mantine",
       "org": "mantine-ui",
       "url": "https://github.com/mantinedev/mantine",
-      "description": "Boilerplate template with Next.js 15, React 19, Mantine UI v8, and TypeScript for building dashboards and internal tools. Boilerplate for Tanstack Query, i18n, localization, and more.",
+      "description": "Added boilerplate template with Next.js 15, React 19, Mantine UI v8, and TypeScript for building dashboards and internal tools. Boilerplate for Tanstack Query, i18n, localization, and more.",
       "technologies": ["Markdown", "Git", "GitHub"],
-      "issueUrl": "https://github.com/dhruv0206/dev-proof-portfolio-open-source-search/issues/2#event-21951002177"
+      "issueUrl": "https://github.com/mantinedev/mantine/issues/8563#event-22153333473"
     },
     {
       "repo": "DevProof",
       "org": "dev-proof-portfolio-open-source-search",
       "url": "https://github.com/dhruv0206/dev-proof-portfolio-open-source-search",
-      "description": "Discover contribution opportunities with AI-powered search. Track your work. Build a verified developer portfolio.",
-      "technologies": ["React", "TypeScript", "Mantine UI"],
-      "issueUrl": "https://github.com/mantinedev/mantine/issues/8563#event-22153333473"
+      "description": "Added PR and issue template for new issues or PRs.",
+      "technologies": ["Next.js", "React", "TypeScript", "Mantine UI"],
+      "issueUrl": "https://github.com/dhruv0206/dev-proof-portfolio-open-source-search/issues/2#event-21951002177"
     }
   ],
   "clientWork": [
