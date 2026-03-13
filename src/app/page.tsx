@@ -7,7 +7,7 @@ import TechSkills from "@/components/sections/tech-skills";
 
 export default function Home() {
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen p-2">
             <Hero />
             <TechSkills />
             <Experience />
