@@ -1,125 +1,141 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import { useTrackEvent } from "@/hooks/useTrackEvent";
-import data from "@/lib/data.json";
 import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
+import data from "@/lib/data.json";
 
 const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-        },
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
     },
+  },
 };
 
 const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: [0.4, 0, 0.2, 1] as const,
-        },
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1] as const,
     },
+  },
 };
 
 export default function Projects() {
-    const { projects } = data;
-    const { trackEvent } = useTrackEvent();
+  const { projects } = data;
+  const { trackEvent } = useTrackEvent();
 
-    const handleCodeClick = (title: string, url: string) => {
-        trackEvent("project_code_click", { project_title: title, url });
-    };
+  const handleCodeClick = (title: string, url: string) => {
+    trackEvent("project_code_click", { project_title: title, url });
+  };
 
-    const handleDemoClick = (title: string, url: string) => {
-        trackEvent("project_demo_click", { project_title: title, url });
-    };
+  const handleDemoClick = (title: string, url: string) => {
+    trackEvent("project_demo_click", { project_title: title, url });
+  };
 
-    return (
-        <section id="projects" className="px-6 md:px-12 py-16 md:py-24">
-            <motion.h2
-                className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
-            >
-                Projects
-            </motion.h2>
-            <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-            >
-                {projects.map((project, index) => (
-                    <motion.div key={index} variants={cardVariants}>
-                        <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background justify-between">
-                            <div className="flex flex-col gap-4">
-                                <CardHeader>
-                                    <CardTitle className="text-lg md:text-xl">{project.title}</CardTitle>
-                                    <CardDescription className="text-base md:text-sm leading-relaxed line-clamp-3">{project.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.technologies.map((tech) => (
-                                            <Badge key={tech} variant="chart3">{tech}</Badge>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </div>
+  return (
+    <section id="projects" className="px-6 md:px-12 py-16 md:py-24">
+      <motion.h2
+        className="text-3xl md:text-4xl font-heading mb-8 md:mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5 }}
+      >
+        Projects
+      </motion.h2>
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+      >
+        {projects.map((project, index) => (
+          <motion.div key={index} variants={cardVariants}>
+            <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-secondary-background justify-between">
+              <div className="flex flex-col gap-4">
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription className="text-base md:text-sm leading-relaxed line-clamp-3">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <Badge key={tech} variant="chart3">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </div>
 
-                            <CardFooter className="flex gap-3 md:gap-4">
-                                {project.repo && (
-                                    <Button asChild className="flex-1 bg-chart-2 h-12 md:h-10">
-                                        <Link
-                                            href={project.repo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={`View source code for ${project.title} on GitHub`}
-                                            onClick={() => handleCodeClick(project.title, project.repo)}
-                                        >
-                                            <IconBrandGithub className="size-5 md:size-4" aria-hidden="true" />
-                                            <span className="text-base md:text-sm">Code</span>
-                                        </Link>
-                                    </Button>
-                                )}
+              <CardFooter className="flex gap-3 md:gap-4">
+                {project.repo && (
+                  <Button asChild className="flex-1 bg-chart-2 h-12 md:h-10">
+                    <Link
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View source code for ${project.title} on GitHub`}
+                      onClick={() =>
+                        handleCodeClick(project.title, project.repo)
+                      }
+                    >
+                      <IconBrandGithub
+                        className="size-5 md:size-4"
+                        aria-hidden="true"
+                      />
+                      <span className="text-base md:text-sm">Code</span>
+                    </Link>
+                  </Button>
+                )}
 
-                                {project.demo && (
-                                    <Button asChild className="flex-1 chart-1 h-12 md:h-10">
-                                        <Link
-                                            href={project.demo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={`View live demo of ${project.title}`}
-                                            onClick={() => handleDemoClick(project.title, project.demo)}
-                                        >
-                                            <IconExternalLink className="size-5 md:size-4" aria-hidden="true" />
-                                            <span className="text-base md:text-sm">Demo</span>
-                                        </Link>
-                                    </Button>
-                                )}
-                            </CardFooter>
-                        </Card>
-                    </motion.div>
-                ))}
-            </motion.div>
-        </section>
-    );
+                {project.demo && (
+                  <Button asChild className="flex-1 chart-1 h-12 md:h-10">
+                    <Link
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View live demo of ${project.title}`}
+                      onClick={() =>
+                        handleDemoClick(project.title, project.demo)
+                      }
+                    >
+                      <IconExternalLink
+                        className="size-5 md:size-4"
+                        aria-hidden="true"
+                      />
+                      <span className="text-base md:text-sm">Demo</span>
+                    </Link>
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
 }

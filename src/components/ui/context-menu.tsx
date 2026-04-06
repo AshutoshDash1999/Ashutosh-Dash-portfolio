@@ -1,11 +1,9 @@
 "use client";
 
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
-
-import * as React from "react";
-
-import { cn } from "@/lib/utils";
 import { IconCheck, IconChevronRight, IconCircle } from "@tabler/icons-react";
+import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 function ContextMenu({
   ...props
@@ -68,7 +66,7 @@ function ContextMenuSubTrigger({
       data-inset={inset}
       className={cn(
         "flex cursor-default select-none items-center rounded-base border-2 border-transparent bg-main px-2 py-1.5 text-sm font-base text-main-foreground outline-hidden data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 focus:border-border data-[state=open]:border-border",
-        className
+        className,
       )}
       {...props}
     >
@@ -87,7 +85,7 @@ function ContextMenuSubContent({
       data-slot="context-menu-sub-content"
       className={cn(
         "z-50 min-w-[8rem] overflow-hidden rounded-base border-2 border-border bg-main p-1 font-base text-main-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-(--radix-context-menu-content-transform-origin)",
-        className
+        className,
       )}
       {...props}
     />
@@ -104,7 +102,7 @@ function ContextMenuContent({
         data-slot="context-menu-content"
         className={cn(
           "z-50 min-w-[8rem] overflow-hidden rounded-base border-2 border-border bg-main p-1 font-base text-main-foreground shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-(--radix-context-menu-content-transform-origin)",
-          className
+          className,
         )}
         {...props}
       />
@@ -125,7 +123,7 @@ function ContextMenuItem({
       data-inset={inset}
       className={cn(
         "relative flex cursor-default select-none items-center rounded-base border-2 border-transparent px-2 py-1.5 gap-2 text-sm outline-none focus:border-border data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
+        className,
       )}
       {...props}
     />
@@ -143,7 +141,7 @@ function ContextMenuCheckboxItem({
       data-slot="context-menu-checkbox-item"
       className={cn(
         "relative flex cursor-default select-none items-center rounded-base border-2 border-transparent py-1.5 pl-8 pr-2 gap-2 text-sm font-base text-main-foreground outline-hidden focus:border-border data-disabled:pointer-events-none data-disabled:opacity-50",
-        className
+        className,
       )}
       checked={checked}
       {...props}
@@ -168,7 +166,7 @@ function ContextMenuRadioItem({
       data-slot="context-menu-radio-item"
       className={cn(
         "relative flex cursor-default select-none items-center rounded-base border-2 border-transparent py-1.5 pl-8 pr-2 gap-2 text-sm font-base text-main-foreground outline-hidden focus:border-border data-disabled:pointer-events-none data-disabled:opacity-50",
-        className
+        className,
       )}
       {...props}
     >
@@ -195,7 +193,7 @@ function ContextMenuLabel({
       data-inset={inset}
       className={cn(
         "px-2 py-1.5 text-sm font-base border-2 border-transparent text-main-foreground data-[inset]:pl-8",
-        className
+        className,
       )}
       {...props}
     />
@@ -223,7 +221,7 @@ const ContextMenuShortcut = ({
     <span
       className={cn(
         "ml-auto text-xs font-base tracking-widest text-main-foreground",
-        className
+        className,
       )}
       {...props}
     />

@@ -4,6 +4,7 @@
  * @see https://nextjs.org/docs/app/api-reference/directives/use-cache
  */
 
+import { cacheLife, cacheTag } from "next/cache";
 import { queryPostHog } from "@/lib/api/posthog";
 import {
   calculatePercentage,
@@ -31,7 +32,6 @@ import type {
   VisitorsByDay,
   WebVitalsMetrics,
 } from "@/lib/api/types";
-import { cacheLife, cacheTag } from "next/cache";
 
 const STATS_TAG = "stats";
 // 1 month cache: 30 days in seconds

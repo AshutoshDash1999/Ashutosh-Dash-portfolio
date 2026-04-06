@@ -1,5 +1,12 @@
 "use client";
 
+import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
+import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import { Link } from "next-view-transitions";
+import { useContext, useEffect, useState } from "react";
+import { FirstLoadContext } from "@/components/layout/first-load-animation";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -12,13 +19,6 @@ import {
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import { VERSION } from "@/lib/constants";
 import data from "@/lib/data.json";
-import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
-import { AnimatePresence, motion } from "motion/react";
-import { FirstLoadContext } from "@/components/layout/first-load-animation";
-import { useTheme } from "next-themes";
-import { Link } from "next-view-transitions";
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
 import { Badge } from "./ui/badge";
 
 const containerVariants = {
@@ -91,7 +91,9 @@ export default function Navbar() {
         <motion.div
           className="text-xl md:text-2xl font-heading"
           initial={{ opacity: 0, x: -20 }}
-          animate={firstLoadComplete ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          animate={
+            firstLoadComplete ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+          }
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <Link href="/">

@@ -1,9 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useTrackEvent } from "@/hooks/useTrackEvent";
-import data from "@/lib/data.json";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
@@ -12,6 +8,10 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
+import data from "@/lib/data.json";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   github: IconBrandGithub,

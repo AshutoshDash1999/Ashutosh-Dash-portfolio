@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import data from "@/lib/data.json";
 import {
   IconAsterisk,
   IconHeadphones,
@@ -9,6 +7,8 @@ import {
   IconStar,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import data from "@/lib/data.json";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   asterisk: IconAsterisk,

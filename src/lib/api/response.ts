@@ -6,7 +6,7 @@ import type { ApiErrorResponse, ApiSuccessResponse } from "./types";
  */
 export function successResponse<T>(
   data: T,
-  options?: { status?: number }
+  options?: { status?: number },
 ): NextResponse<ApiSuccessResponse<T>> {
   const { status = 200 } = options ?? {};
 
@@ -24,7 +24,7 @@ export function successResponse<T>(
 export function errorResponse(
   code: string,
   message: string,
-  status = 500
+  status = 500,
 ): NextResponse<ApiErrorResponse> {
   const response: ApiErrorResponse = {
     success: false,
@@ -42,8 +42,7 @@ export const errors = {
   unauthorized: () =>
     errorResponse("UNAUTHORIZED", "Authentication required", 401),
 
-  forbidden: () =>
-    errorResponse("FORBIDDEN", "Access denied", 403),
+  forbidden: () => errorResponse("FORBIDDEN", "Access denied", 403),
 
   notFound: (resource = "Resource") =>
     errorResponse("NOT_FOUND", `${resource} not found`, 404),
@@ -55,14 +54,18 @@ export const errors = {
     errorResponse(
       "METHOD_NOT_ALLOWED",
       `Method not allowed. Allowed methods: ${allowed.join(", ")}`,
-      405
+      405,
     ),
 
   internalError: (message = "An unexpected error occurred") =>
     errorResponse("INTERNAL_ERROR", message, 500),
 
   serviceUnavailable: (service = "Service") =>
-    errorResponse("SERVICE_UNAVAILABLE", `${service} is temporarily unavailable`, 503),
+    errorResponse(
+      "SERVICE_UNAVAILABLE",
+      `${service} is temporarily unavailable`,
+      503,
+    ),
 
   posthogError: (message: string) =>
     errorResponse("POSTHOG_ERROR", message, 502),

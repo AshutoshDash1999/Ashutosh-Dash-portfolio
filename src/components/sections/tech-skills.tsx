@@ -1,6 +1,4 @@
 "use client";
-import Marquee from "@/components/ui/marquee";
-import data from "@/lib/data.json";
 import {
   IconBrandBootstrap,
   IconBrandCss3,
@@ -19,6 +17,8 @@ import {
   IconPalette,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import Marquee from "@/components/ui/marquee";
+import data from "@/lib/data.json";
 
 const iconMap: Record<
   string,

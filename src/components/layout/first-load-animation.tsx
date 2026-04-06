@@ -3,10 +3,10 @@
 import { motion } from "motion/react";
 import {
   createContext,
+  type ReactNode,
   useCallback,
   useRef,
   useState,
-  type ReactNode,
 } from "react";
 
 /** True after the first-load blur animation has completed. Sections use this to delay their entrance so only one animation runs on load. */

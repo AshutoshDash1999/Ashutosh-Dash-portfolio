@@ -1,7 +1,7 @@
+import type { NextRequest } from "next/server";
 import { getCachedPageviewsByDay } from "@/lib/api/cached-stats";
 import { PostHogQueryError } from "@/lib/api/posthog";
 import { errors, successResponse } from "@/lib/api/response";
-import { type NextRequest } from "next/server";
 
 const VALID_DAYS = [7, 30, 90] as const;
 

@@ -1,5 +1,5 @@
-import data from "@/lib/data.json";
 import type { Metadata } from "next";
+import data from "@/lib/data.json";
 
 const { personal } = data;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ashutoshdash.in";

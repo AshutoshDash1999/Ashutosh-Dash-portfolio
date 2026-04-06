@@ -1,11 +1,9 @@
 "use client";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-
-import * as React from "react";
-
-import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
+import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 function Dialog({
   ...props
@@ -40,7 +38,7 @@ function DialogOverlay({
       data-slot="dialog-overlay"
       className={cn(
         "fixed inset-0 z-50 bg-overlay data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        className
+        className,
       )}
       {...props}
     />
@@ -59,7 +57,7 @@ function DialogContent({
         data-slot="dialog-content"
         className={cn(
           "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-base border-2 border-border p-6 shadow-shadow duration-200 sm:max-w-lg",
-          className
+          className,
         )}
         {...props}
       >
@@ -89,7 +87,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="dialog-footer"
       className={cn(
         "flex flex-col-reverse gap-3 sm:flex-row sm:justify-end",
-        className
+        className,
       )}
       {...props}
     />
@@ -105,7 +103,7 @@ function DialogTitle({
       data-slot="dialog-title"
       className={cn(
         "text-lg font-heading leading-none tracking-tight",
-        className
+        className,
       )}
       {...props}
     />

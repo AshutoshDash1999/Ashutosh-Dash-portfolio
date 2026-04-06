@@ -1,5 +1,9 @@
 "use client";
 
+import { IconBrandLinkedin } from "@tabler/icons-react";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
@@ -10,10 +14,6 @@ import {
 } from "@/components/ui/dialog";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
-import { IconBrandLinkedin } from "@tabler/icons-react";
-import { motion } from "motion/react";
-import Link from "next/link";
-import { useState } from "react";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 

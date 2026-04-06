@@ -6,14 +6,14 @@ import Reviews from "@/components/sections/reviews";
 import TechSkills from "@/components/sections/tech-skills";
 
 export default function Home() {
-    return (
-        <main className="min-h-screen">
-            <Hero />
-            <TechSkills />
-            <Experience />
-            <Projects />
-            <FAQ />
-            <Reviews />
-        </main>
-    );
+  return (
+    <main className="min-h-screen">
+      <Hero />
+      <TechSkills />
+      <Experience />
+      <Projects />
+      <FAQ />
+      <Reviews />
+    </main>
+  );
 }

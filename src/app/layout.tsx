@@ -1,14 +1,14 @@
-import AppProvider from "@/components/providers/app-provider";
+import type { Metadata } from "next";
+import { DM_Sans } from "next/font/google";
+import { ViewTransitions } from "next-view-transitions";
 import { FirstLoadAnimation } from "@/components/layout/first-load-animation";
 import { InitialLoadingGate } from "@/components/layout/initial-loading-gate";
 import Navbar from "@/components/navbar";
+import AppProvider from "@/components/providers/app-provider";
 import Footer from "@/components/sections/footer";
 import SocialLinks from "@/components/sections/social-links";
 import { WebVitals } from "@/components/web-vitals";
-import { ViewTransitions } from "next-view-transitions";
 import data from "@/lib/data.json";
-import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -148,9 +148,7 @@ export default function RootLayout({
                 <div className="vt-layout-nav">
                   <Navbar />
                 </div>
-                <div className="vt-main-content">
-                  {children}
-                </div>
+                <div className="vt-main-content">{children}</div>
                 <div className="vt-layout-social">
                   <SocialLinks />
                 </div>
