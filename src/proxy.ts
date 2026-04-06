@@ -1,4 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
+import {
+  getPostHogAssetsHostname,
+  getPostHogIngestHostname,
+} from "@/lib/posthog-region";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -6,8 +10,8 @@ export async function proxy(request: NextRequest) {
   if (pathname.startsWith("/ph")) {
     const url = new URL(request.url);
     const hostname = pathname.startsWith("/ph/static/")
-      ? "us-assets.i.posthog.com"
-      : "us.i.posthog.com";
+      ? getPostHogAssetsHostname()
+      : getPostHogIngestHostname();
 
     const newPathname = pathname.replace(/^\/ph/, "");
 

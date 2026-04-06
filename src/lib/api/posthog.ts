@@ -1,11 +1,10 @@
 import axios, { AxiosError } from "axios";
+import { getPostHogApiOrigin } from "@/lib/posthog-region";
 import type {
   PostHogErrorResponse,
   PostHogQueryPayload,
   PostHogQueryResult,
 } from "./types";
-
-const POSTHOG_API_HOST = "https://us.posthog.com";
 
 // Rate limiting configuration
 const MAX_CONCURRENT_QUERIES = 2; // PostHog limit is 3, we use 2 for safety buffer
@@ -105,7 +104,7 @@ export async function queryPostHog<T = unknown[][]>(
 
     try {
       const { data } = await axios.post<PostHogQueryResult<T>>(
-        `${POSTHOG_API_HOST}/api/projects/${projectId}/query/`,
+        `${getPostHogApiOrigin()}/api/projects/${projectId}/query/`,
         payload,
         {
           headers: {

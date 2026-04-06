@@ -20,7 +20,7 @@ export const queries = {
 
   // Total unique visitors
   uniqueVisitors: `
-    SELECT count(DISTINCT properties.distinct_id) AS unique_visitors
+    SELECT count(DISTINCT distinct_id) AS unique_visitors
     FROM events
     WHERE 
       event = '$pageview'
@@ -33,12 +33,12 @@ export const queries = {
       avg(session_duration) AS avg_duration
     FROM (
       SELECT 
-        properties.$session_id AS session_id,
+        $session_id AS session_id,
         dateDiff('second', min(timestamp), max(timestamp)) AS session_duration
       FROM events
       WHERE 
         event IN ('$pageview', '$pageleave')
-        AND properties.$session_id IS NOT NULL
+        AND $session_id IS NOT NULL
         AND timestamp >= now() - INTERVAL ${TIME_RANGE}
       GROUP BY session_id
       HAVING session_duration > 0 AND session_duration < 7200
@@ -55,7 +55,7 @@ export const visitorsQueries = {
   overTime: `
     SELECT 
       toDate(timestamp) AS date,
-      count(DISTINCT properties.distinct_id) AS visitors
+      count(DISTINCT distinct_id) AS visitors
     FROM events
     WHERE 
       event = '$pageview'
@@ -69,7 +69,7 @@ export const visitorsQueries = {
     SELECT 
       COALESCE(properties.$geoip_country_name, 'Unknown') AS country,
       COALESCE(properties.$geoip_country_code, 'XX') AS country_code,
-      count(DISTINCT properties.distinct_id) AS visitors
+      count(DISTINCT distinct_id) AS visitors
     FROM events
     WHERE 
       event = '$pageview'
@@ -85,7 +85,7 @@ export function getVisitorsOverTimeQuery(days: number) {
   return `
     SELECT 
       toDate(timestamp) AS date,
-      count(DISTINCT properties.distinct_id) AS visitors
+      count(DISTINCT distinct_id) AS visitors
     FROM events
     WHERE 
       event = '$pageview'
@@ -104,7 +104,7 @@ export const trafficQueries = {
   sources: `
     SELECT 
       COALESCE(properties.utm_source, properties.$referring_domain, 'Direct') AS source,
-      count(DISTINCT properties.distinct_id) AS visitors
+      count(DISTINCT distinct_id) AS visitors
     FROM events
     WHERE 
       event = '$pageview'
@@ -224,12 +224,12 @@ export const engagementQueries = {
       round(countIf(session_pageviews = 1) * 100.0 / count(), 2) AS bounce_rate
     FROM (
       SELECT 
-        properties.$session_id AS session_id,
+        $session_id AS session_id,
         count() AS session_pageviews
       FROM events
       WHERE 
         event = '$pageview'
-        AND properties.$session_id IS NOT NULL
+        AND $session_id IS NOT NULL
         AND timestamp >= now() - INTERVAL ${TIME_RANGE}
       GROUP BY session_id
     )
@@ -243,7 +243,7 @@ export const engagementQueries = {
       count() AS count
     FROM (
       SELECT 
-        properties.distinct_id AS visitor_id,
+        distinct_id AS visitor_id,
         if(
           min(timestamp) >= now() - INTERVAL ${TIME_RANGE},
           'New',
@@ -252,7 +252,7 @@ export const engagementQueries = {
       FROM events
       WHERE 
         event = '$pageview'
-        AND properties.distinct_id IS NOT NULL
+        AND distinct_id IS NOT NULL
       GROUP BY visitor_id
       HAVING max(timestamp) >= now() - INTERVAL ${TIME_RANGE}
     )
@@ -265,12 +265,12 @@ export const engagementQueries = {
       round(avg(pages), 2) AS avg_pages_per_session
     FROM (
       SELECT 
-        properties.$session_id AS session_id,
+        $session_id AS session_id,
         count() AS pages
       FROM events
       WHERE 
         event = '$pageview'
-        AND properties.$session_id IS NOT NULL
+        AND $session_id IS NOT NULL
         AND timestamp >= now() - INTERVAL ${TIME_RANGE}
       GROUP BY session_id
     )
@@ -279,11 +279,11 @@ export const engagementQueries = {
   // Total sessions
   totalSessions: `
     SELECT 
-      count(DISTINCT properties.$session_id) AS total_sessions
+      count(DISTINCT $session_id) AS total_sessions
     FROM events
     WHERE 
       event = '$pageview'
-      AND properties.$session_id IS NOT NULL
+      AND $session_id IS NOT NULL
       AND timestamp >= now() - INTERVAL ${TIME_RANGE}
   `,
 } as const;

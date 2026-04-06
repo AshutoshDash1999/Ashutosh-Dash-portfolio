@@ -34,21 +34,13 @@ import type {
 } from "@/lib/api/types";
 
 const STATS_TAG = "stats";
-// 1 month cache: 30 days in seconds
-const THIRTY_DAYS = 30 * 24 * 60 * 60;
-const ONE_DAY = 24 * 60 * 60;
-const CACHE_LIFE_MONTH = {
-  stale: ONE_DAY,
-  revalidate: THIRTY_DAYS,
-  expire: THIRTY_DAYS,
-} as const;
 
 export async function getCachedPageviews(): Promise<{
   totalPageviews: number;
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[[number]]>(queries.totalPageviews);
   const totalPageviews = result.results[0]?.[0] ?? 0;
@@ -60,7 +52,7 @@ export async function getCachedVisitors(): Promise<{
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[[number]]>(queries.uniqueVisitors);
   const uniqueVisitors = result.results[0]?.[0] ?? 0;
@@ -72,7 +64,7 @@ export async function getCachedSession(): Promise<{
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[[number]]>(queries.avgSessionDuration);
   const avgSessionDuration = Math.round(result.results[0]?.[0] ?? 0);
@@ -82,7 +74,7 @@ export async function getCachedSession(): Promise<{
 export async function getCachedEngagement(): Promise<EngagementStats> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const [bounceResult, pagesPerSessionResult, sessionsResult] =
     await Promise.all([
@@ -124,7 +116,7 @@ export async function getCachedEngagement(): Promise<EngagementStats> {
 export async function getCachedVitals(): Promise<WebVitalsMetrics> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const [lcpResult, fcpResult, clsResult, inpResult] = await Promise.all([
     queryPostHog<[[number, number, number, number]]>(vitalsQueries.lcp),
@@ -152,7 +144,7 @@ export async function getCachedVitals(): Promise<WebVitalsMetrics> {
 export async function getCachedDevices(): Promise<DeviceDistribution> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const [deviceTypeResult, browserResult, osResult] = await Promise.all([
     queryPostHog<[string, number][]>(deviceQueries.deviceTypes),
@@ -203,7 +195,7 @@ export async function getCachedTraffic(): Promise<{
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const trafficSourcesResult = await queryPostHog<[string, number][]>(
     trafficQueries.sources,
@@ -222,7 +214,7 @@ export async function getCachedVisitorsByCountry(): Promise<{
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[string, string, number][]>(
     visitorsQueries.byCountry,
@@ -240,7 +232,7 @@ export async function getCachedVisitorsByCountry(): Promise<{
 export async function getCachedTopPages(): Promise<{ topPages: TopPage[] }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[string, number][]>(pageQueries.topPages);
   const topPages: TopPage[] = result.results.map(([pathname, count]) => ({
@@ -257,7 +249,7 @@ export async function getCachedVisitorsOverTime(days: number): Promise<{
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[string, number][]>(
     getVisitorsOverTimeQuery(days),
@@ -278,7 +270,7 @@ export async function getCachedPageviewsByDay(days: number): Promise<{
 }> {
   "use cache";
   cacheTag(STATS_TAG);
-  cacheLife(CACHE_LIFE_MONTH);
+  cacheLife("stats");
 
   const result = await queryPostHog<[string, number][]>(
     getPageviewsByDayQuery(days),
