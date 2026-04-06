@@ -7,18 +7,24 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { queryPostHog } from "@/lib/api/posthog";
 import {
+  browsersAllTimeQuery,
   calculatePercentage,
-  deviceQueries,
-  engagementQueries,
   formatVitalsResult,
+  getAvgSessionDurationQuery,
+  getDeviceTypesQuery,
+  getEngagementQueries,
+  getOperatingSystemsQuery,
   getPageviewsByDayQuery,
+  getResumeButtonClickCountQuery,
+  getTotalPageviewsQuery,
+  getUniqueVisitorsQuery,
+  getVisitorsByCountryQuery,
   getVisitorsOverTimeQuery,
+  getVitalsQueries,
   pageQueries,
-  queries,
-  trafficQueries,
-  visitorsQueries,
-  vitalsQueries,
+  trafficSourcesAllTimeQuery,
 } from "@/lib/api/queries";
+import type { InsightsPeriod } from "@/lib/api/stats-days";
 import type {
   BrowserStats,
   DeviceDistribution,
@@ -35,52 +41,58 @@ import type {
 
 const STATS_TAG = "stats";
 
-export async function getCachedPageviews(): Promise<{
+export async function getCachedPageviews(period: InsightsPeriod): Promise<{
   totalPageviews: number;
 }> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
-  const result = await queryPostHog<[[number]]>(queries.totalPageviews);
+  const result = await queryPostHog<[[number]]>(getTotalPageviewsQuery(period));
   const totalPageviews = result.results[0]?.[0] ?? 0;
   return { totalPageviews };
 }
 
-export async function getCachedVisitors(): Promise<{
+export async function getCachedVisitors(period: InsightsPeriod): Promise<{
   uniqueVisitors: number;
 }> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
-  const result = await queryPostHog<[[number]]>(queries.uniqueVisitors);
+  const result = await queryPostHog<[[number]]>(getUniqueVisitorsQuery(period));
   const uniqueVisitors = result.results[0]?.[0] ?? 0;
   return { uniqueVisitors };
 }
 
-export async function getCachedSession(): Promise<{
+export async function getCachedSession(period: InsightsPeriod): Promise<{
   avgSessionDuration: number;
 }> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
-  const result = await queryPostHog<[[number]]>(queries.avgSessionDuration);
+  const result = await queryPostHog<[[number]]>(
+    getAvgSessionDurationQuery(period),
+  );
   const avgSessionDuration = Math.round(result.results[0]?.[0] ?? 0);
   return { avgSessionDuration };
 }
 
-export async function getCachedEngagement(): Promise<EngagementStats> {
+export async function getCachedEngagement(
+  period: InsightsPeriod,
+): Promise<EngagementStats> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
+  const q = getEngagementQueries(period);
+
   const [bounceResult, pagesPerSessionResult, sessionsResult] =
     await Promise.all([
-      queryPostHog<[[number, number, number]]>(engagementQueries.bounceRate),
-      queryPostHog<[[number]]>(engagementQueries.pagesPerSession),
-      queryPostHog<[[number]]>(engagementQueries.totalSessions),
+      queryPostHog<[[number, number, number]]>(q.bounceRate),
+      queryPostHog<[[number]]>(q.pagesPerSession),
+      queryPostHog<[[number]]>(q.totalSessions),
     ]);
 
   const [bouncedSessions, totalSessionsBounce, bounceRate] = bounceResult
@@ -88,19 +100,17 @@ export async function getCachedEngagement(): Promise<EngagementStats> {
   const avgPagesPerSession = pagesPerSessionResult.results[0]?.[0] ?? 0;
   const totalSessions = sessionsResult.results[0]?.[0] ?? totalSessionsBounce;
 
-  let newVisitors = 0;
   let returningVisitors = 0;
   try {
     const newVsReturningResult = await queryPostHog<[string, number][]>(
-      engagementQueries.newVsReturning,
+      q.newVsReturning,
     );
     const newVsReturningMap = new Map<string, number>(
       newVsReturningResult.results.map(([type, count]) => [type, count]),
     );
-    newVisitors = newVsReturningMap.get("New") ?? 0;
     returningVisitors = newVsReturningMap.get("Returning") ?? 0;
   } catch {
-    // Continue without new/returning data
+    // Continue without returning data
   }
 
   return {
@@ -108,21 +118,38 @@ export async function getCachedEngagement(): Promise<EngagementStats> {
     totalSessions,
     bouncedSessions: bouncedSessions ?? 0,
     avgPagesPerSession,
-    newVisitors,
     returningVisitors,
   };
 }
 
-export async function getCachedVitals(): Promise<WebVitalsMetrics> {
+export async function getCachedResumeButtonClicks(
+  period: InsightsPeriod,
+): Promise<{ count: number }> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
+  const result = await queryPostHog<[[number]]>(
+    getResumeButtonClickCountQuery(period),
+  );
+  const count = result.results[0]?.[0] ?? 0;
+  return { count };
+}
+
+export async function getCachedVitals(
+  period: InsightsPeriod,
+): Promise<WebVitalsMetrics> {
+  "use cache";
+  cacheTag(STATS_TAG);
+  cacheLife("stats");
+
+  const q = getVitalsQueries(period);
+
   const [lcpResult, fcpResult, clsResult, inpResult] = await Promise.all([
-    queryPostHog<[[number, number, number, number]]>(vitalsQueries.lcp),
-    queryPostHog<[[number, number, number, number]]>(vitalsQueries.fcp),
-    queryPostHog<[[number, number, number, number]]>(vitalsQueries.cls),
-    queryPostHog<[[number, number, number, number]]>(vitalsQueries.inp),
+    queryPostHog<[[number, number, number, number]]>(q.lcp),
+    queryPostHog<[[number, number, number, number]]>(q.fcp),
+    queryPostHog<[[number, number, number, number]]>(q.cls),
+    queryPostHog<[[number, number, number, number]]>(q.inp),
   ]);
 
   return {
@@ -141,15 +168,17 @@ export async function getCachedVitals(): Promise<WebVitalsMetrics> {
   };
 }
 
-export async function getCachedDevices(): Promise<DeviceDistribution> {
+export async function getCachedDevices(
+  period: InsightsPeriod,
+): Promise<DeviceDistribution> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
   const [deviceTypeResult, browserResult, osResult] = await Promise.all([
-    queryPostHog<[string, number][]>(deviceQueries.deviceTypes),
-    queryPostHog<[string, number][]>(deviceQueries.browsers),
-    queryPostHog<[string, number][]>(deviceQueries.operatingSystems),
+    queryPostHog<[string, number][]>(getDeviceTypesQuery(period)),
+    queryPostHog<[string, number][]>(browsersAllTimeQuery),
+    queryPostHog<[string, number][]>(getOperatingSystemsQuery(period)),
   ]);
 
   const totalDevices = deviceTypeResult.results.reduce(
@@ -198,7 +227,7 @@ export async function getCachedTraffic(): Promise<{
   cacheLife("stats");
 
   const trafficSourcesResult = await queryPostHog<[string, number][]>(
-    trafficQueries.sources,
+    trafficSourcesAllTimeQuery,
   );
   const trafficSources: TrafficSource[] = trafficSourcesResult.results.map(
     ([source, visitors]) => ({
@@ -209,7 +238,9 @@ export async function getCachedTraffic(): Promise<{
   return { trafficSources };
 }
 
-export async function getCachedVisitorsByCountry(): Promise<{
+export async function getCachedVisitorsByCountry(
+  period: InsightsPeriod,
+): Promise<{
   visitorsByCountry: VisitorsByCountry[];
 }> {
   "use cache";
@@ -217,7 +248,7 @@ export async function getCachedVisitorsByCountry(): Promise<{
   cacheLife("stats");
 
   const result = await queryPostHog<[string, string, number][]>(
-    visitorsQueries.byCountry,
+    getVisitorsByCountryQuery(period),
   );
   const visitorsByCountry: VisitorsByCountry[] = result.results.map(
     ([country, countryCode, visitors]) => ({
@@ -242,17 +273,19 @@ export async function getCachedTopPages(): Promise<{ topPages: TopPage[] }> {
   return { topPages };
 }
 
-/** @param days - 7, 30, or 90 (part of cache key) */
-export async function getCachedVisitorsOverTime(days: number): Promise<{
+/** @param period - Rolling window or `"all"` (part of cache key) */
+export async function getCachedVisitorsOverTime(
+  period: InsightsPeriod,
+): Promise<{
   visitorsOverTime: VisitorsByDay[];
-  days: number;
+  period: InsightsPeriod;
 }> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
   const result = await queryPostHog<[string, number][]>(
-    getVisitorsOverTimeQuery(days),
+    getVisitorsOverTimeQuery(period),
   );
   const visitorsOverTime: VisitorsByDay[] = result.results.map(
     ([date, visitors]) => ({
@@ -260,20 +293,20 @@ export async function getCachedVisitorsOverTime(days: number): Promise<{
       visitors,
     }),
   );
-  return { visitorsOverTime, days };
+  return { visitorsOverTime, period };
 }
 
-/** @param days - 7, 30, or 90 (part of cache key) */
-export async function getCachedPageviewsByDay(days: number): Promise<{
+/** @param period - Rolling window or `"all"` (part of cache key) */
+export async function getCachedPageviewsByDay(period: InsightsPeriod): Promise<{
   pageviewsByDay: PageviewsByDay[];
-  days: number;
+  period: InsightsPeriod;
 }> {
   "use cache";
   cacheTag(STATS_TAG);
   cacheLife("stats");
 
   const result = await queryPostHog<[string, number][]>(
-    getPageviewsByDayQuery(days),
+    getPageviewsByDayQuery(period),
   );
   const pageviewsByDay: PageviewsByDay[] = result.results.map(
     ([date, count]) => ({
@@ -281,5 +314,5 @@ export async function getCachedPageviewsByDay(days: number): Promise<{
       count,
     }),
   );
-  return { pageviewsByDay, days };
+  return { pageviewsByDay, period };
 }

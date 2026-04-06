@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDevices } from "@/lib/api/hooks";
+import { useInsightsPeriod } from "./insights-period-context";
 
 const chartColors = [
   "var(--chart-1)",
@@ -77,7 +78,8 @@ function DeviceTypesChartEmpty() {
 }
 
 export function DeviceTypesChart() {
-  const { deviceTypes, isDevicesLoading, devicesError } = useDevices();
+  const { period } = useInsightsPeriod();
+  const { deviceTypes, isDevicesLoading, devicesError } = useDevices(period);
 
   if (isDevicesLoading) {
     return <DeviceTypesChartSkeleton />;
@@ -121,7 +123,7 @@ export function DeviceTypesChart() {
       <Card className="h-full">
         <CardHeader>
           <CardTitle>Device Types</CardTitle>
-          <CardDescription>Visitors by device category</CardDescription>
+          <CardDescription>Device mix for the selected period</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer

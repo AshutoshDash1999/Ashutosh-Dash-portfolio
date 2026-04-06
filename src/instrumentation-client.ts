@@ -1,5 +1,5 @@
-import { getPostHogUiHost } from "@/lib/posthog-region";
 import posthog from "posthog-js";
+import { getPostHogUiHost } from "@/lib/posthog-region";
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 if (typeof posthogKey === "string" && posthogKey.length > 0) {

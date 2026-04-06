@@ -7,7 +7,7 @@ const WEB_VITAL_NAMES = new Set(["CLS", "FCP", "FID", "INP", "LCP", "TTFB"]);
 
 /**
  * Sends Core Web Vitals as `$web_vitals` with `$web_vitals_<METRIC>_value` properties
- * so HogQL in `vitalsQueries` matches PostHog's web analytics shape.
+ * so HogQL in `getVitalsQueries` matches PostHog's web analytics shape.
  */
 export function WebVitals() {
   const posthog = usePostHog();

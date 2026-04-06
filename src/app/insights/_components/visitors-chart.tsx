@@ -2,7 +2,7 @@
 
 import { IconAlertTriangle } from "@tabler/icons-react";
 import { motion } from "motion/react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
@@ -18,23 +18,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePageviewsOverTime, useVisitorsOverTime } from "@/lib/api/hooks";
-
-type DateRange = "7" | "30" | "90";
-
-const dateRangeOptions = [
-  { value: "7", label: "Last 7 days" },
-  { value: "30", label: "Last 30 days" },
-  { value: "90", label: "Last 3 months" },
-] as const;
+import type { InsightsPeriod } from "@/lib/api/stats-days";
+import { useInsightsPeriod } from "./insights-period-context";
 
 const chartConfig = {
   visitors: {
@@ -47,9 +34,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function formatDate(dateStr: string, range: DateRange): string {
+function formatDate(dateStr: string, period: InsightsPeriod): string {
   const date = new Date(dateStr);
-  if (range === "7") {
+  if (period === "all") {
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "2-digit",
+    });
+  }
+  if (period === 7) {
     return date.toLocaleDateString("en-US", { weekday: "short" });
   }
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
@@ -63,7 +57,6 @@ function VisitorsChartSkeleton() {
           <Skeleton className="h-5 w-40" />
           <Skeleton className="h-4 w-56" />
         </div>
-        <Skeleton className="h-10 w-36" />
       </CardHeader>
       <CardContent>
         <Skeleton className="h-[300px] w-full" />
@@ -78,7 +71,7 @@ function VisitorsChartError() {
       <CardHeader>
         <CardTitle>Visitors & Pageviews</CardTitle>
         <CardDescription>
-          Daily traffic trends over the selected period
+          Daily traffic trends for the selected period
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -98,7 +91,7 @@ function VisitorsChartEmpty() {
       <CardHeader>
         <CardTitle>Visitors & Pageviews</CardTitle>
         <CardDescription>
-          Daily traffic trends over the selected period
+          Daily traffic trends for the selected period
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -111,14 +104,13 @@ function VisitorsChartEmpty() {
 }
 
 export function VisitorsChart() {
-  const [dateRange, setDateRange] = useState<DateRange>("30");
-  const days = Number.parseInt(dateRange, 10);
+  const { period } = useInsightsPeriod();
 
   const { visitorsOverTime, isVisitorsOverTimeLoading, visitorsOverTimeError } =
-    useVisitorsOverTime(days);
+    useVisitorsOverTime(period);
 
   const { pageviewsByDay, isPageviewsOverTimeLoading, pageviewsOverTimeError } =
-    usePageviewsOverTime(days);
+    usePageviewsOverTime(period);
 
   const isLoading = isVisitorsOverTimeLoading || isPageviewsOverTimeLoading;
   const hasError = visitorsOverTimeError || pageviewsOverTimeError;
@@ -139,11 +131,11 @@ export function VisitorsChart() {
 
     return allDates.map((date) => ({
       date,
-      formattedDate: formatDate(date, dateRange),
+      formattedDate: formatDate(date, period),
       visitors: visitorsMap.get(date) ?? 0,
       pageviews: pageviewsMap.get(date) ?? 0,
     }));
-  }, [visitorsOverTime, pageviewsByDay, dateRange]);
+  }, [visitorsOverTime, pageviewsByDay, period]);
 
   if (isLoading) {
     return <VisitorsChartSkeleton />;
@@ -164,28 +156,11 @@ export function VisitorsChart() {
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <Card>
-        <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <CardTitle>Visitors & Pageviews</CardTitle>
-            <CardDescription>
-              Daily traffic trends over the selected period
-            </CardDescription>
-          </div>
-          <Select
-            value={dateRange}
-            onValueChange={(value) => setDateRange(value as DateRange)}
-          >
-            <SelectTrigger className="w-[160px]">
-              <SelectValue placeholder="Select range" />
-            </SelectTrigger>
-            <SelectContent>
-              {dateRangeOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <CardHeader>
+          <CardTitle>Visitors & Pageviews</CardTitle>
+          <CardDescription>
+            Daily traffic trends for the selected period
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[300px] w-full">

@@ -4,12 +4,13 @@ import {
   IconAlertTriangle,
   IconClock,
   IconEye,
+  IconFileDownload,
   IconUserCheck,
-  IconUserPlus,
   IconUserScan,
   IconUsers,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import { useMemo } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,17 +23,20 @@ import {
 import {
   useEngagement,
   usePageviews,
+  useResumeButtonClicks,
   useSession,
   useVisitors,
 } from "@/lib/api/hooks";
+import { type InsightsPeriod, insightsPeriodLabel } from "@/lib/api/stats-days";
 import { cn } from "@/lib/utils";
+import { useInsightsPeriod } from "./insights-period-context";
 
 interface StatsData {
   totalPageviews: number;
   uniqueVisitors: number;
   avgSessionDuration: number;
   totalSessions: number;
-  newVisitors: number;
+  resumeButtonClicks: number;
   returningVisitors: number;
 }
 
@@ -52,62 +56,63 @@ function formatNumber(num: number): string {
   return num.toLocaleString();
 }
 
-const statCards = [
-  {
-    key: "totalPageviews",
-    label: "Total Pageviews",
-    icon: IconEye,
-    color: "bg-chart-1",
-    format: (value: number) => formatNumber(value),
-    tooltip:
-      "Total page views in the last 30 days. Calculated by counting all $pageview events tracked by PostHog.",
-  },
-  {
-    key: "uniqueVisitors",
-    label: "Unique Visitors",
-    icon: IconUsers,
-    color: "bg-chart-2",
-    format: (value: number) => formatNumber(value),
-    tooltip:
-      "Distinct users in the last 30 days. Calculated using COUNT(DISTINCT distinct_id) from pageview events.",
-  },
-  {
-    key: "totalSessions",
-    label: "Total Sessions",
-    icon: IconUserScan,
-    color: "bg-chart-5",
-    format: (value: number) => formatNumber(value),
-    tooltip:
-      "Total browsing sessions. Calculated using COUNT(DISTINCT $session_id) from pageview events.",
-  },
-  {
-    key: "avgSessionDuration",
-    label: "Avg. Session",
-    icon: IconClock,
-    color: "bg-chart-3",
-    format: (value: number) => formatDuration(value),
-    tooltip:
-      "Average time per session. Calculated as AVG(last_timestamp - first_timestamp) for each session.",
-  },
-  {
-    key: "newVisitors",
-    label: "New Visitors",
-    icon: IconUserPlus,
-    color: "bg-chart-4",
-    format: (value: number) => formatNumber(value),
-    tooltip:
-      "First-time visitors. Calculated by counting users whose first visit date matches their earliest event in the period.",
-  },
-  {
-    key: "returningVisitors",
-    label: "Returning",
-    icon: IconUserCheck,
-    color: "bg-chart-6",
-    format: (value: number) => formatNumber(value),
-    tooltip:
-      "Repeat visitors. Calculated by counting users whose first visit date is before their earliest event in the period.",
-  },
-] as const;
+function getStatCardDefs(periodLabel: string, period: InsightsPeriod) {
+  const returningTooltip =
+    period === "all"
+      ? "Visitors with pageviews on more than one calendar day in the all-time window."
+      : `Repeat visitors in the ${periodLabel}, based on earliest pageview before the selected window.`;
+
+  return [
+    {
+      key: "totalPageviews",
+      label: "Total Pageviews",
+      icon: IconEye,
+      color: "bg-chart-1",
+      format: (value: number) => formatNumber(value),
+      tooltip: `Total page views in the ${periodLabel}. Calculated by counting all $pageview events tracked by PostHog.`,
+    },
+    {
+      key: "uniqueVisitors",
+      label: "Unique Visitors",
+      icon: IconUsers,
+      color: "bg-chart-2",
+      format: (value: number) => formatNumber(value),
+      tooltip: `Distinct users in the ${periodLabel}. Calculated using COUNT(DISTINCT distinct_id) from pageview events.`,
+    },
+    {
+      key: "totalSessions",
+      label: "Total Sessions",
+      icon: IconUserScan,
+      color: "bg-chart-5",
+      format: (value: number) => formatNumber(value),
+      tooltip: `Browsing sessions in the ${periodLabel}. Calculated using COUNT(DISTINCT $session_id) from pageview events.`,
+    },
+    {
+      key: "avgSessionDuration",
+      label: "Avg. Session",
+      icon: IconClock,
+      color: "bg-chart-3",
+      format: (value: number) => formatDuration(value),
+      tooltip: `Average time per session in the ${periodLabel}. Calculated as AVG(last_timestamp - first_timestamp) for each session.`,
+    },
+    {
+      key: "resumeButtonClicks",
+      label: "Resume clicks",
+      icon: IconFileDownload,
+      color: "bg-chart-4",
+      format: (value: number) => formatNumber(value),
+      tooltip: `Times the hero resume button was clicked (${periodLabel}). Counts PostHog event resume_button_click.`,
+    },
+    {
+      key: "returningVisitors",
+      label: "Returning",
+      icon: IconUserCheck,
+      color: "bg-chart-6",
+      format: (value: number) => formatNumber(value),
+      tooltip: returningTooltip,
+    },
+  ] as const;
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -156,24 +161,42 @@ function StatCardsError() {
 }
 
 export function StatCards() {
-  const { totalPageviews, isPageviewsLoading, pageviewsError } = usePageviews();
-  const { uniqueVisitors, isVisitorsLoading, visitorsError } = useVisitors();
-  const { avgSessionDuration, isSessionLoading, sessionError } = useSession();
-  const { engagement, isEngagementLoading, engagementError } = useEngagement();
+  const { period } = useInsightsPeriod();
+  const periodLabel = useMemo(() => insightsPeriodLabel(period), [period]);
+  const statCards = useMemo(
+    () => getStatCardDefs(periodLabel, period),
+    [periodLabel, period],
+  );
+
+  const { totalPageviews, isPageviewsLoading, pageviewsError } =
+    usePageviews(period);
+  const { uniqueVisitors, isVisitorsLoading, visitorsError } =
+    useVisitors(period);
+  const { avgSessionDuration, isSessionLoading, sessionError } =
+    useSession(period);
+  const { engagement, isEngagementLoading, engagementError } =
+    useEngagement(period);
+  const { resumeButtonClicks, isResumeClicksLoading, resumeClicksError } =
+    useResumeButtonClicks(period);
 
   const isLoading =
     isPageviewsLoading ||
     isVisitorsLoading ||
     isSessionLoading ||
-    isEngagementLoading;
+    isEngagementLoading ||
+    isResumeClicksLoading;
   const hasError =
-    pageviewsError || visitorsError || sessionError || engagementError;
+    pageviewsError ||
+    visitorsError ||
+    sessionError ||
+    engagementError ||
+    resumeClicksError;
 
   if (isLoading) {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <StatCardSkeleton key={i} />
+        {(["s0", "s1", "s2", "s3", "s4", "s5"] as const).map((id) => (
+          <StatCardSkeleton key={id} />
         ))}
       </div>
     );
@@ -188,7 +211,7 @@ export function StatCards() {
     uniqueVisitors: uniqueVisitors ?? 0,
     avgSessionDuration: avgSessionDuration ?? 0,
     totalSessions: engagement?.totalSessions ?? 0,
-    newVisitors: engagement?.newVisitors ?? 0,
+    resumeButtonClicks: resumeButtonClicks ?? 0,
     returningVisitors: engagement?.returningVisitors ?? 0,
   };
 

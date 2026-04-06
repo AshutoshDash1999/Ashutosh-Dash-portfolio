@@ -5,6 +5,7 @@ export {
   useEngagement,
   usePageviews,
   usePageviewsOverTime,
+  useResumeButtonClicks,
   useSession,
   useTraffic,
   useVisitors,

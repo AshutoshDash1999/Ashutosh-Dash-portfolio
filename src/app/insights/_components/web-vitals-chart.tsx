@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useVitals } from "@/lib/api/hooks";
 import type { WebVitalsMetrics } from "@/lib/api/types";
 import { cn } from "@/lib/utils";
+import { useInsightsPeriod } from "./insights-period-context";
 
 // Thresholds based on Google's Core Web Vitals
 const vitalsConfig = {
@@ -131,7 +132,8 @@ function WebVitalsChartEmpty() {
 }
 
 export function WebVitalsChart() {
-  const { vitals, isVitalsLoading, vitalsError } = useVitals();
+  const { period } = useInsightsPeriod();
+  const { vitals, isVitalsLoading, vitalsError } = useVitals(period);
 
   if (isVitalsLoading) {
     return <WebVitalsChartSkeleton />;
@@ -172,7 +174,7 @@ export function WebVitalsChart() {
         <CardHeader>
           <CardTitle>Web Vitals</CardTitle>
           <CardDescription>
-            Core Web Vitals performance (p75 values)
+            Core Web Vitals (p75) for the selected period
           </CardDescription>
         </CardHeader>
         <CardContent>

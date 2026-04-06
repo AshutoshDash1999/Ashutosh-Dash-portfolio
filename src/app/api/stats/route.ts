@@ -18,6 +18,7 @@ export async function GET() {
       topPages: "/api/stats/pages/top",
       vitals: "/api/stats/vitals",
       engagement: "/api/stats/engagement",
+      resumeClicks: "/api/stats/resume-clicks",
     },
   });
 }

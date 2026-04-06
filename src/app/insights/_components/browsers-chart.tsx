@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDevices } from "@/lib/api/hooks";
+import { useInsightsPeriod } from "./insights-period-context";
 
 const chartColors = [
   "var(--chart-1)",
@@ -80,7 +81,8 @@ function BrowsersChartEmpty() {
 }
 
 export function BrowsersChart() {
-  const { browsers, isDevicesLoading, devicesError } = useDevices();
+  const { period } = useInsightsPeriod();
+  const { browsers, isDevicesLoading, devicesError } = useDevices(period);
 
   if (isDevicesLoading) {
     return <BrowsersChartSkeleton />;
@@ -128,7 +130,7 @@ export function BrowsersChart() {
         <CardHeader>
           <CardTitle>Browser Distribution</CardTitle>
           <CardDescription>
-            Most popular browsers among visitors
+            All-time pageviews by browser (not tied to the period above)
           </CardDescription>
         </CardHeader>
         <CardContent>

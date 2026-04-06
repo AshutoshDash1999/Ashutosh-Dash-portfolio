@@ -119,7 +119,9 @@ function TrafficSourcesChartError() {
     <Card className="h-full">
       <CardHeader>
         <CardTitle>Traffic Sources</CardTitle>
-        <CardDescription>Where your visitors come from</CardDescription>
+        <CardDescription>
+          All-time visitors by source (not tied to the period above)
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Alert variant="destructive">
@@ -139,7 +141,9 @@ function TrafficSourcesChartEmpty() {
     <Card className="h-full">
       <CardHeader>
         <CardTitle>Traffic Sources</CardTitle>
-        <CardDescription>Where your visitors come from</CardDescription>
+        <CardDescription>
+          All-time visitors by source (not tied to the period above)
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-foreground/70 text-center py-8">
@@ -187,7 +191,9 @@ export function TrafficSourcesChart() {
       <Card className="h-full">
         <CardHeader>
           <CardTitle>Traffic Sources</CardTitle>
-          <CardDescription>Where your visitors come from</CardDescription>
+          <CardDescription>
+            All-time visitors by source (not tied to the period above)
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[280px] w-full">

@@ -115,7 +115,6 @@ export interface EngagementStats {
   totalSessions: number;
   bouncedSessions: number;
   avgPagesPerSession: number;
-  newVisitors: number;
   returningVisitors: number;
 }
 

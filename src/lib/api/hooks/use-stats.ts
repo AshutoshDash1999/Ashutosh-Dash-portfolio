@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import type { InsightsPeriod } from "@/lib/api/stats-days";
 import type {
   BrowserStats,
   DeviceTypeStats,
@@ -16,6 +17,10 @@ const swrOptions = {
   revalidateOnReconnect: false,
 };
 
+function statsDaysQuery(period: InsightsPeriod): string {
+  return `days=${encodeURIComponent(String(period))}`;
+}
+
 // ============================================
 // Response Types
 // ============================================
@@ -30,6 +35,10 @@ interface VisitorsResponse {
 
 interface SessionResponse {
   avgSessionDuration: number;
+}
+
+interface ResumeButtonClicksResponse {
+  count: number;
 }
 
 interface CountriesResponse {
@@ -47,24 +56,21 @@ interface TrafficResponse {
 
 interface VisitorsOverTimeResponse {
   visitorsOverTime: VisitorsByDay[];
-  days: number;
+  period: InsightsPeriod;
 }
 
 interface PageviewsOverTimeResponse {
   pageviewsByDay: PageviewsByDay[];
-  days: number;
+  period: InsightsPeriod;
 }
 
 // ============================================
 // Hooks
 // ============================================
 
-/**
- * Fetch total pageviews (last 30 days)
- */
-export function usePageviews() {
+export function usePageviews(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<PageviewsResponse>(
-    "/api/stats/pageviews",
+    `/api/stats/pageviews?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -76,12 +82,9 @@ export function usePageviews() {
   };
 }
 
-/**
- * Fetch unique visitors (last 30 days)
- */
-export function useVisitors() {
+export function useVisitors(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<VisitorsResponse>(
-    "/api/stats/visitors",
+    `/api/stats/visitors?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -93,12 +96,9 @@ export function useVisitors() {
   };
 }
 
-/**
- * Fetch session data (avg duration)
- */
-export function useSession() {
+export function useSession(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<SessionResponse>(
-    "/api/stats/session",
+    `/api/stats/session?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -110,12 +110,23 @@ export function useSession() {
   };
 }
 
-/**
- * Fetch visitors by country
- */
-export function useCountries() {
+export function useResumeButtonClicks(period: InsightsPeriod) {
+  const { data, error, isLoading } = useSWR<ResumeButtonClicksResponse>(
+    `/api/stats/resume-clicks?${statsDaysQuery(period)}`,
+    fetcher,
+    swrOptions,
+  );
+
+  return {
+    resumeButtonClicks: data?.count,
+    resumeClicksError: error,
+    isResumeClicksLoading: isLoading,
+  };
+}
+
+export function useCountries(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<CountriesResponse>(
-    "/api/stats/visitors/countries",
+    `/api/stats/visitors/countries?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -127,12 +138,9 @@ export function useCountries() {
   };
 }
 
-/**
- * Fetch device distribution (device types and browsers)
- */
-export function useDevices() {
+export function useDevices(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<DevicesResponse>(
-    "/api/stats/devices",
+    `/api/stats/devices?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -145,9 +153,6 @@ export function useDevices() {
   };
 }
 
-/**
- * Fetch traffic sources
- */
 export function useTraffic() {
   const { data, error, isLoading } = useSWR<TrafficResponse>(
     "/api/stats/traffic",
@@ -162,12 +167,9 @@ export function useTraffic() {
   };
 }
 
-/**
- * Fetch web vitals metrics
- */
-export function useVitals() {
+export function useVitals(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<WebVitalsMetrics>(
-    "/api/stats/vitals",
+    `/api/stats/vitals?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -179,12 +181,9 @@ export function useVitals() {
   };
 }
 
-/**
- * Fetch engagement stats
- */
-export function useEngagement() {
+export function useEngagement(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<EngagementStats>(
-    "/api/stats/engagement",
+    `/api/stats/engagement?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -198,11 +197,10 @@ export function useEngagement() {
 
 /**
  * Fetch visitors over time (daily counts)
- * @param days - Number of days (7, 30, or 90)
  */
-export function useVisitorsOverTime(days: number = 30) {
+export function useVisitorsOverTime(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<VisitorsOverTimeResponse>(
-    `/api/stats/visitors/over-time?days=${days}`,
+    `/api/stats/visitors/over-time?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );
@@ -216,11 +214,10 @@ export function useVisitorsOverTime(days: number = 30) {
 
 /**
  * Fetch pageviews over time (daily counts)
- * @param days - Number of days (7, 30, or 90)
  */
-export function usePageviewsOverTime(days: number = 30) {
+export function usePageviewsOverTime(period: InsightsPeriod) {
   const { data, error, isLoading } = useSWR<PageviewsOverTimeResponse>(
-    `/api/stats/pages/views?days=${days}`,
+    `/api/stats/pages/views?${statsDaysQuery(period)}`,
     fetcher,
     swrOptions,
   );

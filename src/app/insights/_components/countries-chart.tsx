@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCountries } from "@/lib/api/hooks";
+import { useInsightsPeriod } from "./insights-period-context";
 
 const chartColors = [
   "var(--chart-1)",
@@ -80,8 +81,9 @@ function CountriesChartEmpty() {
 }
 
 export function CountriesChart() {
+  const { period } = useInsightsPeriod();
   const { visitorsByCountry, isCountriesLoading, countriesError } =
-    useCountries();
+    useCountries(period);
 
   if (isCountriesLoading) {
     return <CountriesChartSkeleton />;
@@ -144,7 +146,9 @@ export function CountriesChart() {
       <Card className="h-full">
         <CardHeader>
           <CardTitle>Top Countries</CardTitle>
-          <CardDescription>Visitors by geographic location</CardDescription>
+          <CardDescription>
+            Visitors by country for the selected period
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer

@@ -2,33 +2,68 @@
  * HogQL query templates for PostHog analytics
  */
 
-const TIME_RANGE = "30 DAY";
+import type { InsightsPeriod } from "@/lib/api/stats-days";
+
+const ALL_TIME_START = process.env.INSIGHTS_ALL_TIME_START ?? "2010-01-01";
+
+/** Rolling window from PostHog `now()` */
+export function tsGteRollingDays(days: number): string {
+  return `timestamp >= now() - INTERVAL ${days} DAY`;
+}
+
+/**
+ * Lower bound for bar-chart “all time” breakdowns.
+ * Override with INSIGHTS_ALL_TIME_START (ISO date string).
+ */
+export function tsGteAllTime(): string {
+  return `timestamp >= toDateTime('${ALL_TIME_START}')`;
+}
+
+/** Rolling N days, or configured all-time start when `period` is `"all"`. */
+export function tsGtePeriod(period: InsightsPeriod): string {
+  if (period === "all") {
+    return tsGteAllTime();
+  }
+  return tsGteRollingDays(period);
+}
 
 // ============================================
-// Overview Queries
+// Overview Queries (rolling window)
 // ============================================
 
-export const queries = {
-  // Total pageviews in the time range
-  totalPageviews: `
+export function getTotalPageviewsQuery(period: InsightsPeriod): string {
+  return `
     SELECT count() AS total
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
-  `,
+      AND ${tsGtePeriod(period)}
+  `;
+}
 
-  // Total unique visitors
-  uniqueVisitors: `
+/** Custom event from hero resume CTA (`posthog.capture('resume_button_click')`). */
+export function getResumeButtonClickCountQuery(period: InsightsPeriod): string {
+  return `
+    SELECT count() AS total
+    FROM events
+    WHERE 
+      event = 'resume_button_click'
+      AND ${tsGtePeriod(period)}
+  `;
+}
+
+export function getUniqueVisitorsQuery(period: InsightsPeriod): string {
+  return `
     SELECT count(DISTINCT distinct_id) AS unique_visitors
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
-  `,
+      AND ${tsGtePeriod(period)}
+  `;
+}
 
-  // Average session duration
-  avgSessionDuration: `
+export function getAvgSessionDurationQuery(period: InsightsPeriod): string {
+  return `
     SELECT 
       avg(session_duration) AS avg_duration
     FROM (
@@ -39,33 +74,19 @@ export const queries = {
       WHERE 
         event IN ('$pageview', '$pageleave')
         AND $session_id IS NOT NULL
-        AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+        AND ${tsGtePeriod(period)}
       GROUP BY session_id
       HAVING session_duration > 0 AND session_duration < 7200
     )
-  `,
-} as const;
+  `;
+}
 
 // ============================================
 // Visitors Queries
 // ============================================
 
-export const visitorsQueries = {
-  // Unique visitors by day
-  overTime: `
-    SELECT 
-      toDate(timestamp) AS date,
-      count(DISTINCT distinct_id) AS visitors
-    FROM events
-    WHERE 
-      event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
-    GROUP BY date
-    ORDER BY date ASC
-  `,
-
-  // Visitors by country
-  byCountry: `
+export function getVisitorsByCountryQuery(period: InsightsPeriod): string {
+  return `
     SELECT 
       COALESCE(properties.$geoip_country_name, 'Unknown') AS country,
       COALESCE(properties.$geoip_country_code, 'XX') AS country_code,
@@ -73,15 +94,14 @@ export const visitorsQueries = {
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${tsGtePeriod(period)}
     GROUP BY country, country_code
     ORDER BY visitors DESC
     LIMIT 15
-  `,
-} as const;
+  `;
+}
 
-// Dynamic query functions with configurable time range
-export function getVisitorsOverTimeQuery(days: number) {
+export function getVisitorsOverTimeQuery(period: InsightsPeriod): string {
   return `
     SELECT 
       toDate(timestamp) AS date,
@@ -89,7 +109,7 @@ export function getVisitorsOverTimeQuery(days: number) {
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${days} DAY
+      AND ${tsGtePeriod(period)}
     GROUP BY date
     ORDER BY date ASC
   `;
@@ -99,88 +119,88 @@ export function getVisitorsOverTimeQuery(days: number) {
 // Traffic Queries
 // ============================================
 
-export const trafficQueries = {
-  // Traffic sources based on utm_source or referring domain
-  sources: `
+/** Bar chart: all events since configured start date */
+export const trafficSourcesAllTimeQuery = `
     SELECT 
       COALESCE(properties.utm_source, properties.$referring_domain, 'Direct') AS source,
       count(DISTINCT distinct_id) AS visitors
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${tsGteAllTime()}
     GROUP BY source
     ORDER BY visitors DESC
     LIMIT 10
-  `,
-} as const;
+  `;
 
 // ============================================
 // Device Queries
 // ============================================
 
-export const deviceQueries = {
-  // Device type distribution (Desktop, Mobile, Tablet)
-  deviceTypes: `
+export function getDeviceTypesQuery(period: InsightsPeriod): string {
+  return `
     SELECT 
       COALESCE(properties.$device_type, 'Unknown') AS device_type,
       count() AS count
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${tsGtePeriod(period)}
     GROUP BY device_type
     ORDER BY count DESC
-  `,
+  `;
+}
 
-  // Browser distribution
-  browsers: `
+/** Bar chart: browsers, all time */
+export const browsersAllTimeQuery = `
     SELECT 
       COALESCE(properties.$browser, 'Unknown') AS browser,
       count() AS count
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${tsGteAllTime()}
     GROUP BY browser
     ORDER BY count DESC
     LIMIT 10
-  `,
+  `;
 
-  // Operating system distribution
-  operatingSystems: `
+export function getOperatingSystemsQuery(period: InsightsPeriod): string {
+  return `
     SELECT 
       COALESCE(properties.$os, 'Unknown') AS os,
       count() AS count
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${tsGtePeriod(period)}
     GROUP BY os
     ORDER BY count DESC
     LIMIT 10
-  `,
-} as const;
+  `;
+}
 
 // ============================================
 // Page Queries
 // ============================================
 
-export const pageQueries = {
-  // Pageviews by day
-  pageviewsByDay: `
+export function getPageviewsByDayQuery(period: InsightsPeriod): string {
+  return `
     SELECT 
       toDate(timestamp) AS date,
       count() AS pageview_count
     FROM events
     WHERE 
       event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${tsGtePeriod(period)}
     GROUP BY date
     ORDER BY date ASC
-  `,
+  `;
+}
 
-  // Top pages by pageview count
+const TIME_RANGE_30 = "30 DAY";
+
+export const pageQueries = {
   topPages: `
     SELECT 
       properties.$pathname AS pathname,
@@ -190,34 +210,69 @@ export const pageQueries = {
       event = '$pageview' 
       AND properties.$pathname IS NOT NULL 
       AND properties.$pathname != '/'
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND timestamp >= now() - INTERVAL ${TIME_RANGE_30}
     GROUP BY pathname
     ORDER BY pageview_count DESC
     LIMIT 10
   `,
 } as const;
 
-export function getPageviewsByDayQuery(days: number) {
-  return `
-    SELECT 
-      toDate(timestamp) AS date,
-      count() AS pageview_count
-    FROM events
-    WHERE 
-      event = '$pageview'
-      AND timestamp >= now() - INTERVAL ${days} DAY
-    GROUP BY date
-    ORDER BY date ASC
-  `;
-}
-
 // ============================================
 // Engagement Queries
 // ============================================
 
-export const engagementQueries = {
-  // Bounce rate - sessions with only one pageview
-  bounceRate: `
+const newVsReturningAllTimeQuery = `
+    SELECT 
+      visitor_type,
+      count() AS count
+    FROM (
+      SELECT 
+        distinct_id AS visitor_id,
+        if(
+          count(DISTINCT toDate(timestamp)) > 1,
+          'Returning',
+          'New'
+        ) AS visitor_type
+      FROM events
+      WHERE 
+        event = '$pageview'
+        AND distinct_id IS NOT NULL
+        AND ${tsGteAllTime()}
+      GROUP BY visitor_id
+    )
+    GROUP BY visitor_type
+  `;
+
+export function getEngagementQueries(period: InsightsPeriod) {
+  const rolling = tsGtePeriod(period);
+
+  const newVsReturning =
+    period === "all"
+      ? newVsReturningAllTimeQuery
+      : `
+    SELECT 
+      visitor_type,
+      count() AS count
+    FROM (
+      SELECT 
+        distinct_id AS visitor_id,
+        if(
+          min(timestamp) >= now() - INTERVAL ${period} DAY,
+          'New',
+          'Returning'
+        ) AS visitor_type
+      FROM events
+      WHERE 
+        event = '$pageview'
+        AND distinct_id IS NOT NULL
+      GROUP BY visitor_id
+      HAVING max(timestamp) >= now() - INTERVAL ${period} DAY
+    )
+    GROUP BY visitor_type
+  `;
+
+  return {
+    bounceRate: `
     SELECT 
       countIf(session_pageviews = 1) AS bounced_sessions,
       count() AS total_sessions,
@@ -230,37 +285,14 @@ export const engagementQueries = {
       WHERE 
         event = '$pageview'
         AND $session_id IS NOT NULL
-        AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+        AND ${rolling}
       GROUP BY session_id
     )
   `,
 
-  // New vs returning visitors - simplified approach
-  // Counts visitors whose first pageview in our data is within the time range
-  newVsReturning: `
-    SELECT 
-      visitor_type,
-      count() AS count
-    FROM (
-      SELECT 
-        distinct_id AS visitor_id,
-        if(
-          min(timestamp) >= now() - INTERVAL ${TIME_RANGE},
-          'New',
-          'Returning'
-        ) AS visitor_type
-      FROM events
-      WHERE 
-        event = '$pageview'
-        AND distinct_id IS NOT NULL
-      GROUP BY visitor_id
-      HAVING max(timestamp) >= now() - INTERVAL ${TIME_RANGE}
-    )
-    GROUP BY visitor_type
-  `,
+    newVsReturning,
 
-  // Average pages per session
-  pagesPerSession: `
+    pagesPerSession: `
     SELECT 
       round(avg(pages), 2) AS avg_pages_per_session
     FROM (
@@ -271,28 +303,28 @@ export const engagementQueries = {
       WHERE 
         event = '$pageview'
         AND $session_id IS NOT NULL
-        AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+        AND ${rolling}
       GROUP BY session_id
     )
   `,
 
-  // Total sessions
-  totalSessions: `
+    totalSessions: `
     SELECT 
       count(DISTINCT $session_id) AS total_sessions
     FROM events
     WHERE 
       event = '$pageview'
       AND $session_id IS NOT NULL
-      AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+      AND ${rolling}
   `,
-} as const;
+  } as const;
+}
 
 // ============================================
 // Web Vitals Queries
 // ============================================
 
-const createWebVitalsQuery = (metric: string) => `
+const createWebVitalsQuery = (metric: string, period: InsightsPeriod) => `
   SELECT 
     avg(toFloat(properties.$web_vitals_${metric}_value)) AS avg_value,
     quantile(0.75)(toFloat(properties.$web_vitals_${metric}_value)) AS p75,
@@ -302,15 +334,17 @@ const createWebVitalsQuery = (metric: string) => `
   WHERE 
     event = '$web_vitals'
     AND properties.$web_vitals_${metric}_value IS NOT NULL
-    AND timestamp >= now() - INTERVAL ${TIME_RANGE}
+    AND ${tsGtePeriod(period)}
 `;
 
-export const vitalsQueries = {
-  lcp: createWebVitalsQuery("LCP"),
-  fcp: createWebVitalsQuery("FCP"),
-  cls: createWebVitalsQuery("CLS"),
-  inp: createWebVitalsQuery("INP"),
-} as const;
+export function getVitalsQueries(period: InsightsPeriod) {
+  return {
+    lcp: createWebVitalsQuery("LCP", period),
+    fcp: createWebVitalsQuery("FCP", period),
+    cls: createWebVitalsQuery("CLS", period),
+    inp: createWebVitalsQuery("INP", period),
+  } as const;
+}
 
 // ============================================
 // Helpers
