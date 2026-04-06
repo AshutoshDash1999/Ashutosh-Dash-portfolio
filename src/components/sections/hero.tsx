@@ -11,11 +11,26 @@ import data from "@/lib/data.json";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 
+const cardGameSkeletonCellKeys = [
+  "cg-sk-0",
+  "cg-sk-1",
+  "cg-sk-2",
+  "cg-sk-3",
+  "cg-sk-4",
+  "cg-sk-5",
+  "cg-sk-6",
+  "cg-sk-7",
+  "cg-sk-8",
+  "cg-sk-9",
+  "cg-sk-10",
+  "cg-sk-11",
+] as const;
+
 const CardGameSkeleton = () => (
   <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
     <div className="grid grid-cols-4 gap-4 flex-1">
-      {Array.from({ length: 12 }).map((_, i) => (
-        <Skeleton key={i} className="w-full aspect-square" />
+      {cardGameSkeletonCellKeys.map((cellKey) => (
+        <Skeleton key={cellKey} className="w-full aspect-square" />
       ))}
     </div>
     <div className="flex justify-center">
@@ -97,71 +112,69 @@ export default function Hero() {
   };
 
   return (
-    <>
-      <section id="hero" className="px-6 md:px-12 py-16 md:py-24">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          <motion.div
-            className="flex-1 space-y-4"
+    <section id="hero" className="px-6 md:px-12 py-16 md:py-24">
+      <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <motion.div
+          className="flex-1 space-y-4"
+          initial="initial"
+          animate={firstLoadComplete ? "animate" : "initial"}
+          variants={containerVariants}
+        >
+          <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-heading"
             initial="initial"
             animate={firstLoadComplete ? "animate" : "initial"}
-            variants={containerVariants}
+            variants={heading1Variants}
           >
-            <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-heading"
-              initial="initial"
-              animate={firstLoadComplete ? "animate" : "initial"}
-              variants={heading1Variants}
-            >
-              {personal.name}
-            </motion.h1>
-            <motion.h2
-              className="text-2xl md:text-3xl lg:text-4xl font-heading text-main inline-block"
-              initial="initial"
-              animate={firstLoadComplete ? "animate" : "initial"}
-              variants={heading2Variants}
-            >
-              {personal.title}
-            </motion.h2>
-
-            <motion.p
-              className="text-lg md:text-xl text-foreground max-w-2xl"
-              initial="initial"
-              animate={firstLoadComplete ? "animate" : "initial"}
-              variants={heading3Variants}
-            >
-              {personal.bio}
-            </motion.p>
-
-            <motion.div
-              initial="initial"
-              animate={firstLoadComplete ? "animate" : "initial"}
-              variants={resumeLinkVariants}
-            >
-              <Link
-                href="/Ashutosh_Dash_Frontend_Dev.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 transition-colors group"
-                aria-label="View resume"
-                onClick={handleResumeClick}
-              >
-                <Button size="xl">
-                  <IconFileText className="size-5" />
-                  <span className="text-base md:text-sm">See my work</span>
-                </Button>
-              </Link>
-            </motion.div>
-          </motion.div>
-          <motion.div
-            className="flex-1 w-full min-h-96 flex items-center justify-center"
+            {personal.name}
+          </motion.h1>
+          <motion.h2
+            className="text-2xl md:text-3xl lg:text-4xl font-heading text-main inline-block"
             initial="initial"
             animate={firstLoadComplete ? "animate" : "initial"}
-            variants={cardGameContainerVariants}
+            variants={heading2Variants}
           >
-            <CardGame />
+            {personal.title}
+          </motion.h2>
+
+          <motion.p
+            className="text-lg md:text-xl text-foreground max-w-2xl"
+            initial="initial"
+            animate={firstLoadComplete ? "animate" : "initial"}
+            variants={heading3Variants}
+          >
+            {personal.bio}
+          </motion.p>
+
+          <motion.div
+            initial="initial"
+            animate={firstLoadComplete ? "animate" : "initial"}
+            variants={resumeLinkVariants}
+          >
+            <Link
+              href="/Ashutosh_Dash_Frontend_Dev.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 transition-colors group"
+              aria-label="View resume"
+              onClick={handleResumeClick}
+            >
+              <Button size="xl">
+                <IconFileText className="size-5" />
+                <span className="text-base md:text-sm">See my work</span>
+              </Button>
+            </Link>
           </motion.div>
-        </div>
-      </section>
-    </>
+        </motion.div>
+        <motion.div
+          className="flex-1 w-full min-h-96 flex items-center justify-center"
+          initial="initial"
+          animate={firstLoadComplete ? "animate" : "initial"}
+          variants={cardGameContainerVariants}
+        >
+          <CardGame />
+        </motion.div>
+      </div>
+    </section>
   );
 }
