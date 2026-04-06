@@ -4,7 +4,7 @@ import { IconFileText } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FirstLoadContext } from "@/components/layout/first-load-animation";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
@@ -84,11 +84,10 @@ const heading3Variants = {
 };
 
 const cardGameContainerVariants = {
-  initial: { opacity: 0, y: 30, scale: 0.9 },
+  initial: { opacity: 0, y: 30 },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: { duration: 0.6, delay: 0.4, ease: "easeOut" as const },
   },
 };
@@ -106,6 +105,7 @@ export default function Hero() {
   const { personal } = data;
   const { trackEvent } = useTrackEvent();
   const firstLoadComplete = useContext(FirstLoadContext);
+  const [cardGameWrapperEntered, setCardGameWrapperEntered] = useState(false);
 
   const handleResumeClick = () => {
     trackEvent("resume_button_click");
@@ -171,8 +171,11 @@ export default function Hero() {
           initial="initial"
           animate={firstLoadComplete ? "animate" : "initial"}
           variants={cardGameContainerVariants}
+          onAnimationComplete={() => {
+            if (firstLoadComplete) setCardGameWrapperEntered(true);
+          }}
         >
-          <CardGame />
+          <CardGame entranceReady={cardGameWrapperEntered} />
         </motion.div>
       </div>
     </section>
