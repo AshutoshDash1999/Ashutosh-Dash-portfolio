@@ -1,9 +1,5 @@
 "use client";
 
-import { IconExternalLink } from "@tabler/icons-react";
-import { motion } from "motion/react";
-import Link from "next/link";
-import { useContext } from "react";
 import { FirstLoadContext } from "@/components/layout/first-load-animation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +12,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
+import { IconExternalLink, IconGitPullRequest } from "@tabler/icons-react";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { useContext } from "react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -110,19 +110,22 @@ export function OpenSourceContent({
               </CardContent>
               <CardFooter className="flex flex-col sm:flex-row gap-2">
                 {item.issueUrl && (
-                  <Button
-                    asChild
-                    variant="neutral"
-                    className="flex-1 bg-chart-2"
-                  >
+                  <Button asChild className="flex-1 bg-chart-2 h-12 md:h-10">
                     <Link
                       href={item.issueUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View contribution for ${item.repo}`}
                       onClick={() => handleIssueClick(item.repo, item.issueUrl)}
+                      className="text-base md:text-sm"
                     >
-                      Issue / PR
+                      <IconGitPullRequest
+                        className="size-5 md:size-4"
+                        aria-hidden="true"
+                      />
+                      <span className="text-base md:text-sm">
+                        Pull Requests
+                      </span>
                     </Link>
                   </Button>
                 )}

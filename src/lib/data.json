@@ -28,6 +28,14 @@
       "description": "Added PR and issue template for new issues or PRs.",
       "technologies": ["Next.js", "React", "TypeScript", "Mantine UI"],
       "issueUrl": "https://github.com/dhruv0206/dev-proof-portfolio-open-source-search/issues/2#event-21951002177"
+    },
+    {
+      "repo": "Dinam",
+      "org": "AshutoshDash1999",
+      "url": "https://github.com/AshutoshDash1999/dinam",
+      "description": "Managing the repo, assigning tasks, and doing code reviews.",
+      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "issueUrl": "https://github.com/AshutoshDash1999/dinam/pulls?q=is%3Apr+is%3Aclosed"
     }
   ],
   "clientWork": [

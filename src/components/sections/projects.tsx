@@ -1,8 +1,5 @@
 "use client";
 
-import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
-import { motion } from "motion/react";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +12,9 @@ import {
 } from "@/components/ui/card";
 import { useTrackEvent } from "@/hooks/useTrackEvent";
 import data from "@/lib/data.json";
+import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
+import { motion } from "motion/react";
+import Link from "next/link";
 
 const containerVariants = {
   hidden: { opacity: 0 },
