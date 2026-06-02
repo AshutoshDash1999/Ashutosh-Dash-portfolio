@@ -36,6 +36,30 @@
       "description": "Managing the repo, assigning tasks, and doing code reviews.",
       "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
       "issueUrl": "https://github.com/AshutoshDash1999/dinam/pulls?q=is%3Apr+is%3Aclosed"
+    },
+    {
+      "repo": "LecturePulse",
+      "org": "rishima17",
+      "url": "https://github.com/rishima17/LecturePulse",
+      "description": "",
+      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "issueUrl": "https://github.com/rishima17/LecturePulse/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
+    },
+    {
+      "repo": "AI-Money-Mentor",
+      "org": "omroy07",
+      "url": "https://github.com/omroy07/AI-Money-Mentor",
+      "description": "",
+      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "issueUrl": "https://github.com/omroy07/AI-Money-Mentor/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
+    },
+    {
+      "repo": "Moddy_Player",
+      "org": "Neeraj-code-beep",
+      "url": "https://github.com/Neeraj-code-beep/Moddy_Player",
+      "description": "",
+      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "issueUrl": "https://github.com/Neeraj-code-beep/Moddy_Player/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     }
   ],
   "clientWork": [

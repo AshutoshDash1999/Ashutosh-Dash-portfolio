@@ -51,10 +51,6 @@ export function OpenSourceContent({
   const { trackEvent } = useTrackEvent();
   const firstLoadComplete = useContext(FirstLoadContext);
 
-  const handleRepoClick = (repo: string, url: string) => {
-    trackEvent("open_source_click", { repo, url });
-  };
-
   const handleIssueClick = (repo: string, url: string) => {
     trackEvent("open_source_issue_click", { repo, url });
   };
