@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "knip": "knip"
+    "knip": "knip",
+    "nextjs-docs": "npx @next/codemod@canary agents-md"
   },
   "dependencies": {
     "@radix-ui/react-context-menu": "^2.2.16",
@@ -40,6 +41,7 @@
     "@types/node": "^20.19.30",
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
+    "agentation": "^3.0.2",
     "babel-plugin-react-compiler": "1.0.0",
     "knip": "^5.82.1",
     "tailwindcss": "^4",

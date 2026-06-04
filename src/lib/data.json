@@ -60,6 +60,14 @@
       "description": "",
       "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
       "issueUrl": "https://github.com/Neeraj-code-beep/Moddy_Player/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
+    },
+    {
+      "repo": "ai-agent-automation",
+      "org": "vmDeshpande",
+      "url": "https://github.com/vmDeshpande/ai-agent-automation",
+      "description": "",
+      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "issueUrl": "https://github.com/vmDeshpande/ai-agent-automation/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     }
   ],
   "clientWork": [

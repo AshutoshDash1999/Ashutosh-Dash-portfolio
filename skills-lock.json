@@ -11,6 +11,12 @@
       "sourceType": "github",
       "computedHash": "5ad5e6845a00484137b5134eb0f2f0ea5bd5ba289942c79241efbf5d63c3fc0d"
     },
+    "emil-design-eng": {
+      "source": "emilkowalski/skill",
+      "sourceType": "github",
+      "skillPath": "skills/emil-design-eng/SKILL.md",
+      "computedHash": "ac3fc5b4e206488ffc408a2806f829bb2e5eaf518fded09be34790685c2b3a0d"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
