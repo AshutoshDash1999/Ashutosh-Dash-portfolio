@@ -68,6 +68,14 @@
       "description": "",
       "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
       "issueUrl": "https://github.com/vmDeshpande/ai-agent-automation/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
+    },
+    {
+      "repo": "Agronavis-AI-Farm-Assistant",
+      "org": "jpdevhub",
+      "url": "https://github.com/jpdevhub/Agronavis-AI-Farm-Assistant",
+      "description": "",
+      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "issueUrl": "https://github.com/jpdevhub/Agronavis-AI-Farm-Assistant/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     }
   ],
   "clientWork": [

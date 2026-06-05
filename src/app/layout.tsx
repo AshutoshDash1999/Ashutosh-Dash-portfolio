@@ -1,6 +1,3 @@
-import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
-import { ViewTransitions } from "next-view-transitions";
 import { FirstLoadAnimation } from "@/components/layout/first-load-animation";
 import { InitialLoadingGate } from "@/components/layout/initial-loading-gate";
 import Navbar from "@/components/navbar";
@@ -9,6 +6,10 @@ import Footer from "@/components/sections/footer";
 import SocialLinks from "@/components/sections/social-links";
 import { WebVitals } from "@/components/web-vitals";
 import data from "@/lib/data.json";
+import { Agentation } from "agentation";
+import type { Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -157,6 +158,8 @@ export default function RootLayout({
                 </div>
               </FirstLoadAnimation>
             </InitialLoadingGate>
+
+            {process.env.NODE_ENV === "development" && <Agentation />}
           </AppProvider>
         </body>
       </html>

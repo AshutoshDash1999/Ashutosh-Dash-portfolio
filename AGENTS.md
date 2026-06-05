@@ -18,6 +18,36 @@ This is Ashutosh Dash's portfolio website - a fast, modern, and responsive Next.
 
 ---
 
+## Design Context
+
+This portfolio targets **hiring managers, recruiters, and potential clients** evaluating for employment, contracting, or collaboration. Visitors scan quickly—clarity and impact matter immediately.
+
+**Brand Personality:** Professional, reliable, technical—with playful edge. Inspire confidence in technical depth while standing out through personality.
+
+**Aesthetic Direction:** Playful, bold, and clean. Inspired by neobrutalism (strong geometry, unpolished charm, irreverent details) and modern energetic design (API World landing page). Embrace bold color and shape while maintaining clarity. Avoid minimalist or corporate sterile feel.
+
+**Visual References:**
+- https://dribbble.com/shots/18786007-API-World-landing-page — energetic layout, clear hierarchy, modern boldness
+- https://www.neobrutalism.dev/ — raw geometry, thick borders, playful rule-breaking, anti-polish charm
+
+**Design Principles:**
+
+1. **Bold with purpose** — Use strong colors, thick elements, and geometric shapes. Every visual accent should communicate or delight, not decorate.
+
+2. **Scannable hierarchy** — Recruiters skim. Sections must be immediately distinguishable; copy concise; key info (skills, experience, projects) stand out without reading everything.
+
+3. **Playful reliability** — Professional credentials (clean typography, WCAG AA compliance, smooth interactions) paired with personality (unexpected animations, color plays, irreverent details). Technical people hiring technical people—show you're both competent and interesting.
+
+4. **Light and dark parity** — Both themes equally intentional. Dark mode isn't afterthought; colors, contrast, feel should be considered for both. Purple accent stays consistent.
+
+5. **Interaction = delight** — Smooth transitions, purposeful animations, micro-interactions. But never slow or precious—respect user time. View Transitions API + Framer Motion should feel like the site responding to you, not showing off.
+
+**Accessibility:** WCAG AA minimum. Ensure sufficient color contrast in both themes, keyboard navigable, alt text for images, semantic HTML. Reduce motion should degrade gracefully, not break animations.
+
+**Color:** Keep current purple OKLch scheme as primary accent—it works across light/dark. Lean into contrast and saturation for boldness without changing the foundation. Consider where solid color blocks or strong borders can reinforce neo-brutalist aesthetic.
+
+---
+
 ## Build Commands
 
 ```bash
