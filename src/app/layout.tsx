@@ -1,5 +1,4 @@
 import { FirstLoadAnimation } from "@/components/layout/first-load-animation";
-import { InitialLoadingGate } from "@/components/layout/initial-loading-gate";
 import Navbar from "@/components/navbar";
 import AppProvider from "@/components/providers/app-provider";
 import Footer from "@/components/sections/footer";
@@ -144,20 +143,18 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
           />
           <AppProvider>
-            <InitialLoadingGate userName={personal.name}>
-              <FirstLoadAnimation>
-                <div className="vt-layout-nav">
-                  <Navbar />
-                </div>
-                <div className="vt-main-content">{children}</div>
-                <div className="vt-layout-social">
-                  <SocialLinks />
-                </div>
-                <div className="vt-layout-footer">
-                  <Footer />
-                </div>
-              </FirstLoadAnimation>
-            </InitialLoadingGate>
+            <FirstLoadAnimation>
+              <div className="vt-layout-nav">
+                <Navbar />
+              </div>
+              <div className="vt-main-content">{children}</div>
+              <div className="vt-layout-social">
+                <SocialLinks />
+              </div>
+              <div className="vt-layout-footer">
+                <Footer />
+              </div>
+            </FirstLoadAnimation>
 
             {process.env.NODE_ENV === "development" && <Agentation />}
           </AppProvider>
