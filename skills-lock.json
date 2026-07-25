@@ -1,10 +1,22 @@
 {
   "version": 1,
   "skills": {
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/accessibility/SKILL.md",
+      "computedHash": "ebfa09617a2ac4fd64afd73267726b787145a8d14294df3f8802b462c91594ab"
+    },
     "animation-micro-interaction-pack": {
       "source": "patricio0312rev/skills",
       "sourceType": "github",
       "computedHash": "6710c76c1eddba8f57f98957780a57eb1a5a0b027395b0e8f0eac9dba87e22c1"
+    },
+    "copywriting": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/copywriting/SKILL.md",
+      "computedHash": "cb9761b92e140cd68c1de6397c51dd9952da198382abfdbf26589ef26f6572b4"
     },
     "core-web-vitals-tuner": {
       "source": "patricio0312rev/skills",
@@ -36,6 +48,12 @@
       "source": "posthog/posthog-for-claude",
       "sourceType": "github",
       "computedHash": "2651cf543b937bec0e08d50486e13ed3176ccd285477738d3edb47c356eeeac9"
+    },
+    "seo-audit": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "computedHash": "606da61224d9d5687020816292c88152a7fcb27ce375b22f92f429e074f07f34"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
