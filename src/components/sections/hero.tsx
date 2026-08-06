@@ -1,13 +1,13 @@
 "use client";
 
+import { FirstLoadContext } from "@/components/layout/first-load-animation";
+import { useTrackEvent } from "@/hooks/useTrackEvent";
+import data from "@/lib/data.json";
 import { IconFileText } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useContext, useState } from "react";
-import { FirstLoadContext } from "@/components/layout/first-load-animation";
-import { useTrackEvent } from "@/hooks/useTrackEvent";
-import data from "@/lib/data.json";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 
@@ -161,7 +161,7 @@ export default function Hero() {
             >
               <Button size="xl">
                 <IconFileText className="size-5" />
-                <span className="text-base md:text-sm">See my work</span>
+                <span className="text-base md:text-sm">View my Resume</span>
               </Button>
             </Link>
           </motion.div>
