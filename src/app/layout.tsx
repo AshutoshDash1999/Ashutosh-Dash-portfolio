@@ -7,6 +7,7 @@ import { WebVitals } from "@/components/web-vitals";
 import data from "@/lib/data.json";
 import { Agentation } from "agentation";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ViewTransitions } from "next-view-transitions";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
@@ -142,22 +143,24 @@ export default function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
           />
-          <AppProvider>
-            <FirstLoadAnimation>
-              <div className="vt-layout-nav">
-                <Navbar />
-              </div>
-              <div className="vt-main-content">{children}</div>
-              <div className="vt-layout-social">
-                <SocialLinks />
-              </div>
-              <div className="vt-layout-footer">
-                <Footer />
-              </div>
-            </FirstLoadAnimation>
+          <Suspense>
+            <AppProvider>
+              <FirstLoadAnimation>
+                <div className="vt-layout-nav">
+                  <Navbar />
+                </div>
+                <div className="vt-main-content">{children}</div>
+                <div className="vt-layout-social">
+                  <SocialLinks />
+                </div>
+                <div className="vt-layout-footer">
+                  <Footer />
+                </div>
+              </FirstLoadAnimation>
 
-            {process.env.NODE_ENV === "development" && <Agentation />}
-          </AppProvider>
+              {process.env.NODE_ENV === "development" && <Agentation />}
+            </AppProvider>
+          </Suspense>
         </body>
       </html>
     </ViewTransitions>
