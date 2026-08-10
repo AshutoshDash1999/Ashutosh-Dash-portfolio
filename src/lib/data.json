@@ -76,6 +76,33 @@
       "description": "",
       "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
       "issueUrl": "https://github.com/jpdevhub/Agronavis-AI-Farm-Assistant/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
+    },
+    {
+      "repo": "TabTwin",
+      "org": "itzzavdhesh",
+      "url": "https://github.com/itzzavdhesh/TabTwin",
+      "description": "",
+      "technologies": [],
+      "issueUrl": "https://github.com/itzzavdhesh/TabTwin/issues/50",
+      "prUrl": "https://github.com/itzzavdhesh/TabTwin/pull/72"
+    },
+    {
+      "repo": "MergeShip",
+      "org": "Coder-s-OG-s",
+      "url": "https://github.com/Coder-s-OG-s/MergeShip",
+      "description": "",
+      "technologies": [],
+      "issueUrl": "https://github.com/Coder-s-OG-s/MergeShip/issues/388",
+      "prUrl": "https://github.com/Coder-s-OG-s/MergeShip/pull/705"
+    },
+    {
+      "repo": "File-Sharing-System",
+      "org": "imanchalsingh",
+      "url": "https://github.com/imanchalsingh/File-Sharing-System",
+      "description": "",
+      "technologies": [],
+      "issueUrl": "https://github.com/imanchalsingh/File-Sharing-System/issues/81",
+      "prUrl": "https://github.com/imanchalsingh/File-Sharing-System/pull/92"
     }
   ],
   "clientWork": [
@@ -242,6 +269,13 @@
       "technologies": ["NextJS", "Openrouter", "Typescript", "GCP"],
       "demo": "https://gpt-lawyer.netlify.app",
       "repo": "https://github.com/AshutoshDash1999/ugc-agentic-lawyer-frontend"
+    },
+    {
+      "title": "Shape Box Creator",
+      "description": "A visual editor for designing unconventional UI blocks with polygon clip-paths. Drag points on a canvas to shape a box, then copy out the generated CSS clip-path or SVG markup.",
+      "technologies": ["NextJS", "Typescript", "Tailwind CSS", "Shadcn UI"],
+      "demo": "https://shape-box-creator.vercel.app/",
+      "repo": "https://github.com/AshutoshDash1999/shape-box-creator"
     }
   ],
   "freelance": {
