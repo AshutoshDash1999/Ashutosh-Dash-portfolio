@@ -139,10 +139,6 @@ export default function RootLayout({
             Skip to content
           </a>
           <WebVitals />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-          />
           <Suspense>
             <AppProvider>
               <FirstLoadAnimation>
@@ -161,6 +157,10 @@ export default function RootLayout({
               {process.env.NODE_ENV === "development" && <Agentation />}
             </AppProvider>
           </Suspense>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
         </body>
       </html>
     </ViewTransitions>
