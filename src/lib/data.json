@@ -97,7 +97,7 @@
       "title": "Samvaad Sathi",
       "description": "Samvaad Sathi is a platform for the Barabari Collective for interview preparation.",
       "technologies": ["NextJS", "Daisy UI", "Tailwind CSS", "Typescript"],
-      "url": "https://www.samvaad-sathi.barabaricollective.org"
+      "url": "https://samvaad-sathi.barabaricollective.org"
     },
     {
       "title": "Suraj Roy's Portfolio",
@@ -112,6 +112,12 @@
         "Vercel"
       ],
       "url": "https://roydesign.in"
+    },
+    {
+      "title": "ICCCT 2023",
+      "description": "Official website for the ICCCT 2023 conference.",
+      "technologies": ["NextJS", "Chakra UI", "Typescript"],
+      "url": "https://iccct-2023.vercel.app"
     }
   ],
   "techSkills": [
@@ -236,13 +242,6 @@
       "technologies": ["NextJS", "Openrouter", "Typescript", "GCP"],
       "demo": "https://gpt-lawyer.netlify.app",
       "repo": "https://github.com/AshutoshDash1999/ugc-agentic-lawyer-frontend"
-    },
-    {
-      "title": "ICCCT 2023",
-      "description": "Official website for the ICCCT 2023 conference.",
-      "technologies": ["NextJS", "Chakra UI", "Typescript"],
-      "demo": "https://iccct-2023.vercel.app",
-      "repo": "https://github.com/AshutoshDash1999/iccct-2023"
     }
   ],
   "freelance": {
