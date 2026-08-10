@@ -2,7 +2,7 @@ import PageLayout from "@/components/layout/page-layout";
 import data from "@/lib/data.json";
 import { ClientWorkContent } from "./_components/client-work-content";
 
-export default function ClientWorkPage() {
+export default function CollaborationsPage() {
   const clientWork = data.clientWork ?? [];
 
   return (
