@@ -34,7 +34,14 @@
       "org": "AshutoshDash1999",
       "url": "https://github.com/AshutoshDash1999/dinam",
       "description": "Managing the repo, assigning tasks, and doing code reviews.",
-      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vite",
+        "Manifest V3",
+        "Chrome Extension"
+      ],
       "issueUrl": "https://github.com/AshutoshDash1999/dinam/pulls?q=is%3Apr+is%3Aclosed"
     },
     {
@@ -42,7 +49,7 @@
       "org": "rishima17",
       "url": "https://github.com/rishima17/LecturePulse",
       "description": "",
-      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "technologies": [],
       "issueUrl": "https://github.com/rishima17/LecturePulse/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     },
     {
@@ -50,7 +57,7 @@
       "org": "omroy07",
       "url": "https://github.com/omroy07/AI-Money-Mentor",
       "description": "",
-      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "technologies": [],
       "issueUrl": "https://github.com/omroy07/AI-Money-Mentor/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     },
     {
@@ -58,7 +65,7 @@
       "org": "Neeraj-code-beep",
       "url": "https://github.com/Neeraj-code-beep/Moddy_Player",
       "description": "",
-      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "technologies": [],
       "issueUrl": "https://github.com/Neeraj-code-beep/Moddy_Player/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     },
     {
@@ -66,7 +73,7 @@
       "org": "vmDeshpande",
       "url": "https://github.com/vmDeshpande/ai-agent-automation",
       "description": "",
-      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "technologies": [],
       "issueUrl": "https://github.com/vmDeshpande/ai-agent-automation/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     },
     {
@@ -74,14 +81,14 @@
       "org": "jpdevhub",
       "url": "https://github.com/jpdevhub/Agronavis-AI-Farm-Assistant",
       "description": "",
-      "technologies": ["React", "TypeScript", "Shadcn UI", "Tailwind CSS"],
+      "technologies": [],
       "issueUrl": "https://github.com/jpdevhub/Agronavis-AI-Farm-Assistant/pulls?q=is%3Apr+is%3Aclosed+author%3AAshutoshDash1999"
     },
     {
       "repo": "TabTwin",
       "org": "itzzavdhesh",
       "url": "https://github.com/itzzavdhesh/TabTwin",
-      "description": "",
+      "description": "Added AGENTS.md file to provide coding agents with project context. Installed relevant skills to increase AI agent capabilities for the codebase.",
       "technologies": [],
       "issueUrl": "https://github.com/itzzavdhesh/TabTwin/issues/50",
       "prUrl": "https://github.com/itzzavdhesh/TabTwin/pull/72"
@@ -90,7 +97,7 @@
       "repo": "MergeShip",
       "org": "Coder-s-OG-s",
       "url": "https://github.com/Coder-s-OG-s/MergeShip",
-      "description": "",
+      "description": "Integrated PostHog analytics to track user interactions across the application. Updated Content Security Policy to include PostHog tracking URLs and configured event capturing across multiple components.",
       "technologies": [],
       "issueUrl": "https://github.com/Coder-s-OG-s/MergeShip/issues/388",
       "prUrl": "https://github.com/Coder-s-OG-s/MergeShip/pull/705"
@@ -99,7 +106,7 @@
       "repo": "File-Sharing-System",
       "org": "imanchalsingh",
       "url": "https://github.com/imanchalsingh/File-Sharing-System",
-      "description": "",
+      "description": "Set up Husky and commitlint to enforce conventional commit standards. Added commit-msg hook validation and updated CONTRIBUTING.md with commit guidelines.",
       "technologies": [],
       "issueUrl": "https://github.com/imanchalsingh/File-Sharing-System/issues/81",
       "prUrl": "https://github.com/imanchalsingh/File-Sharing-System/pull/92"
