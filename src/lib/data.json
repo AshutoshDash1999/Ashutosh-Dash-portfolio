@@ -49,7 +49,7 @@
       "org": "itzzavdhesh",
       "url": "https://github.com/itzzavdhesh/TabTwin",
       "description": "Added AGENTS.md file to provide coding agents with project context. Installed relevant skills to increase AI agent capabilities for the codebase.",
-      "technologies": [],
+      "technologies": ["Markdown", "Git"],
       "issueUrl": "https://github.com/itzzavdhesh/TabTwin/issues/50",
       "prUrl": "https://github.com/itzzavdhesh/TabTwin/pull/72"
     },
@@ -58,7 +58,7 @@
       "org": "Coder-s-OG-s",
       "url": "https://github.com/Coder-s-OG-s/MergeShip",
       "description": "Integrated PostHog analytics to track user interactions across the application. Updated Content Security Policy to include PostHog tracking URLs and configured event capturing across multiple components.",
-      "technologies": [],
+      "technologies": ["PostHog", "React", "TypeScript"],
       "issueUrl": "https://github.com/Coder-s-OG-s/MergeShip/issues/388",
       "prUrl": "https://github.com/Coder-s-OG-s/MergeShip/pull/705"
     },
@@ -67,7 +67,7 @@
       "org": "imanchalsingh",
       "url": "https://github.com/imanchalsingh/File-Sharing-System",
       "description": "Set up Husky and commitlint to enforce conventional commit standards. Added commit-msg hook validation and updated CONTRIBUTING.md with commit guidelines.",
-      "technologies": [],
+      "technologies": ["Git", "Husky", "Commitlint", "Markdown"],
       "issueUrl": "https://github.com/imanchalsingh/File-Sharing-System/issues/81",
       "prUrl": "https://github.com/imanchalsingh/File-Sharing-System/pull/92"
     },
