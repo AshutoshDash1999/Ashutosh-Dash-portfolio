@@ -26,6 +26,17 @@ const cardGameSkeletonCellKeys = [
   "cg-sk-11",
 ] as const;
 
+const slidePuzzleSkeletonCellKeys = [
+  "sp-sk-0",
+  "sp-sk-1",
+  "sp-sk-2",
+  "sp-sk-3",
+  "sp-sk-4",
+  "sp-sk-5",
+  "sp-sk-6",
+  "sp-sk-7",
+] as const;
+
 const CardGameSkeleton = () => (
   <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
     <div className="grid grid-cols-4 gap-4 flex-1">
@@ -39,9 +50,27 @@ const CardGameSkeleton = () => (
   </div>
 );
 
+const SlidePuzzleSkeleton = () => (
+  <div className="w-full h-full min-h-96 border-4 border-border rounded-lg bg-main p-6 flex flex-col gap-4">
+    <div className="grid grid-cols-3 gap-2 flex-1">
+      {slidePuzzleSkeletonCellKeys.map((cellKey) => (
+        <Skeleton key={cellKey} className="w-full aspect-square" />
+      ))}
+    </div>
+    <div className="flex justify-center">
+      <Skeleton className="h-11 w-36" />
+    </div>
+  </div>
+);
+
 const CardGame = dynamic(() => import("./card-game"), {
   ssr: false,
   loading: () => <CardGameSkeleton />,
+});
+
+const SlidePuzzle = dynamic(() => import("./slide-puzzle"), {
+  ssr: false,
+  loading: () => <SlidePuzzleSkeleton />,
 });
 
 const containerVariants = {
@@ -175,7 +204,12 @@ export default function Hero() {
             if (firstLoadComplete) setCardGameWrapperEntered(true);
           }}
         >
-          <CardGame entranceReady={cardGameWrapperEntered} />
+          <div className="w-full md:hidden">
+            <SlidePuzzle entranceReady={cardGameWrapperEntered} />
+          </div>
+          <div className="hidden w-full md:block">
+            <CardGame entranceReady={cardGameWrapperEntered} />
+          </div>
         </motion.div>
       </div>
     </section>

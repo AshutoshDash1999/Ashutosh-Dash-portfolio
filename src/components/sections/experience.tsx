@@ -37,13 +37,21 @@ export default function Experience() {
                   {exp.role}
                 </CardTitle>
                 <div className="text-base md:text-lg text-foreground">
-                  {exp.company} · {exp.duration}
+                  {exp.company}
+                  {exp.location ? ` · ${exp.location}` : ""} · {exp.duration}
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-base md:text-lg text-foreground leading-relaxed">
-                  {exp.description}
-                </p>
+                <ul className="space-y-2 list-disc pl-5 marker:text-foreground">
+                  {exp.highlights.map((highlight) => (
+                    <li
+                      key={highlight}
+                      className="text-base md:text-lg text-foreground leading-relaxed"
+                    >
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
                 <div className="flex flex-wrap gap-2 md:gap-2">
                   {exp.technologies.map((tech) => (
                     <Badge key={tech} variant="chart3">

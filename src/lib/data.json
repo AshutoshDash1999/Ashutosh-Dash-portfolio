@@ -135,34 +135,71 @@
   ],
   "experience": [
     {
-      "company": "Learningpad",
+      "company": "Fixity LearningPad",
       "url": "https://learningpadedu.com",
-      "role": "React JS Developer",
+      "location": "Hyderabad",
+      "role": "ReactJS Developer",
       "duration": "May 2024 - Present",
-      "description": "Building high-quality dashboards and internal tools using Next.js, React, Mantine, and Refine. Responsible for UI development, performance optimization, analytics implementation, API integrations, and code quality improvements. Mentored interns and participated actively in code reviews.",
-      "technologies": ["Next.js", "React", "Mantine UI", "Refine", "Firebase"]
+      "highlights": [
+        "Led frontend for an AI learning platform at 5K+ DAU, owning product cycles end-to-end from design handoff to production in 2–5 days with React, Next.js, and Mantine.",
+        "Shipped a streaming AI chatbot and a suite of AI study tools adopted across 5+ products, lifting user session time by 30% and daily engagement by 20%.",
+        "Built an OMR + AI evaluation system that cut grading turnaround by 80% and unlocked bulk processing — eliminating manual per-student review."
+      ],
+      "technologies": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Mantine",
+        "Ant Design",
+        "Shadcn UI",
+        "Playwright",
+        "Firebase",
+        "i18n",
+        "PostHog"
+      ]
     },
     {
       "company": "Badho",
       "url": "https://badho.in",
+      "location": "Gurgaon",
       "role": "Full Stack Developer",
       "duration": "October 2023 - April 2024",
-      "description": "Worked on a React Native mobile application with a strong focus on UI refactoring, performance tuning, and seamless user experience. Implemented analytics tracking and integrated backend APIs using Node.js while improving component reusability.",
+      "highlights": [
+        "Built a standalone B2B analytics dashboard as a separate product — Next.js, Ant Design, and GraphQL — surfacing product-usage and business metrics for internal teams.",
+        "Shipped 10+ React Native mobile features end-to-end against a Node.js / GraphQL / Hasura backend, owning UI through to the data layer.",
+        "Instrumented Mixpanel product analytics that drove data-backed prioritization across 25+ features."
+      ],
       "technologies": [
+        "Next.js",
         "React Native",
-        "Node.js",
-        "JavaScript",
+        "TypeScript",
+        "Ant Design",
         "GraphQL",
-        "Hasura"
+        "Hasura",
+        "Node.js",
+        "Mixpanel"
       ]
     },
     {
-      "company": "BookingJini",
+      "company": "Bookingjini",
       "url": "https://bookingjini.com",
+      "location": "Bhubaneswar",
       "role": "Frontend Developer",
       "duration": "February 2023 - September 2023",
-      "description": "Developed a QR-based restaurant menu application, built a hotel check-in sub-system, and modernized the booking engine using modular, reusable components. Maintained the BookingJini Icons Pack open-source library.",
-      "technologies": ["React", "JavaScript", "Bootstrap", "Mantine UI"]
+      "highlights": [
+        "Built a QR-code restaurant ordering system (React, Tailwind) that cut manual staff workload by 50%.",
+        "Rebuilt the hotel booking engine on a modular React architecture, cutting new booking-flow shipping time by 25%.",
+        "Maintained the open-source Bookingjini Icons Pack, earning 40+ GitHub stars and reviewing 150+ PRs."
+      ],
+      "technologies": [
+        "React",
+        "Next.js",
+        "Material UI",
+        "Tailwind",
+        "Git",
+        "Mantine UI",
+        "SCSS"
+      ]
     }
   ],
   "projects": [
