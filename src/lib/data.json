@@ -9,7 +9,7 @@
     "links": [
       { "label": "Insights", "href": "/insights" },
       { "label": "Open Source Contributions", "href": "/open-source" },
-      { "label": "Collaborations", "href": "/client-work" }
+      { "label": "Collaborations", "href": "/collaborations" }
     ]
   },
   "openSourceContributions": [
@@ -113,6 +113,19 @@
     }
   ],
   "clientWork": [
+    {
+      "title": "S Barik & Co",
+      "description": "Portfolio for accountant and bookeeping",
+      "technologies": [
+        "NextJS",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "Typescript",
+        "Vercel",
+        "React Lenis"
+      ],
+      "url": "https://soumya-barik-portfolio.vercel.app"
+    },
     {
       "title": "Roshni Satpathy's Portfolio",
       "description": "Portfolio website for Roshni Satpathy as Designer.",
