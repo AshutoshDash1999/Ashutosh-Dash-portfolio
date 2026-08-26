@@ -114,6 +114,12 @@
   ],
   "clientWork": [
     {
+      "title": "Biswajit Dash's Portfolio",
+      "description": "Portfolio for backend dev, following hacker theme.",
+      "technologies": ["NextJS", "Tailwind CSS", "Shadcn UI", "Typescript"],
+      "url": "https://biswajit-dash-portfolio.byteknottechnology.workers.dev"
+    },
+    {
       "title": "S Barik & Co",
       "description": "Portfolio for accountant and bookeeping",
       "technologies": [
