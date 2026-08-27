@@ -87,7 +87,9 @@ export function parseBreakdown(insight: Insight): BreakdownItem[] {
 /** Multi-series (portfolio interactions, web vitals): [{label, data: [{date, value}]}] */
 export function parseMultiSeries(insight: Insight): MultiSeriesItem[] {
   return (insight?.result ?? []).map((s) => ({
-    label: s.action?.custom_name ?? s.label ?? "",
+    // Breakdown insights repeat the same event label per series; the
+    // distinguishing name lives in breakdown_value
+    label: String(s.breakdown_value ?? s.action?.custom_name ?? s.label ?? ""),
     data: (s.days ?? []).map((day, i) => ({
       date: day,
       value: s.data?.[i] ?? 0,
