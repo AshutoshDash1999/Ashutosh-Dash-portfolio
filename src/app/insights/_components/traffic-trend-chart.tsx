@@ -32,8 +32,8 @@ function formatDate(dateStr: string): string {
 }
 
 export function TrafficTrendChart({ delay = 0.2 }: { delay?: number }) {
-  const visitors = useTimeSeries("/api/graphs/visitors-over-time");
-  const pageviews = useTimeSeries("/api/graphs/pageviews-over-time");
+  const visitors = useTimeSeries("/api/graphs/audience-over-time");
+  const pageviews = useTimeSeries("/api/graphs/views-over-time");
 
   const chartData = useMemo(() => {
     const visitorsMap = new Map(

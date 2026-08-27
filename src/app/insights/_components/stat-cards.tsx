@@ -1,14 +1,5 @@
 "use client";
 
-import {
-  IconArrowBounce,
-  IconClick,
-  IconClock,
-  IconEye,
-  IconFileDownload,
-  IconUsers,
-} from "@tabler/icons-react";
-import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -18,6 +9,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import {
+  IconArrowBounce,
+  IconClick,
+  IconClock,
+  IconEye,
+  IconFileDownload,
+  IconUsers,
+} from "@tabler/icons-react";
+import { motion } from "motion/react";
 import { useStat } from "./use-insights";
 
 function formatNumber(num: number): string {
@@ -33,7 +33,7 @@ function formatNumber(num: number): string {
 const statDefs = [
   {
     key: "visitors",
-    endpoint: "/api/stats/visitors",
+    endpoint: "/api/overview/audience",
     label: "Unique Visitors",
     icon: IconUsers,
     color: "bg-chart-1",
@@ -42,7 +42,7 @@ const statDefs = [
   },
   {
     key: "pageviews",
-    endpoint: "/api/stats/pageviews",
+    endpoint: "/api/overview/views",
     label: "Pageviews",
     icon: IconEye,
     color: "bg-chart-2",
@@ -50,7 +50,7 @@ const statDefs = [
   },
   {
     key: "bounce-rate",
-    endpoint: "/api/stats/bounce-rate",
+    endpoint: "/api/overview/bounce-rate",
     label: "Bounce Rate",
     icon: IconArrowBounce,
     color: "bg-chart-3",
@@ -58,7 +58,7 @@ const statDefs = [
   },
   {
     key: "avg-session",
-    endpoint: "/api/stats/avg-session",
+    endpoint: "/api/overview/avg-session",
     label: "Avg. Session",
     icon: IconClock,
     color: "bg-chart-5",
@@ -66,7 +66,7 @@ const statDefs = [
   },
   {
     key: "resume-downloads",
-    endpoint: "/api/stats/resume-downloads",
+    endpoint: "/api/overview/resume-downloads",
     label: "Resume Downloads",
     icon: IconFileDownload,
     color: "bg-chart-4",
@@ -74,7 +74,7 @@ const statDefs = [
   },
   {
     key: "project-clicks",
-    endpoint: "/api/stats/project-clicks",
+    endpoint: "/api/overview/project-clicks",
     label: "Project Clicks",
     icon: IconClick,
     color: "bg-chart-6",

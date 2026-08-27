@@ -33,7 +33,7 @@ function formatDate(dateStr: string): string {
 
 export function UtmOverTimeChart({ delay = 0.2 }: { delay?: number }) {
   const { data, isLoading, error } = useMultiSeries(
-    "/api/graphs/utm-sources-over-time",
+    "/api/graphs/campaign-sources-over-time",
   );
 
   const { chartData, seriesKeys, chartConfig } = useMemo(() => {

@@ -136,7 +136,7 @@ export function InsightsContent() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <BreakdownBarChart
-            endpoint="/api/graphs/utm-sources-all-time"
+            endpoint="/api/graphs/campaign-sources-all-time"
             title="UTM Sources"
             description="All-time visits by UTM source"
             brandColors
@@ -149,7 +149,7 @@ export function InsightsContent() {
       <DashboardSection title="Audience">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <BreakdownDonutChart
-            endpoint="/api/graphs/visitors-by-country"
+            endpoint="/api/graphs/audience-by-country"
             title="Top Countries"
             description="Visitors by geographic location"
             centerLabel="Visitors"
