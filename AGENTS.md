@@ -170,27 +170,28 @@ export { helperFunction };
 
 ### Error Handling
 
-**API Routes** use standardized responses (see `src/lib/api/response.ts`):
+**API Routes** use the standardized envelope from `src/lib/api-response.ts` —
+`{ success: true, data }` on 200, `{ success: false, error: { message } }` on
+failure (see any route under `src/app/api/stats/` or `src/app/api/graphs/`):
 
 ```typescript
-import { successResponse, errors } from "@/lib/api/response";
+import type { NextResponse } from "next/server";
+import { errorResponse, successResponse } from "@/lib/api-response";
+import { fetchInsight, getAggValue } from "@/lib/posthog";
 
-// Success
-return successResponse({ data: "value" });
-
-// Error helpers
-return errors.notFound("Stats data");
-return errors.badRequest("Invalid date range");
-return errors.internalError();
+export async function GET(): Promise<NextResponse> {
+  try {
+    const insight = await fetchInsight("shortId");
+    return successResponse({ value: getAggValue(insight) });
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
 ```
 
-**Client-side fetches** use SWR with the `fetcher` utility:
-
-```typescript
-import { fetcher } from "@/lib/api/hooks/fetcher";
-
-const { data } = useSWR("/api/stats", fetcher);
-```
+**Client-side fetches** use SWR via the typed hooks in
+`src/app/insights/_components/use-insights.ts` (`useStat`, `useTimeSeries`,
+`useBreakdown`, `useMultiSeries`), keyed by the endpoint path.
 
 ---
 
@@ -200,10 +201,11 @@ const { data } = useSWR("/api/stats", fetcher);
 src/
 ├── app/                    # Next.js App Router pages
 │   ├── api/               # API routes (route.ts files)
-│   │   └── stats/
-│   │       └── route.ts   # GET handler exported
+│   │   ├── stats/         # Single-value stat endpoints (visitors, pageviews, …)
+│   │   └── graphs/        # Chart data endpoints (time series, breakdowns)
 │   ├── insights/          # Route segments with layouts
-│   │   ├── _components/  # Segmented components (private)
+│   │   ├── _components/  # Dashboard components + use-insights.ts SWR hooks
+│   │   ├── actions.ts    # Server action: invalidate stats cache
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── layout.tsx         # Root layout
@@ -215,11 +217,8 @@ src/
 │   ├── layout/            # Layout components
 │   └── providers/          # Context providers
 ├── hooks/                 # Custom React hooks
-└── lib/                   # Utilities, API helpers, types
-    └── api/
-        ├── hooks/         # SWR hooks
-        ├── response.ts    # Response helpers
-        └── types.ts       # Shared types
+└── lib/                   # Utilities, helpers, types
+    └── posthog.ts         # PostHog insight fetch (cached) + result parsers
 ```
 
 ---
@@ -232,7 +231,7 @@ src/
 | `tsconfig.json` | TypeScript config (strict mode, path aliases) |
 | `next.config.ts` | Next.js config (React Compiler enabled) |
 | `components.json` | shadcn/ui config (new-york style, lucide icons) |
-| `knip.jsonc` | Dependency unused detection |
+| `knip.json` | Dependency unused detection |
 
 ---
 
@@ -260,18 +259,26 @@ src/
 ### Adding a New API Route
 
 ```typescript
-// src/app/api/feature/route.ts
-import { successResponse, errors } from "@/lib/api/response";
+// src/app/api/graphs/feature/route.ts
+import type { NextResponse } from "next/server";
+import { errorResponse, successResponse } from "@/lib/api-response";
+import { fetchInsight, parseBreakdown } from "@/lib/posthog";
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
-    const data = await fetchData();
-    return successResponse(data);
-  } catch {
-    return errors.internalError();
+    const insight = await fetchInsight("shortId");
+    return successResponse(parseBreakdown(insight));
+  } catch (error) {
+    return errorResponse(error);
   }
 }
 ```
+
+Caching lives inside `fetchInsight` (`"use cache"` + `cacheTag("stats")` +
+`cacheLife("stats")`, profile defined in `next.config.ts`). Never add
+`export const revalidate` to a route — it's incompatible with
+`cacheComponents: true`. Invalidate via `updateTag("stats")`
+(`src/app/insights/actions.ts`).
 
 ### Adding a New Page
 
