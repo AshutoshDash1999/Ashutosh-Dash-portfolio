@@ -209,7 +209,14 @@ function ChartTooltipContent({
         {payload.map((item: TooltipPayloadItem, index: number) => {
           const key = `${nameKey || item.name || item.dataKey || "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          const indicatorColor = color || item.fill || item.color;
+          // Prefer the configured series color: Recharts hands line tooltips a
+          // generic dot color (#fff), not the series stroke.
+          const indicatorColor =
+            color ||
+            itemConfig?.color ||
+            item.fill ||
+            item.color ||
+            `var(--color-${key})`;
 
           return (
             <div

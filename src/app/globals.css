@@ -4,49 +4,57 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(93.88% 0.033 300.19);
+  /* Richer lavender base — the old tint (0.033 chroma) read as dirty white
+     and left the whole page looking washed out. */
+  --background: oklch(92% 0.06 296);
   --secondary-background: oklch(100% 0 0);
   --foreground: oklch(0% 0 0);
   --main-foreground: oklch(0% 0 0);
-  --main: oklch(70.28% 0.1753 295.36);
+  /* Punchier brand purple — deeper and more saturated so headings and
+     filled surfaces actually pop against the light background, while still
+     keeping >=4.5:1 contrast with the black --main-foreground. */
+  --main: oklch(64% 0.21 296);
   --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
   --shadow: 4px 4px 0px 0px var(--border);
   /* Categorical palette, validated for CVD separation and >=3:1 contrast on --background */
-  --chart-1: oklch(58% 0.19 295);
-  --chart-2: oklch(60% 0.125 165);
-  --chart-3: oklch(62% 0.125 85);
-  --chart-4: oklch(52% 0.21 20);
-  --chart-5: oklch(58% 0.13 240);
-  --chart-6: oklch(60% 0.17 45);
-  --chart-7: oklch(60% 0.12 200);
-  --chart-8: oklch(56% 0.2 340);
-  --chart-9: oklch(60% 0.15 120);
-  --chart-10: oklch(60% 0.14 260);
+  --chart-1: oklch(67% 0.18 295);
+  --chart-2: oklch(75% 0.21 165);
+  --chart-3: oklch(86% 0.19 85);
+  --chart-4: oklch(65% 0.25 25);
+  --chart-5: oklch(70% 0.18 240);
+  --chart-6: oklch(70% 0.22 45);
+  --chart-7: oklch(80% 0.17 200);
+  --chart-8: oklch(70% 0.25 340);
+  --chart-9: oklch(85% 0.25 120);
+  --chart-10: oklch(80% 0.2 50);
   --chart-active-dot: oklch(0% 0 0);
 }
 
 .dark {
-  --background: oklch(30.14% 0.0826 296.5);
-  --secondary-background: oklch(23.93% 0 0);
-  --foreground: oklch(92.49% 0 0);
+  --background: oklch(27% 0.062 296.5);
+  /* Card/surface color sits LIGHTER than the page so the black borders and
+     hard shadows read against it — the flat neutral grey made everything
+     blend together and look dull. */
+  --secondary-background: oklch(34% 0.055 296.5);
+  --foreground: oklch(94.5% 0.014 296.5);
   --main-foreground: oklch(0% 0 0);
-  --main: oklch(70.28% 0.1753 295.36);
+  --main: oklch(72% 0.19 295.36);
   --border: oklch(0% 0 0);
   --ring: oklch(100% 0 0);
   --shadow: 4px 4px 0px 0px var(--border);
   /* Categorical palette, validated for CVD separation and >=3:1 contrast on --background */
-  --chart-1: oklch(66% 0.17 295);
-  --chart-2: oklch(65% 0.135 165);
-  --chart-3: oklch(67% 0.135 85);
-  --chart-4: oklch(59% 0.22 20);
-  --chart-5: oklch(65% 0.145 240);
-  --chart-6: oklch(64% 0.18 45);
-  --chart-7: oklch(68% 0.13 200);
-  --chart-8: oklch(65% 0.22 340);
-  --chart-9: oklch(70% 0.18 120);
-  --chart-10: oklch(68% 0.15 260);
+  --chart-1: oklch(67% 0.18 295);
+  --chart-2: oklch(70% 0.18 165);
+  --chart-3: oklch(80% 0.18 85);
+  --chart-4: oklch(70% 0.22 25);
+  --chart-5: oklch(65% 0.17 240);
+  --chart-6: oklch(70% 0.22 45);
+  --chart-7: oklch(80% 0.17 200);
+  --chart-8: oklch(70% 0.25 340);
+  --chart-9: oklch(85% 0.25 120);
+  --chart-10: oklch(80% 0.2 50);
   --chart-active-dot: oklch(100% 0 0);
 }
 
