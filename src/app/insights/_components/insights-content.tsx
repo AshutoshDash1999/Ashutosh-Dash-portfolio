@@ -1,6 +1,6 @@
 "use client";
 
-import { IconRefresh } from "@tabler/icons-react";
+import { IconExternalLink, IconRefresh } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { type ReactNode, useState } from "react";
 import { mutate } from "swr";
@@ -13,6 +13,9 @@ import { TimeSeriesChart } from "./time-series-chart";
 import { TrafficTrendChart } from "./traffic-trend-chart";
 import { UtmOverTimeChart } from "./utm-over-time-chart";
 import { WebVitalsCard } from "./web-vitals-card";
+
+const POSTHOG_DASHBOARD_URL =
+  "https://us.posthog.com/shared/GPJekXdssDWg3FjSp24TUL0l6hgk6g";
 
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
@@ -76,19 +79,31 @@ export function InsightsContent() {
             configured in its saved insight.
           </p>
         </div>
-        <Button
-          variant="neutral"
-          size="sm"
-          onClick={handleInvalidateCache}
-          disabled={isInvalidating}
-          className="w-fit shrink-0"
-        >
-          <IconRefresh
-            className={isInvalidating ? "animate-spin" : undefined}
-            aria-hidden
-          />
-          {isInvalidating ? "Refreshing…" : "Refresh data"}
-        </Button>
+        <div className="flex shrink-0 flex-wrap items-center gap-3">
+          <Button
+            variant="neutral"
+            size="sm"
+            onClick={handleInvalidateCache}
+            disabled={isInvalidating}
+            className="w-fit"
+          >
+            <IconRefresh
+              className={isInvalidating ? "animate-spin" : undefined}
+              aria-hidden
+            />
+            {isInvalidating ? "Refreshing…" : "Refresh data"}
+          </Button>
+          <Button asChild size="sm" className="w-fit">
+            <a
+              href={POSTHOG_DASHBOARD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Full dashboard
+              <IconExternalLink aria-hidden />
+            </a>
+          </Button>
+        </div>
       </motion.div>
 
       <DashboardSection title="Overview">
