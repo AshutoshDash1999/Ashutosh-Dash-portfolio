@@ -1,6 +1,6 @@
 "use client";
 
-import { IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
+import { IconFileText, IconMenu, IconMoon, IconSun } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -47,6 +47,8 @@ const themeIconVariants = {
 
 const themeIconTransition = { duration: 0.15, ease: "easeOut" } as const;
 
+const RESUME_HREF = "/Ashutosh_Dash_Frontend_Dev.pdf";
+
 export default function Navbar() {
   const { navbar } = data;
   const { setTheme, theme } = useTheme();
@@ -76,6 +78,10 @@ export default function Navbar() {
 
   const handleMobileMenuOpen = () => {
     trackEvent("mobile_menu_open");
+  };
+
+  const handleResumeClick = (location: string) => {
+    trackEvent("resume_button_click", { location });
   };
 
   return (
@@ -184,103 +190,150 @@ export default function Navbar() {
           </motion.div>
         </motion.div>
 
-        {/* Mobile Menu Button */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="neutral"
-              size="icon"
-              className="md:hidden size-12"
-              aria-label="Open menu"
-              onClick={handleMobileMenuOpen}
+        {/* Mobile Resume + Menu */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Button
+            size="lg"
+            className="h-12 px-4"
+            asChild
+            onClick={() => handleResumeClick("mobile_nav")}
+          >
+            <a
+              href={RESUME_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View resume"
             >
-              <IconMenu className="size-6" aria-hidden="true" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[85vw] max-w-96">
-            <SheetHeader>
-              <SheetTitle className="text-xl">Menu</SheetTitle>
-            </SheetHeader>
-            <motion.div
-              className="flex flex-col gap-3 p-4"
-              variants={containerVariants}
-              initial="hidden"
-              animate={firstLoadComplete ? "visible" : "hidden"}
-            >
-              {navbar.links.map((link) => (
-                <SheetClose key={link.href} asChild>
+              <IconFileText className="size-5" aria-hidden="true" />
+              Resume
+            </a>
+          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="neutral"
+                size="icon"
+                className="md:hidden size-12"
+                aria-label="Open menu"
+                onClick={handleMobileMenuOpen}
+              >
+                <IconMenu className="size-6" aria-hidden="true" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[85vw] max-w-96">
+              <SheetHeader>
+                <SheetTitle className="text-xl">Menu</SheetTitle>
+              </SheetHeader>
+              <motion.div
+                className="flex flex-col gap-3 p-4"
+                variants={containerVariants}
+                initial="hidden"
+                animate={firstLoadComplete ? "visible" : "hidden"}
+              >
+                {navbar.links.map((link) => (
+                  <SheetClose key={link.href} asChild>
+                    <motion.div
+                      variants={itemVariants}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                    >
+                      <Button
+                        variant="neutral"
+                        size="lg"
+                        className="w-full justify-start text-base h-14 px-4"
+                        asChild
+                      >
+                        {link.href.startsWith("/") &&
+                        !link.href.includes("#") ? (
+                          <Link
+                            href={link.href}
+                            onClick={() => handleNavLinkClick(link.label)}
+                          >
+                            {link.label}
+                          </Link>
+                        ) : (
+                          <a
+                            href={link.href}
+                            onClick={() => handleNavLinkClick(link.label)}
+                          >
+                            {link.label}
+                          </a>
+                        )}
+                      </Button>
+                    </motion.div>
+                  </SheetClose>
+                ))}
+                <SheetClose asChild>
                   <motion.div
                     variants={itemVariants}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                   >
                     <Button
-                      variant="neutral"
                       size="lg"
                       className="w-full justify-start text-base h-14 px-4"
                       asChild
+                      onClick={() => handleResumeClick("mobile_menu")}
                     >
-                      {link.href.startsWith("/") && !link.href.includes("#") ? (
-                        <Link
-                          href={link.href}
-                          onClick={() => handleNavLinkClick(link.label)}
-                        >
-                          {link.label}
-                        </Link>
-                      ) : (
-                        <a
-                          href={link.href}
-                          onClick={() => handleNavLinkClick(link.label)}
-                        >
-                          {link.label}
-                        </a>
-                      )}
+                      <a
+                        href={RESUME_HREF}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <IconFileText
+                          className="size-6 mr-3"
+                          aria-hidden="true"
+                        />
+                        View Resume
+                      </a>
                     </Button>
                   </motion.div>
                 </SheetClose>
-              ))}
-              <motion.div
-                variants={itemVariants}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              >
-                <Button
-                  variant="neutral"
-                  size="lg"
-                  className="w-full justify-start relative overflow-hidden text-base h-14 px-4"
-                  onClick={handleThemeToggle}
-                  aria-label="Toggle dark mode"
+                <motion.div
+                  variants={itemVariants}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
                 >
-                  <AnimatePresence mode="sync" initial={false}>
-                    {theme === "dark" ? (
-                      <motion.div
-                        key="sun-mobile"
-                        initial={themeIconVariants.initial}
-                        animate={themeIconVariants.animate}
-                        exit={themeIconVariants.exit}
-                        transition={themeIconTransition}
-                        className="flex items-center"
-                      >
-                        <IconSun className="size-6 mr-3" aria-hidden="true" />
-                        Light Mode
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="moon-mobile"
-                        initial={{ rotate: 90, scale: 0, opacity: 0 }}
-                        animate={themeIconVariants.animate}
-                        exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                        transition={themeIconTransition}
-                        className="flex items-center"
-                      >
-                        <IconMoon className="size-6 mr-3" aria-hidden="true" />
-                        Dark Mode
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </Button>
+                  <Button
+                    variant="neutral"
+                    size="lg"
+                    className="w-full justify-start relative overflow-hidden text-base h-14 px-4"
+                    onClick={handleThemeToggle}
+                    aria-label="Toggle dark mode"
+                  >
+                    <AnimatePresence mode="sync" initial={false}>
+                      {theme === "dark" ? (
+                        <motion.div
+                          key="sun-mobile"
+                          initial={themeIconVariants.initial}
+                          animate={themeIconVariants.animate}
+                          exit={themeIconVariants.exit}
+                          transition={themeIconTransition}
+                          className="flex items-center"
+                        >
+                          <IconSun className="size-6 mr-3" aria-hidden="true" />
+                          Light Mode
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="moon-mobile"
+                          initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                          animate={themeIconVariants.animate}
+                          exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                          transition={themeIconTransition}
+                          className="flex items-center"
+                        >
+                          <IconMoon
+                            className="size-6 mr-3"
+                            aria-hidden="true"
+                          />
+                          Dark Mode
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </Button>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          </SheetContent>
-        </Sheet>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </nav>
   );
