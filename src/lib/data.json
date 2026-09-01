@@ -114,6 +114,12 @@
   ],
   "clientWork": [
     {
+      "title": "Dibyajyoti Mahuri's Portfolio",
+      "description": "Portfolio for full-stack developer, following minimalist design.",
+      "technologies": ["NextJS", "Tailwind CSS", "Typescript"],
+      "url": "https://dibyajyoti.dev"
+    },
+    {
       "title": "Biswajit Dash's Portfolio",
       "description": "Portfolio for backend dev, following hacker theme.",
       "technologies": ["NextJS", "Tailwind CSS", "Shadcn UI", "Typescript"],
