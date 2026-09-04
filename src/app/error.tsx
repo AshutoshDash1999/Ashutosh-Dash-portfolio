@@ -14,13 +14,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Track error in PostHog
-    posthog.capture("$exception", {
-      $exception_message: error.message,
-      $exception_type: error.name,
-      $exception_stack: error.stack,
-      digest: error.digest,
-    });
+    posthog.captureException(error, { digest: error.digest });
   }, [error]);
 
   return (
