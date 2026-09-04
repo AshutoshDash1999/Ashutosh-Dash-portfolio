@@ -137,7 +137,7 @@ export default function Hero() {
   const [cardGameWrapperEntered, setCardGameWrapperEntered] = useState(false);
 
   const handleResumeClick = () => {
-    trackEvent("resume_button_click");
+    trackEvent("resume_button_click", { location: "hero" });
   };
 
   return (
