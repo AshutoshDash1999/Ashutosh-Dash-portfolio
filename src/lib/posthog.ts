@@ -18,6 +18,30 @@ export type TimeSeriesPoint = { date: string; value: number };
 export type BreakdownItem = { label: string | number; value: number };
 export type MultiSeriesItem = { label: string; data: TimeSeriesPoint[] };
 
+// Bound the upstream call so a slow or dropped PostHog response can't leave a
+// browser request hanging, and retry once for transient network failures.
+const FETCH_TIMEOUT_MS = 10_000;
+const MAX_ATTEMPTS = 2;
+
+async function fetchWithRetry(url: string, apiKey: string): Promise<Response> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      return await fetch(url, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw new Error(
+    `PostHog API request failed after ${MAX_ATTEMPTS} attempts: ${
+      lastError instanceof Error ? lastError.message : String(lastError)
+    }`,
+  );
+}
+
 export async function fetchInsight(shortId: string): Promise<Insight> {
   "use cache";
   cacheLife("stats");
@@ -32,9 +56,9 @@ export async function fetchInsight(shortId: string): Promise<Insight> {
     );
   }
 
-  const res = await fetch(
+  const res = await fetchWithRetry(
     `${base}/api/projects/${projectId}/insights/?short_id=${shortId}`,
-    { headers: { Authorization: `Bearer ${apiKey}` } },
+    apiKey,
   );
   if (!res.ok) {
     // Surface PostHog's error detail (e.g. missing API key scope) to callers
