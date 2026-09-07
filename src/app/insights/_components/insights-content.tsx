@@ -2,6 +2,7 @@
 
 import { IconExternalLink, IconRefresh } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import posthog from "posthog-js";
 import { type ReactNode, useState } from "react";
 import { mutate } from "swr";
 import { invalidateInsightsCache } from "@/app/insights/actions";
@@ -57,6 +58,11 @@ export function InsightsContent() {
     try {
       await invalidateInsightsCache();
       await mutate((key) => typeof key === "string" && key.startsWith("/api/"));
+    } catch (error) {
+      // Refresh is best-effort. Capture the failure as a structured exception
+      // instead of letting a dropped request become an unhandled rejection;
+      // the dashboard keeps showing the data it already has.
+      posthog.captureException(error);
     } finally {
       setIsInvalidating(false);
     }
